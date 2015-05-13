@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="73ee41a7-5454-4fd5-8612-d3ab5527b7a2" solutionId="73ee41a7-5454-4fd5-8612-d3ab5527b7a2" resetWebServer="false" sharePointProductVersion="16.0" name="SWZIM-WEB" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="d21b8563-045d-4383-80dc-dbb7f3096b17" />
+  </features>
+</package>

@@ -21,14 +21,23 @@ namespace SWZIM_WEBWeb
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/jquery.scrollTo.js",
+                      "~/Scripts/jquery.nicescroll.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/scripts.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/spcontext").Include(
                         "~/Scripts/spcontext.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-theme.css",
+                      "~/Content/elegant-icons-style.css",
+                      "~/Content/style.css",
+                      "~/Content/style-responsive.css",
                       "~/Content/site.css"));
+
+            System.Web.Optimization.BundleTable.EnableOptimizations = false;
         }
     }
 }

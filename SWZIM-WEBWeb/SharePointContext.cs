@@ -6,6 +6,8 @@ using System.Net;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Configuration;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace SWZIM_WEBWeb
 {
@@ -271,6 +273,71 @@ namespace SWZIM_WEBWeb
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets the SharePoint host url from QueryString of the specified HTTP request.
+        /// </summary>
+        /// <param name="httpRequest">The specified HTTP request.</param>
+        /// <returns>The SharePoint host url. Returns <c>null</c> if the HTTP request doesn't contain the SharePoint host url.</returns>
+        public static Uri GetSPHostUrl(HttpRequestBase httpRequest, HttpContextBase httpContext = null)
+        {
+            if (httpRequest == null)
+            {
+                throw new ArgumentNullException("httpRequest");
+            }
+
+            string spHostUrlString = TokenHelper.EnsureTrailingSlash(httpRequest.QueryString[SPHostUrlKey]);
+
+            if (!string.IsNullOrEmpty(spHostUrlString))
+            {
+                if (httpContext != null)
+                    SaveSharePointHostUrl(spHostUrlString, httpContext);
+            }
+            else
+            {
+                spHostUrlString = LoadSharePointHostUrl(httpRequest);
+            }
+
+            Uri spHostUrl;
+            if (Uri.TryCreate(spHostUrlString, UriKind.Absolute, out spHostUrl) &&
+                (spHostUrl.Scheme == Uri.UriSchemeHttp || spHostUrl.Scheme == Uri.UriSchemeHttps))
+            {
+                return spHostUrl;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Saves the SharePoint host url from given string.
+        /// </summary>
+        /// <param name="sPHostUrl">The specified SPHostUrl.</param>
+        /// <param name="httpContext">The specified HTTP context.</param>
+        public static void SaveSharePointHostUrl(string sPHostUrl, HttpContextBase httpContext)
+        {
+            if (httpContext != null && !string.IsNullOrEmpty(sPHostUrl))
+            {
+                HttpCookie spHostUrlKeyCookie = new HttpCookie(SPHostUrlKey)
+                {
+                    Value = sPHostUrl,
+                    Secure = true,
+                    HttpOnly = true
+                };
+
+                httpContext.Response.AppendCookie(spHostUrlKeyCookie);
+            }
+        }
+
+        /// <summary>
+        /// Loads the SharePoint Host Url string associated with the specified HTTP context.
+        /// </summary>
+        /// <param name="httpRequest">The HTTP request.</param>
+        /// <returns>The SharePoint Host Url. Returns <c>null</c> if not found.</returns>
+        public static string LoadSharePointHostUrl(HttpRequestBase httpRequest)
+        {
+            HttpCookie spHostUrlKeyCookie = httpRequest.Cookies[SPHostUrlKey];
+            return spHostUrlKeyCookie != null ? spHostUrlKeyCookie.Value : "";
         }
     }
 
@@ -548,6 +615,29 @@ namespace SWZIM_WEBWeb
         /// <param name="spContext">The SharePointContext instance to be saved, or <c>null</c>.</param>
         /// <param name="httpContext">The HTTP context.</param>
         protected abstract void SaveSharePointContext(SharePointContext spContext, HttpContextBase httpContext);
+
+        /// <summary>
+        /// Adds SP redirect URI to the redirect route table
+        /// </summary>
+        /// <param name="filterContext">The Action Executing Context.</param>
+        /// <param name="spHostUrl">The SP Host Url.</param>
+        public static void BookmarkifyUrl(ActionExecutingContext filterContext, string spHostUrl)
+        {
+            RouteValueDictionary redirectTargetDictionary = new RouteValueDictionary();
+            foreach (var item in filterContext.RouteData.Values)
+            {
+                redirectTargetDictionary.Add(item.Key, item.Value);
+            }
+            redirectTargetDictionary.Add("SPHostUrl", spHostUrl);
+
+            var queryString = filterContext.HttpContext.Request.QueryString;
+            foreach (var key in queryString.AllKeys)
+            {
+                redirectTargetDictionary.Add(key, queryString[key]);
+            }
+
+            filterContext.Result = new RedirectToRouteResult(redirectTargetDictionary);
+        }
     }
 
     #region ACS

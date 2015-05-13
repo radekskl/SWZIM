@@ -30,6 +30,16 @@ namespace SWZIM_WEBWeb.Controllers
                 }
             }
 
+            //IQueryable<Test> results;
+            //using (var context = new SWZIM_dbEntities())
+            //{
+            //    results = context.Test
+            //        .Where(o => o.Ocena > 2);
+
+            //    if (results != null)
+            //        ViewBag.Entries = results;
+            //}
+
             return View();
         }
 

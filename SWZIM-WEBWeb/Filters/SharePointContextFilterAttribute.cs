@@ -17,12 +17,12 @@ namespace SWZIM_WEBWeb
                 throw new ArgumentNullException("filterContext");
             }
 
-            if (filterContext.HttpContext.Request.QueryString["SPHostUrl"] == null)
-            {
-                var spHostUrl = SharePointContext.GetSPHostUrl(filterContext.HttpContext.Request, filterContext.HttpContext);
-                if (spHostUrl != null)
-                    SharePointContextProvider.BookmarkifyUrl(filterContext, spHostUrl.AbsoluteUri);
-            }
+            //if (filterContext.HttpContext.Request.QueryString["SPHostUrl"] == null)
+            //{
+            //    var spHostUrl = SharePointContext.GetSPHostUrl(filterContext.HttpContext.Request, filterContext.HttpContext);
+            //    if (spHostUrl != null)
+            //        SharePointContextProvider.BookmarkifyUrl(filterContext, spHostUrl.AbsoluteUri);
+            //}
 
             Uri redirectUrl;
             switch (SharePointContextProvider.CheckRedirectionStatus(filterContext.HttpContext, out redirectUrl))

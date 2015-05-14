@@ -10,7 +10,7 @@
 
     // Gets SPHostUrl from the current URL and appends it as query string to the links which point to current domain in the page.
     $(document).ready(function () {
-        //ensureSPHasRedirectedToSharePointRemoved();
+        ensureSPHasRedirectedToSharePointRemoved();
 
         var spHostUrl = getSPHostUrlFromQueryString(window.location.search);
         var currentAuthority = getAuthorityFromUrl(window.location.href).toUpperCase();

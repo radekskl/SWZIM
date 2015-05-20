@@ -23,7 +23,7 @@
                 <ul class="nav top-menu">
                     <li>
                         <form class="navbar-form">
-                            <input class="form-control" placeholder="Search" type="text">
+                            <input class="form-control" placeholder="Wyszukaj" type="text">
                         </form>
                     </li>
                 </ul>
@@ -233,28 +233,22 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">@ViewBag.UserName!</span>
+                            <span class="username">Jan kowalski</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> My Profile</a>
+                                <a href="#"><i class="icon_profile"></i> Profil użytkownika</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
+                                <a href="#"><i class="icon_mail_alt"></i> Skrzynka odbiorcza</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
+                                <a href="#"><i class="icon_key_alt"></i> Wyloguj</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_chat_alt"></i> Chats</a>
-                            </li>
-                            <li>
-                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
-                            </li>
-                            <li>
-                                <a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>
+                                <a href="#"><i class="icon_key_alt"></i> Dokumentacja</a>
                             </li>
                         </ul>
                     </li>
@@ -270,77 +264,62 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
                     <li>
-                        <a class="" href="index.html">
+                        <a class="" href="@Url.Action("Index", "Home")">
                             <i class="icon_house_alt"></i>
-                            <span>Dashboard</span>
+                            <span>Strona główna</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Action("Index", "Map")">
+                            <i class="icon_map_alt"></i>
+                            <span>Mapa</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <i class="icon-table-l"></i>
+                            <span>Lista zdarzeń</span>
                         </a>
                     </li>
                     <li class="sub-menu active">
                         <a href="javascript:;" class="">
-                            <i class="icon_desktop"></i>
-                            <span>UI Kit</span>
+                            <i class="icon_key_alt"></i>
+                            <span>Panel administracyjny</span>
                             <span class="menu-arrow arrow_carrot-right"></span>
                         </a>
                         <ul class="sub">
-                            <li><a class="active" href="general.html">General</a></li>
-                            <li><a class="" href="buttons.html">Buttons</a></li>
-                            <li><a class="" href="grids.html">Grids</a></li>
+                            <li><a class="active" href="#">Import danych</a></li>
+                            <li><a class="" href="#">Eksport danych</a></li>
+                            <li><a class="" href="#">Zarządzanie grupami</a></li>
+                            <li><a class="" href="#">Zarządzanie użytkownikami</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a class="" href="widgets.html">
-                            <i class="icon_genius"></i>
-                            <span>Widgets</span>
+                        <a class="" href="#">
+                            <i class="icon_profile"></i>
+                            <span>Profil użytkownika</span>
                         </a>
                     </li>
-                    <li class="sub-menu">
+                    <li>
+                        <a class="" href="#">
+                            <i class="arrow_left_alt"></i>
+                            <span>Wyloguj</span>
+                        </a>
+                    </li>
+                    @*<li class="sub-menu active">
                         <a href="javascript:;" class="">
-                            <i class="icon_piechart"></i>
-                            <span>Charts</span>
+                            <i class="icon_desktop"></i>
+                            <span>Warstwy</span>
                             <span class="menu-arrow arrow_carrot-right"></span>
                         </a>
                         <ul class="sub">
-                            <li><a class="" href="chart-chartjs.html">ChartJs</a></li>
+                            <li><a class="active" href="#">Warstwa 1</a></li>
+                            <li><a class="" href="#">Warstwa 2</a></li>
+                            <li><a class="" href="#">Warstwa 3</a></li>
                         </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;" class="">
-                            <i class="icon_document_alt"></i>
-                            <span>Form Stuff</span>
-                            <span class="menu-arrow arrow_carrot-right"></span>
-                        </a>
-                        <ul class="sub">
-                            <li><a class="" href="form_component.html">Form Components</a></li>
-                            <li><a class="" href="form_validation.html">Form Validation</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;" class="">
-                            <i class="icon_table"></i>
-                            <span>Tables</span>
-                            <span class="menu-arrow arrow_carrot-right"></span>
-                        </a>
-                        <ul class="sub">
-                            <li><a class="" href="basic_table.html">Basic Table</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="sub-menu">
-                        <a href="javascript:;" class="">
-                            <i class="icon_documents_alt"></i>
-                            <span>Pages</span>
-                            <span class="menu-arrow arrow_carrot-right"></span>
-                        </a>
-                        <ul class="sub">
-                            <li><a class="" href="profile.html">Profile</a></li>
-                            <li><a class="" href="login.html"><span>Login Page</span></a></li>
-                            <li><a class="" href="blank.html">Blank Page</a></li>
-                            <li><a class="" href="404.html">404 Error</a></li>
-                        </ul>
-                    </li>
-
+                    </li>*@
                 </ul>
-                <!-- sidebar menu end-->
+                <!-- sidebar menu end-->    
             </div>
         </aside>
         <!--sidebar end-->

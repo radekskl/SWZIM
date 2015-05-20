@@ -56,5 +56,12 @@ namespace SWZIM_WEBWeb.Controllers
 
             return View();
         }
+
+        public ActionResult Controls()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }

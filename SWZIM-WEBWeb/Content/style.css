@@ -6,7 +6,7 @@ Website: http://geekslabs.com/
 */
 
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 @import url(line-icons.css);
 
 body {
@@ -258,7 +258,7 @@ table tr th { color: #007AFF;}
 /*sidebar navigation*/
 
 #sidebar {
-    width: 180px;
+    width: 215px;
     height: 100%;
     position: fixed;
     background: #ffffff;
@@ -521,6 +521,7 @@ ul.sidebar-menu li.active a i {
     margin-top: 60px;
     padding: 15px;
     width: 100%;
+    padding-left: 50px;
 }
 
 a.logo {
@@ -3976,8 +3977,8 @@ table.sliders tr td {
     border-style: solid;
     border-width: 0 20px;
     bottom: 0;
-    clip: rect(20px, 35px, 42px, 0px);
-    content: " ";
+    /*clip: rect(20px, 35px, 42px, 0px);
+    content: " ";*/
     height: 40px;
     position: absolute;
     right: -50px;

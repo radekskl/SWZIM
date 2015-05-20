@@ -212,6 +212,7 @@
     <Content Include="img\icons\social.png" />
     <Content Include="img\icons\weather-hover.png" />
     <Content Include="img\icons\weather.png" />
+    <Content Include="img\ITA_logo.png" />
     <Content Include="img\left-arrow.png" />
     <Content Include="img\logo-big.png" />
     <Content Include="img\mail-avatar.jpg" />
@@ -227,8 +228,10 @@
     <Content Include="fonts\ElegantIcons.eot" />
     <Content Include="fonts\ElegantIcons.ttf" />
     <Content Include="fonts\ElegantIcons.woff" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\SWZIM - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\SWZIM - Web Deploy.pubxml" />
+    <Content Include="PublishingProfile\SWZIM.azurewebsites.net.PublishSettings" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jmelosegui.googlemap.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -280,6 +283,7 @@
       <LastGenOutput>SWZIM_DbModel.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Home\Controls.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

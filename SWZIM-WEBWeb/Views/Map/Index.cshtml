@@ -1,31 +1,26 @@
-﻿<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzt7wCdOhUMdTMjibNINeiWPfMhjsIxJU">
+﻿@*<script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzt7wCdOhUMdTMjibNINeiWPfMhjsIxJU">
+    </script>*@
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp">
 </script>
-
-<div id="map-canvas" style="width: 100%; height: 100%"></div>
-
 
 <script type="text/javascript">
-    $(function () {
-        function initialize() {
-            var mapOptions = {
-                zoom: 8,
-                center: new google.maps.LatLng(-34.397, 150.644)
-            };
-
-            var map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
-        }
-
-        function loadScript() {
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
-                '&signed_in=true&callback=initialize';
-            document.body.appendChild(script);
-        }
-
-        window.onload = loadScript;
-    });
-
+    function initialize() {
+        var mapOptions = {
+            center: { lat: 52.233, lng: 21.017 },
+            zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div id="map-canvas" style="height: 550px; margin-right: 15px;"></div>
+        </div>
+    </section>
+</section>

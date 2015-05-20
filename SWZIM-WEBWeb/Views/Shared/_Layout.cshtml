@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using SWZIM_WEBWeb.Models;
+@using SWZIM_WEBWeb.Helpers;
+@using ExtensionsHelper = SWZIM_WEBWeb.Helpers.ExtensionsHelper;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -130,7 +134,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="~/img/avatar-mini.jpg"></span>
                                     <span class="subject">
                                         <span class="from">Greg  Martin</span>
                                         <span class="time">1 min</span>
@@ -142,7 +146,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini2.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="~/img/avatar-mini2.jpg"></span>
                                     <span class="subject">
                                         <span class="from">Bob   Mckenzie</span>
                                         <span class="time">5 mins</span>
@@ -154,7 +158,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini3.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="~/img/avatar-mini3.jpg"></span>
                                     <span class="subject">
                                         <span class="from">Phillip   Park</span>
                                         <span class="time">2 hrs</span>
@@ -166,7 +170,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini4.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="~/img/avatar-mini4.jpg"></span>
                                     <span class="subject">
                                         <span class="from">Ray   Munoz</span>
                                         <span class="time">1 day</span>
@@ -186,43 +190,25 @@
                     <li id="alert_notificatoin_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-bell-l"></i>
-                            <span class="badge bg-important">7</span>
+                            <span class="badge bg-important">@NotificationsHelper.GetNotificationsCount()</span>
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-blue"></div>
                             <li>
-                                <p class="blue">You have 4 new notifications</p>
+                                <p class="blue">Masz @NotificationsHelper.GetNotificationsCount() powiadomień!</p>
                             </li>
+                            @foreach(Notification notification in NotificationsHelper.GetNotifications())
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Notifications", new { id = notification.ID })">
+                                        <span class="label label-@notification.Label"><i class="icon_@notification.Type"></i></span>
+                                        @notification.Body.Truncate(25)
+                                        <span class="small italic pull-right">@notification.TimeAgo.MakeReadable()</span>
+                                    </a>
+                                </li>
+                            }
                             <li>
-                                <a href="#">
-                                    <span class="label label-primary"><i class="icon_profile"></i></span>
-                                    Friend Request
-                                    <span class="small italic pull-right">5 mins</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-warning"><i class="icon_pin"></i></span>
-                                    John location.
-                                    <span class="small italic pull-right">50 mins</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-danger"><i class="icon_book_alt"></i></span>
-                                    Project 3 Completed.
-                                    <span class="small italic pull-right">1 hr</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="label label-success"><i class="icon_like"></i></span>
-                                    Mick appreciated your work.
-                                    <span class="small italic pull-right"> Today</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">See all notifications</a>
+                                <a href="@Url.Action("Index", "Notifications", new { id = "" })">Pokaż wszystkie</a>
                             </li>
                         </ul>
                     </li>
@@ -231,7 +217,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="profile-ava">
-                                <img alt="" src="img/avatar1_small.jpg">
+                                <img alt="" src="~/img/avatar1_small.jpg">
                             </span>
                             <span class="username">Jan kowalski</span>
                             <b class="caret"></b>
@@ -263,25 +249,25 @@
             <div id="sidebar" class="nav-collapse ">
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu">
-                    <li>
+                    <li data-ctrl="Home" data-action="Index">
                         <a class="" href="@Url.Action("Index", "Home")">
                             <i class="icon_house_alt"></i>
                             <span>Strona główna</span>
                         </a>
                     </li>
-                    <li>
+                    <li data-ctrl="Map" data-action="Index">
                         <a class="" href="@Url.Action("Index", "Map")">
                             <i class="icon_map_alt"></i>
                             <span>Mapa</span>
                         </a>
                     </li>
-                    <li>
+                    <li data-ctrl="Event" data-action="Index">
                         <a class="" href="#">
                             <i class="icon-table-l"></i>
                             <span>Lista zdarzeń</span>
                         </a>
                     </li>
-                    <li class="sub-menu active">
+                    <li class="sub-menu" data-ctrl="Admin" data-action="Index">
                         <a href="javascript:;" class="">
                             <i class="icon_key_alt"></i>
                             <span>Panel administracyjny</span>
@@ -294,7 +280,7 @@
                             <li><a class="" href="#">Zarządzanie użytkownikami</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li data-ctrl="Profile" data-action="Index">
                         <a class="" href="#">
                             <i class="icon_profile"></i>
                             <span>Profil użytkownika</span>
@@ -306,7 +292,7 @@
                             <span>Wyloguj</span>
                         </a>
                     </li>
-                    @*<li class="sub-menu active">
+                    @*<li class="sub-menu active"  data-ctrl="Home" data-action="Index">
                         <a href="javascript:;" class="">
                             <i class="icon_desktop"></i>
                             <span>Warstwy</span>
@@ -329,6 +315,13 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/spcontext")
+    <script type="text/javascript">
+        var controllerName = '@ViewContext.RouteData.Values["Controller"].ToString()';
+        var actionName = '@ViewContext.RouteData.Values["Action"].ToString()';
+        $(function () {
+            $('li[data-ctrl="' + controllerName + '"][data-action="' + actionName + '"]').addClass('active');
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -9,7 +9,9 @@ namespace SWZIM_WEBWeb
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.scrollTo.js",
+                        "~/Scripts/jquery.nicescroll.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -21,8 +23,6 @@ namespace SWZIM_WEBWeb
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/jquery.scrollTo.js",
-                      "~/Scripts/jquery.nicescroll.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/scripts.js"));
 

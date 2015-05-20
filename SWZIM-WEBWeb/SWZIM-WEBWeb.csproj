@@ -135,12 +135,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Consts\Enumerations.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Filters\SharePointContextFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ExtensionsHelper.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Helpers\NotificationsHelper.cs" />
+    <Compile Include="Helpers\RouteHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharePointContext.cs" />
     <Compile Include="SWZIM_DbModel.Context.cs">
@@ -216,6 +222,39 @@
     <Content Include="img\left-arrow.png" />
     <Content Include="img\logo-big.png" />
     <Content Include="img\mail-avatar.jpg" />
+    <Content Include="img\map-icons\accident1.png" />
+    <Content Include="img\map-icons\ambulances.png" />
+    <Content Include="img\map-icons\beer34.png" />
+    <Content Include="img\map-icons\calendar53.png" />
+    <Content Include="img\map-icons\car177.png" />
+    <Content Include="img\map-icons\car97.png" />
+    <Content Include="img\map-icons\collision.png" />
+    <Content Include="img\map-icons\cone13.png" />
+    <Content Include="img\map-icons\cones2.png" />
+    <Content Include="img\map-icons\cranes1.png" />
+    <Content Include="img\map-icons\crash1.png" />
+    <Content Include="img\map-icons\danger10.png" />
+    <Content Include="img\map-icons\day7.png" />
+    <Content Include="img\map-icons\distance1.png" />
+    <Content Include="img\map-icons\driving1.png" />
+    <Content Include="img\map-icons\emergency10.png" />
+    <Content Include="img\map-icons\exclamation31.png" />
+    <Content Include="img\map-icons\map4.png" />
+    <Content Include="img\map-icons\map45.png" />
+    <Content Include="img\map-icons\map54.png" />
+    <Content Include="img\map-icons\map58.png" />
+    <Content Include="img\map-icons\map59.png" />
+    <Content Include="img\map-icons\mark13.png" />
+    <Content Include="img\map-icons\monthly5.png" />
+    <Content Include="img\map-icons\road44.png" />
+    <Content Include="img\map-icons\road47.png" />
+    <Content Include="img\map-icons\roadsign14.png" />
+    <Content Include="img\map-icons\traffic-signal.png" />
+    <Content Include="img\map-icons\transport106.png" />
+    <Content Include="img\map-icons\transport109.png" />
+    <Content Include="img\map-icons\transport111.png" />
+    <Content Include="img\map-icons\warning15.png" />
+    <Content Include="img\map-icons\warningsign.png" />
     <Content Include="img\profile-avatar.jpg" />
     <Content Include="img\profile-widget-avatar.jpg" />
     <Content Include="img\right-arrow.png" />
@@ -284,10 +323,10 @@
     </Content>
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="Views\Home\Controls.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

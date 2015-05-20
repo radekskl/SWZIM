@@ -27,12 +27,7 @@ function initializeJS() {
             jQuery('.menu-arrow').addClass('arrow_carrot-down');            
             sub.slideDown(200);
         }
-        var o = (jQuery(this).offset());
-        diff = 200 - o.top;
-        if(diff>0)
-            jQuery("#sidebar").scrollTo("-="+Math.abs(diff),500);
-        else
-            jQuery("#sidebar").scrollTo("+="+Math.abs(diff),500);
+        
     });
 
     // sidebar menu toggle
@@ -75,16 +70,16 @@ function initializeJS() {
         }
     });
 
-    //bar chart
-    if (jQuery(".custom-custom-bar-chart")) {
-        jQuery(".bar").each(function () {
-            var i = jQuery(this).find(".value").html();
-            jQuery(this).find(".value").html("");
-            jQuery(this).find(".value").animate({
-                height: i
-            }, 2000)
-        })
-    }
+    ////bar chart
+    //if (jQuery(".custom-custom-bar-chart")) {
+    //    jQuery(".bar").each(function () {
+    //        var i = jQuery(this).find(".value").html();
+    //        jQuery(this).find(".value").html("");
+    //        jQuery(this).find(".value").animate({
+    //            height: i
+    //        }, 2000)
+    //    })
+    //}
 
 }
 

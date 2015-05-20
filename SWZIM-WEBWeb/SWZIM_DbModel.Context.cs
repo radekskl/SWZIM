@@ -26,5 +26,7 @@ namespace SWZIM_WEBWeb
         }
     
         public virtual DbSet<Test> Test { get; set; }
+
+        public System.Data.Entity.DbSet<SWZIM_WEBWeb.Models.Notification> Notifications { get; set; }
     }
 }

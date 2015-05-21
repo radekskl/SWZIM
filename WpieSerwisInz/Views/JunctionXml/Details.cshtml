@@ -1,0 +1,144 @@
+﻿@using Microsoft.AspNet.Identity
+@using WpieSerwisInz.Logic.Helpers
+@using WpieSerwisInz.Models.BO.Dictionary
+@model WpieSerwisInz.Models.BO.Wrapper.JunctionXmlWrapper
+
+@{
+    ViewBag.Title = "Details";
+    int i = 0;
+}
+
+<h2>Details Junction Model</h2>
+
+<style>
+    table {
+        border-spacing: 10px;
+        border-collapse: separate;
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var znaki = @Util.SerializeJsonObject(Model.ListaZnakow);
+        var odcinki = @Util.SerializeJsonObject(Model.ListaOdcinkow);
+        var sygnal = @Util.SerializeJsonObject(Model.ListaSygnal);
+        loadMapXml('@Model.Xml.Junctiom.Lat', '@Model.Xml.Junctiom.Long', '@Model.Xml.Junctiom.Name', '@Model.Xml.Junctiom.Information',znaki,odcinki,sygnal,false);
+    });
+</script>
+
+<div>
+    <div class="col-md-6">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Xml.AdditionalInformation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Xml.AdditionalInformation)
+            </dd>
+        </dl>
+        <div class="table-responsive">
+            <table style="text-align:center">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Lattitude 1
+                    </th>
+                    <th>
+                        Longtitude 1
+                    </th>
+                    <th>
+                        Lattitude 2
+                    </th>
+                    <th>
+                        Longtitude 2
+                    </th>
+                </tr>
+                @for (var znakIndex = 0; znakIndex < Model.ListaZnakow.Count; znakIndex++)
+                {
+                    <tr>
+                        <td>
+                            @Model.ListaZnakow[znakIndex].Id
+                        </td>
+                        <td>
+                            @Model.ListaZnakow[znakIndex].Lat
+                        </td>
+                        <td>
+                            @Model.ListaZnakow[znakIndex].Long
+                        </td>
+                        <td></td>
+                        <td></td>
+
+
+                    </tr>
+                    i++;
+                }
+
+                @for (var sygnIndex = 0; sygnIndex < Model.ListaSygnal.Count; sygnIndex++)
+                {
+                    <tr>
+                        <td>
+                            @Model.ListaSygnal[sygnIndex].Id
+                        </td>
+                        <td>
+                            @Model.ListaSygnal[sygnIndex].Lat
+                        </td>
+                        <td>
+                            @Model.ListaSygnal[sygnIndex].Long
+                        </td>
+                        <td></td>
+                        <td></td>
+
+
+                    </tr>
+                    i++;
+                }
+
+                @for (var odcIndex = 0; odcIndex < Model.ListaOdcinkow.Count; odcIndex++)
+                {
+                    <tr>
+                        <td>
+
+                            @Model.ListaOdcinkow[odcIndex].Signcode @Model.ListaOdcinkow[odcIndex].Id
+                        </td>
+                        <td>
+                            @Model.ListaOdcinkow[odcIndex].LatStart
+                        </td>
+                        <td>
+                            @Model.ListaOdcinkow[odcIndex].LongStart
+                        </td>
+                        <td>
+                            @Model.ListaOdcinkow[odcIndex].LatEnd
+                        </td>
+                        <td>
+                            @Model.ListaOdcinkow[odcIndex].LongEnd
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </table>
+        </div>
+
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div id="map-canvas" style="width: 100%; height: 480px;"></div>
+    </div>
+</div>
+<p>
+    <div class="col-md-offset-1 col-md-10">
+        @if (User.Identity.GetUserId() == Model.Xml.Author.Id || User.IsInRole(RoleType.Admin))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Xml.Id }) <text> | </text>
+        }
+        @Html.ActionLink("Back to Junction", "Details", "Junction", new { id = Model.Xml.Junctiom.Id }, null) |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</p>

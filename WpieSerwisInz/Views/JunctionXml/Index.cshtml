@@ -1,0 +1,85 @@
+﻿@model PagedList.IPagedList<WpieSerwisInz.Models.BO.JunctionXml>
+@using Microsoft.AspNet.Identity
+@using PagedList.Mvc;
+@using WpieSerwisInz.Models.BO.Dictionary
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Junctions Models</h2>
+
+
+@using (Html.BeginForm("Index", "JunctionXml", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Find" />
+    </p>
+}
+<div class="table-responsive">
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Junction Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            Information
+        </th>
+        <th>
+            Lattitude
+        </th>
+        <th>
+            Longtitude
+        </th>
+        <th>
+            @Html.ActionLink("Modification Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Junctiom.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdditionalInformation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Junctiom.Lat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Junctiom.Long)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModificationDate)
+            </td>
+            <td>
+                @if (User.Identity.GetUserId() == item.Author.Id || User.IsInRole(RoleType.Admin))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <text> | </text>
+                }
+                @Html.RouteLink("Download", "Default", new { controller = "JunctionXml", action = "Download", id = item.Id }) <text> | </text>
+                @*<a id="Download" onclick="DownloadFile(@item.Id)">id</a>*@
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Junction", "Details", "Junction", new { id = item.Junctiom.Id }, null) |
+                @if (User.Identity.GetUserId() == item.Author.Id || User.IsInRole(RoleType.Admin))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+    </div>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+

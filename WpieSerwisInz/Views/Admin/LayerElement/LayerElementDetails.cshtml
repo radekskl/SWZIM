@@ -1,0 +1,44 @@
+﻿@using WpieSerwisInz.Models.BO
+@model WpieSerwisInz.Models.BO.LayerElement
+@{
+    ViewBag.Title = "LayerElementDetails";
+}
+
+<h2>Layer Element Details</h2>
+
+
+@Html.HiddenFor(m => m.Id, Model.Id)
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.ElementName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.ElementName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Information)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Information)
+    </dd>
+    <dt>
+        In Layers
+    </dt>
+    <dd>
+        @foreach (LayerView ma in Model.LayerViews)
+        {
+            <text>@ma.LayerName</text>
+            <br />
+        }
+    </dd>
+
+</dl>
+<br />
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        @Html.RouteLink("Back to List", "AdminLayerElement", new { action = "LayerElements" }, new { @class = "btn btn-default" })
+    </div>
+</div>

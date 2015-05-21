@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<WpieSerwisInz.Models.BO.EventModel>
+@using PagedList.Mvc;
+@using WpieSerwisInz.Models.BO.Dictionary
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Events List</h2>
+
+
+@using (Html.BeginForm("Index", "Event", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Find" />
+    </p>
+}
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Information
+            </th>
+            <th>
+                Lattitude
+            </th>
+            <th>
+                Longitude
+            </th>
+            <th>
+                @Html.ActionLink("Modification Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventInformation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Long)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastModificationDate)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @if (User.IsInRole(RoleType.Admin))
+                    {
+                        <text>|</text>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        <text>|</text>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

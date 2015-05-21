@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWZIM-WEB", "SWZIM-WEB.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWZIM-WEBWeb", "..\SWZIM-WEBWeb\SWZIM-WEBWeb.csproj", "{AE9EA16F-B564-475E-8DFF-8653C27A7213}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpieSerwisInz", "..\WpieSerwisInz\WpieSerwisInz.csproj", "{C0A019B9-0BE3-4577-8AD2-BE8F5A72D810}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{AE9EA16F-B564-475E-8DFF-8653C27A7213}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE9EA16F-B564-475E-8DFF-8653C27A7213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE9EA16F-B564-475E-8DFF-8653C27A7213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A019B9-0BE3-4577-8AD2-BE8F5A72D810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A019B9-0BE3-4577-8AD2-BE8F5A72D810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A019B9-0BE3-4577-8AD2-BE8F5A72D810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A019B9-0BE3-4577-8AD2-BE8F5A72D810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

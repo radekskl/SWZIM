@@ -1,0 +1,66 @@
+﻿@using System
+@using WpieSerwisInz.Models.BO.Dictionary
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/CustomJs")
+    @Scripts.Render("~/bundles/gMaps")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.RouteLink("Trans Portal", "Default", new { controller = "Home", action = "Index" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.RouteLink("About", "Default", new { controller = "Home", action = "About" })</li>
+                    <li>@Html.RouteLink("Contact", "Default", new { controller = "Home", action = "Contact" })</li>
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole(RoleType.Unconfirmed))
+                    {
+                        if (User.IsInRole(RoleType.Developer) || User.IsInRole(RoleType.Admin))
+                        {
+                            <li>@Html.RouteLink("Junctions", "Default", new { controller = "Junction", action = "Index" })</li>
+                            <li>@Html.RouteLink("JunctionsXml", "Default", new { controller = "JunctionXml", action = "Index" })</li>
+                        }
+                        <li>@Html.RouteLink("Events", "Default", new { controller = "Event", action = "Index" })</li>
+                    }
+                    @if (User.IsInRole(RoleType.Admin))
+                    {
+                        <li>@Html.RouteLink("AdminPanel", "Default", new { controller = "Admin", action = "Index" })</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <div style="clear:both"></div>
+        <div class="col-md-12 col-lg-12">
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - TransPortal WpieInz</p>
+            </footer>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

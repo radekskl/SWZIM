@@ -1,0 +1,79 @@
+﻿@using System.Linq
+@using WpieSerwisInz.Models;
+@using Microsoft.AspNet.Identity;
+@using WpieSerwisInz.Models.BO
+@model WpieSerwisInz.Models.BO.Wrapper.ManagedPageWrapper
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+<h2>Manage Account</h2>
+<div class="col-md-12">
+    <div class="col-md-4">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.UserName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.PhoneNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.Email)
+            </dd>
+        </dl>
+        @Html.RouteLink("Change Password", "Default", new { controller = "Account", action = "ChangePassword", id = "registerLink" })
+        <br />
+        @Html.RouteLink("Edit Data", "Default", new { controller = "Account", action = "EditData" })
+    </div>
+    <div class="col-md-7">
+        @foreach (InfoObject ml in Model.InfoObjects)
+        {
+            <div class="well col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>@ml.Type @ml.Name</h4>
+                    </div>
+                    <div class="col-md-10">
+                        @ml.Information
+                    </div>
+                    <div class="col-md-2">                        
+                        @Html.RouteLink("Details", "Default", new { controller = ml.Controller, action = ml.Action, id=ml.Id })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <br />
+</div>
+
+

@@ -1,0 +1,59 @@
+﻿@model PagedList.IPagedList<WpieSerwisInz.Models.BO.LayerElement>
+@using PagedList.Mvc;
+@using WpieSerwisInz.Models.BO.Dictionary
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "LayerElements";
+}
+
+<h2>Layer Elements</h2>
+
+<p>
+    @Html.RouteLink("Create New", "AdminLayerElement", new { action = "LayerElementCreate" })
+</p>
+@using (Html.BeginForm("LayerElements", "Admin", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Users" />
+    </p>
+}
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Element Name", "LayerElements", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Information
+            </th>
+        </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ElementName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Information)
+                </td>
+                <td>
+                    @Html.RouteLink("Details", "AdminLayerElementPar", new { action = "LayerElementDetails", id = item.Id })
+                    @Html.RouteLink("Edit", "AdminLayerElementPar", new { action = "LayerElementEdit", id = item.Id })
+                    @Html.RouteLink("Delete", "AdminLayerElementPar", new { action = "LayerElementDelete", id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("LayerElements",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+

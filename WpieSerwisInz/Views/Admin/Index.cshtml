@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Admin Panel</h2>
+
+
+
+@Html.RouteLink("Managed Users", "AdminUsers", new { action = "Users" })
+<br />
+@Html.RouteLink("Layer Element", "AdminLayerElement", new { action = "LayerElements" })
+<br />
+@Html.RouteLink("Layer Views", "AdminLayerView", new { action = "LayerViews" })

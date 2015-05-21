@@ -1,0 +1,47 @@
+﻿
+
+@using MvcCheckBoxList.Model
+@model WpieSerwisInz.Models.BO.Wrapper.LayerViewWrapper
+@{
+    ViewBag.Title = "LayerViewEdit";
+}
+
+<h2>Edit Existing layer</h2>
+
+@using (Html.BeginForm("LayerViewEdit", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary()
+    @Html.HiddenFor(m=>m.Id,Model.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Information, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Information, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("ElementType", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.CheckBoxListFor(model => model.PostedService.ServicesId,
+                    model => model.AvailibleElement,
+                    viewServiceModel => viewServiceModel.Id,
+                    viewServiceModel => viewServiceModel.ElementName,
+                    model => model.SelectedElement,
+                    Position.Horizontal)
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+            @Html.RouteLink("Back to List", "AdminLayerView", new { action = "LayerViews" }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

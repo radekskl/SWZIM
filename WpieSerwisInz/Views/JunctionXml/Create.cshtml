@@ -1,0 +1,49 @@
+﻿@model WpieSerwisInz.Models.BO.JunctionXml
+
+@{
+    ViewBag.Title = "Create";
+    Session["junctionId"] = Model.Junctiom.Id;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadSingleMap('@Model.Junctiom.Lat', '@Model.Junctiom.Long', '@Model.Junctiom.Name', '@Model.Junctiom.Information');
+    });
+</script>
+
+<h2>Create Junction Xml</h2>
+
+@using (Html.BeginForm("Create", "JunctionXml", FormMethod.Post, new { enctype = "multipart/form-data"})) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Junctiom, Model.Junctiom)
+        <div class="form-group">
+            @Html.LabelFor(model => model.SerializedXmlModel, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="FileUpload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AdditionalInformation, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AdditionalInformation)
+                @Html.ValidationMessageFor(model => model.AdditionalInformation)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

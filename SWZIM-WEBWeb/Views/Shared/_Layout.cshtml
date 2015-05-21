@@ -19,7 +19,8 @@
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
             </div>
             <!--logo start-->
-            @Html.ActionLink("SWZIM-WEB", "Index", "Home", new { area = "" }, new { @class = "logo" })
+            <a class="logo" href="@Url.Action("Index", "Home")">SWZIM <span class="lite">WEB</span></a>
+            
             @*<a href="index.html" class="logo"><span>SWZIM</span> <span class="lite">WEB</span></a>*@
             <!--logo end-->
             <div class="nav search-row" id="top_menu">
@@ -260,7 +261,27 @@
                             <i class="icon_map_alt"></i>
                             <span>Mapa</span>
                         </a>
+
+                        <ul class="sub">
+                            <li><a class="active" href="#">Warstwa 1</a></li>
+                            <li><a class="" href="#">Warstwa 2</a></li>
+                            <li><a class="" href="#">Warstwa 3</a></li>
+                        </ul>
                     </li>
+
+                    @*<li class="sub-menu active" data-ctrl="Home" data-action="Index">
+                        <a href="javascript:;" class="">
+                            <i class="icon_desktop"></i>
+                            <span>Warstwy</span>
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+                        <ul class="sub">
+                            <li><a class="active" href="#">Warstwa 1</a></li>
+                            <li><a class="" href="#">Warstwa 2</a></li>
+                            <li><a class="" href="#">Warstwa 3</a></li>
+                        </ul>
+                    </li>*@
+
                     <li data-ctrl="Event" data-action="Index">
                         <a class="" href="#">
                             <i class="icon-table-l"></i>
@@ -292,18 +313,7 @@
                             <span>Wyloguj</span>
                         </a>
                     </li>
-                    @*<li class="sub-menu active"  data-ctrl="Home" data-action="Index">
-                        <a href="javascript:;" class="">
-                            <i class="icon_desktop"></i>
-                            <span>Warstwy</span>
-                            <span class="menu-arrow arrow_carrot-right"></span>
-                        </a>
-                        <ul class="sub">
-                            <li><a class="active" href="#">Warstwa 1</a></li>
-                            <li><a class="" href="#">Warstwa 2</a></li>
-                            <li><a class="" href="#">Warstwa 3</a></li>
-                        </ul>
-                    </li>*@
+                    
                 </ul>
                 <!-- sidebar menu end-->    
             </div>

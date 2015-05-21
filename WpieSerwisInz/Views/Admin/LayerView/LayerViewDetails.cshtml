@@ -1,0 +1,46 @@
+﻿@using WpieSerwisInz.Models.BO.Core.CheckboxListBo
+@model WpieSerwisInz.Models.BO.Wrapper.LayerViewWrapper
+
+@{
+    ViewBag.Title = "LayerViewDetails";
+}
+
+<h2>Layer View Details</h2>
+<div>
+    @Html.HiddenFor(m => m.Id, Model.Id)
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Information)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Information)
+        </dd>
+
+        <dt>
+            Layer Elements
+        </dt>
+
+        <dd>
+            @foreach (LayerModel ma in Model.SelectedElement)
+            {
+                <text>@ma.ElementName</text><br />
+            }
+        </dd>
+    </dl>
+
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.RouteLink("Back to List", "AdminLayerView", new { action = "LayerViews" }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,204 @@
+﻿@model WpieSerwisInz.Models.BO.Wrapper.MainPageWrapper
+@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNet.Identity
+@using MvcCheckBoxList.Model
+@using PagedList.Mvc;
+@using WpieSerwisInz.Logic.BusinessLogic
+@using WpieSerwisInz.Logic.Helpers
+@using WpieSerwisInz.Models
+@using WpieSerwisInz.Models.BO
+@using WpieSerwisInz.Models.BO.Dictionary
+
+@Styles.Render("~/Content/customCss")
+
+@{
+    ViewBag.Title = "Home Page";
+    int i = 0;
+
+    bool valid = (User.Identity.IsAuthenticated && !User.IsInRole(RoleType.Unconfirmed));
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var markers = @Util.SerializeJsonObject(Model.MarkerList);
+            var num = eval(@Model.MarkerList.Count);
+            showMap(markers,num,'@valid');
+        });
+    </script>
+}
+
+<div class="col-md-12" style="margin-top:20px">
+    <div class="col-md-8">
+        <div id="map-canvas" style="width: 100%; height: 480px;"></div>
+        @if (User.Identity.IsAuthenticated && !User.IsInRole(RoleType.Unconfirmed))
+        {
+            <br />
+            if (!User.IsInRole(RoleType.Confirmed))
+            {
+                <button id="Cross" onclick=" ProcessCrossRoad(this) " class="btn btn-info btn-sm">Add New Crossroad</button>
+            }
+            <button id="Event" onclick="ProcessCrossRoad(this)" class="btn btn-info btn-sm">Add New Event</button>
+        }
+        <br />
+        <input type="hidden" id="t1">
+        <input type="hidden" id="t2">
+        @if (User.Identity.IsAuthenticated && !User.IsInRole(RoleType.Unconfirmed))
+        {
+            <div id="AddPanel">
+                <div id="AddCross" style="background: #F5F5F5; display: none; min-height: 220px; margin-top: 5px; padding-top: 5px; padding-bottom: 5px; box-shadow: 10px 10px 5px #888888; border: 2px solid; border-radius: 10px;">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
+                        <div style="clear: both"></div>
+                        <div class="form-group" style="margin-top: 5px">
+                            @Html.Label("Latitude", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.JunctionModel.Lat, new { id = "NewCrossLat", @readonly = true })
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                        <div class="form-group" style="margin-top: 5px">
+                            @Html.Label("Longitude", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.JunctionModel.Long, new { id = "NewCrossLong", @readonly = true })
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                        <div class="form-group" style="margin-top: 5px">
+                            @Html.Label("Nazwa", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.JunctionModel.Name)
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                        <div class="form-group" style="margin-top: 5px;">
+                            @Html.Label("Additional Information", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(m => m.JunctionModel.Information)
+                            </div>
+                        </div>
+                        <br />
+                        <p>
+                            <input name="submit" type="submit" value="Cross" style="margin-left: 25px; margin-top: 10px" class="btn btn-info btn-sm">
+                        </p>
+                    }
+                </div>
+                <div id="AddEvent" style="background: #F5F5F5; display: none; min-height: 250px; margin-top: 5px; padding-top: 5px; padding-bottom: 5px; box-shadow: 10px 10px 5px #888888; border: 2px solid; border-radius: 10px;">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <div style="clear:both"></div>
+                        <div class="form-group" style="margin-top:5px">
+                            @Html.Label("Latitude", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.EventModel.Event.Lat, new { id = "NewEventLat", @readonly = true })
+                            </div>
+                        </div>
+                        
+                        <div style="clear:both"></div>
+                        <div class="form-group" style="margin-top:5px">
+                            @Html.Label("Longitude", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.EventModel.Event.Long, new { id = "NewEventLong", @readonly = true })
+                            </div>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="form-group" style="margin-top:5px">
+                            @Html.Label("Nazwa", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.EventModel.Event.EventName)
+                            </div>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="form-group" style="margin-top: 5px;">
+                            @Html.Label("Additional Information", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(m => m.EventModel.Event.EventInformation)
+                            </div>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="form-group" style="margin-top: 5px;">
+                            @Html.Label("EventType", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(m => m.EventModel.EventType, EventLogic.GetListType())
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            @Html.CheckBoxListFor(model => model.EventModel.PostedService.ServicesId,
+                                    model => model.EventModel.AvailibleElement,
+                                    viewServiceModel => viewServiceModel.Id,
+                                    viewServiceModel => viewServiceModel.ElementName,
+                                    model => model.EventModel.SelectedElement,
+                                    Position.Horizontal)
+                        </div>
+                        <p>
+                            <input name="submit" type="submit" value="Event" style="margin-left:25px; margin-top:10px" class="btn btn-info btn-sm">
+                        </p>
+                    }
+                </div>
+            </div>
+        }
+
+
+    </div>
+    <div class="col-md-4">
+        @if (User.Identity.IsAuthenticated && UserLogic.IsLayerForUser(User.Identity.GetUserId()))
+        {
+            <div class="co-md-12" style="height: 100px">
+                @using (Html.BeginForm())
+                {
+                    @Html.HiddenFor(model => model.Lat, new { id = "NewFilterLat" })
+                    @Html.HiddenFor(model => model.Long, new { id = "NewFilterLong" })
+                    @Html.ValidationSummary(true)
+                    <div>
+                        @Html.CheckBoxListFor(model => model.PostedService.ServicesId,
+                            model => model.AvailibleElement,
+                            viewServiceModel => viewServiceModel.Id,
+                            viewServiceModel => viewServiceModel.ElementName,
+                            model => model.SelectedElement,
+                            Position.Horizontal)
+                    </div>
+                    <p>
+                        <input name="submit" type="submit" value="Filtruj" style="margin-left: 25px; margin-top: 10px" class="btn btn-info btn-sm">
+                    </p>
+                }
+            </div>
+        }
+        <div class="co-md-12">
+            @foreach (Marker mark in Model.MarkerListShow)
+            {
+                string pName = "panel" + i;
+                <div class="col-md-12 ContentTab" onclick="SlidePanel(this)" id="@i">
+                    @Util.GetMarkerType(mark.IsEvent). @mark.Title
+                    <button style="background-color:transparent; border-color:transparent;" onclick="CenterMapOnGeo(@mark.Lat, @mark.Long)"><img src="~/Images/Button/radar.png" height="20" /></button>
+                </div>
+                <div class="col-md-12 ActPanel" id="@pName">
+                    Last Modification: @mark.LastModificationDate <br />
+                    @mark.Information <br />
+
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole(RoleType.Unconfirmed))
+                    {
+                        <br />
+                        if (mark.IsEvent)
+                        {
+                            @Html.ActionLink("Detail", "Details", "Event", new { id = mark.Id }, null)
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Detail", "Details", "Junction", new { id = mark.Id }, null)
+                        }
+                    }
+                </div>
+                    i += 1;
+            }
+
+            @Html.PagedListPager(Model.MarkerListShow, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</div>
+<div style="clear:both"></div>
+
+@Scripts.Render("~/bundles/gMaps")

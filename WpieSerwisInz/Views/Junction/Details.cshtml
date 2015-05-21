@@ -1,0 +1,102 @@
+﻿@using System.Linq
+@using WpieSerwisInz.Models.BO
+@using WpieSerwisInz.Models.BO.Dictionary
+@model WpieSerwisInz.Models.BO.JunctionModel
+
+@{
+    ViewBag.Title = "Details Junction";
+    int i = 0;
+}
+
+@Styles.Render("~/Content/customCss")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadSingleMap('@Model.Lat', '@Model.Long', '@Model.Name', '@Model.Information', false);
+    });
+</script>
+
+<h2>Junction Details</h2>
+
+<div>
+    <div class="col-md-5">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Information)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Information)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Lat)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Lat)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Long)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Long)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreationDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastModificationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastModificationDate)
+            </dd>
+
+        </dl>
+        <div class="col-md-12">
+            @Html.ActionLink("Create New", "Create", "JunctionXml", new { id = Model.Id }, null)
+        </div>
+
+        @foreach (JunctionXml models in Model.JunctionXmlList.OrderByDescending(x=>x.LastModificationDate))
+        {
+            <div class="col-md-12 ActPanel" style="display: block !important">
+                Last Modification: @models.LastModificationDate &nbsp;
+                @models.Author.UserName
+                <br/>
+                @if (User.Identity.IsAuthenticated && !User.IsInRole(RoleType.Unconfirmed) && !User.IsInRole(RoleType.Confirmed))
+                {
+                    @Html.ActionLink("Detail", "Details", "JunctionXml", new { id = models.Id }, null) <text> | </text>
+                }
+                @Html.RouteLink("Download", "Default", new { controller = "JunctionXml", action = "Download", id = models.Id }) 
+            </div>
+        }
+    </div>
+    <div class="col-md-7">
+        <div id="map-canvas" style="width: 100%; height: 480px;"></div>
+    </div>
+</div>
+<p>
+    @if (User.IsInRole(RoleType.Admin))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <text>|</text>
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,110 @@
+﻿@using WpieSerwisInz.Models.BO
+@using WpieSerwisInz.Models.BO.Dictionary
+@model WpieSerwisInz.Models.BO.EventModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadSingleMap('@Model.Lat', '@Model.Long', '@Model.EventName', '@Model.EventInformation', false);
+    });
+</script>
+<h2>Event Details</h2>
+
+<div>
+    <div class="col-md-5">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.EventName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EventName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EventInformation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EventInformation)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Lat)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Lat)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Long)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Long)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreationDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastModificationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastModificationDate)
+            </dd>
+
+            <dt>
+                Author
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Author.UserName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EventTypes.EventName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EventTypes.EventName)
+            </dd>
+
+
+            @if (Model.LayerElements != null)
+            {
+                <dt>
+                    Elements in event
+                </dt>
+                <dd>
+                    @foreach (LayerElement ma in Model.LayerElements)
+                    {
+                        @ma.ElementName<br />
+                    }
+                </dd>
+            }
+        </dl>
+    </div>
+    <div class="col-md-7">
+        <div id="map-canvas" style="width: 100%; height: 480px;"></div>
+    </div>
+</div>
+
+<p>
+    @if (User.IsInRole(RoleType.Admin))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })  <text>|</text>
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

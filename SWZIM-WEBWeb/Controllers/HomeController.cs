@@ -9,47 +9,23 @@ namespace SWZIM_WEBWeb.Controllers
 {
     public class HomeController : Controller
     {
-        //[SharePointContextFilter]
+        [SharePointContextFilter]
         public ActionResult Index()
         {
-            //User spUser = null;
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
 
-            //var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
-
-            //using (var clientContext = spContext.CreateUserClientContextForSPHost())
-            //{
-            //    if (clientContext != null)
-            //    {
-            //        spUser = clientContext.Web.CurrentUser;
-
-            //        clientContext.Load(spUser, user => user.Title);
-
-            //        clientContext.ExecuteQuery();
-
-                    ViewBag.UserName = "Jan Kowalski";
-            //    }
-            //}
-
-            //IQueryable<Test> results;
-            //using (var context = new SWZIM_dbEntities())
-            //{
-            //    results = context.Test
-            //        .Where(o => o.Ocena > 2);
-
-            //    if (results != null)
-            //        ViewBag.Entries = results;
-            //}
+            using (var clientContext = spContext.CreateUserClientContextForSPHost())
+            {
+                if (clientContext != null)
+                {
+                   // sharepoint CSOM here if needed
+                }
+            }
 
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
+        [SharePointContextFilter]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -57,6 +33,15 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        [SharePointContextFilter]
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [SharePointContextFilter]
         public ActionResult Controls()
         {
             ViewBag.Message = "Your contact page.";

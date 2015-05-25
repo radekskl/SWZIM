@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'c:\users\radosław\documents\visual studio 2013\Projects\SWZIM-WEBWeb\SWZIM_DbModel.edmx'. 
+﻿// T4 code generation is enabled for model 'G:\Git\SWZIM-WEBWeb\DbDataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

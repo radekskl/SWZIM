@@ -38,7 +38,7 @@ namespace SWZIM_WEBWeb
         /// <summary>
         /// Lifetime of HighTrust access token, 12 hours.
         /// </summary>
-        public static readonly TimeSpan HighTrustAccessTokenLifetime = TimeSpan.FromHours(12.0);
+        public static readonly TimeSpan HighTrustAccessTokenLifetime = TimeSpan.FromHours(24.0);
 
         #endregion public fields
 

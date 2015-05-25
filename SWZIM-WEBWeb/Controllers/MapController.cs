@@ -9,6 +9,7 @@ namespace SWZIM_WEBWeb.Controllers
     public class MapController : Controller
     {
         // GET: Map
+        [SharePointContextFilter]
         public ActionResult Index()
         {
             return View();

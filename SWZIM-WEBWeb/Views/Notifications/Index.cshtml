@@ -1,9 +1,8 @@
-﻿@model IEnumerable<SWZIM_WEBWeb.Models.Notification>
+﻿@model IEnumerable<SWZIM_WEBWeb.Notifications>
 
 @{
-    ViewBag.Title = "Notifications";
+    ViewBag.Title = "Index";
 }
-
 
 
 <section id="main-content">
@@ -24,42 +23,41 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Powiadomienia
+                        Lista powiadomień
                     </header>
                     <div class="panel-body">
-                        @*<p>
-                            @Html.ActionLink("Create New", "Create")
-                        </p>*@
+                        <p>
+                            @Html.ActionLink("Utwórz nowe powiadomienie", "Create")
+                        </p>
                         <table class="table">
-                            @*<tr>
+                            <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Type)
+                                    @Html.DisplayNameFor(model => model.Label)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Body)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TimeAgo)
+                                    @Html.DisplayNameFor(model => model.Created)
                                 </th>
                                 <th></th>
-                            </tr>*@
+                            </tr>
 
                             @foreach (var item in Model)
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Type)
+                                        @Html.DisplayFor(modelItem => item.Label)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Body)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.TimeAgo)
+                                        @Html.DisplayFor(modelItem => item.Created)
                                     </td>
                                     <td>
-                                        @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
-                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) 
-                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
                                     </td>
                                 </tr>
                             }

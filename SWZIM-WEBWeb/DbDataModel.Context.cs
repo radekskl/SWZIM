@@ -25,8 +25,7 @@ namespace SWZIM_WEBWeb
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Test> Test { get; set; }
-
-        public System.Data.Entity.DbSet<SWZIM_WEBWeb.Models.Notification> Notifications { get; set; }
+        public virtual DbSet<Notifications> Notifications { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

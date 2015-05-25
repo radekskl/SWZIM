@@ -3,21 +3,21 @@
 <App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest"
      Name="SWZIM-WEB"
      ProductID="{502a6ef6-c540-4715-8d9c-89680b9eb46f}"
-     Version="1.0.0.3"
+     Version="1.0.0.6"
      SharePointMinVersion="16.0.0.0"
 >
   <Properties>
-    <Title>SWZIM-WEB</Title>
-    <StartPage>http://swzim.azurewebsites.net/?{StandardTokens}</StartPage>
+    <Title>SWZIM</Title>
+    <StartPage>https://swzim.azurewebsites.net?{StandardTokens}</StartPage>
+    <InstalledEventEndpoint>~remoteAppUrl/Services/AppEventReceiver.svc</InstalledEventEndpoint>
   </Properties>
 
   <AppPrincipal>
-    <RemoteWebApplication ClientId="e98a6d69-d32e-41b8-94a7-cafccfc68096" />
+    <RemoteWebApplication ClientId="6b54974b-008d-4187-ac4a-8010204befd0" />
   </AppPrincipal>
-  <AppPermissionRequests>
-    <AppPermissionRequest Scope="http://sharepoint/content/sitecollection" Right="Manage" />
-    <AppPermissionRequest Scope="http://sharepoint/content/sitecollection/web" Right="Manage" />
+  <AppPermissionRequests AllowAppOnlyPolicy="true">
+    <AppPermissionRequest Scope="http://sharepoint/content/sitecollection" Right="FullControl" />
+    <AppPermissionRequest Scope="http://sharepoint/content/sitecollection/web" Right="FullControl" />
     <AppPermissionRequest Scope="http://sharepoint/content/tenant" Right="Manage" />
-    <AppPermissionRequest Scope="http://sharepoint/taxonomy" Right="Read" />
   </AppPermissionRequests>
 </App>

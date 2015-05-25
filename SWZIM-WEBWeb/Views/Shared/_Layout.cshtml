@@ -42,7 +42,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="icon-task-l">
                                 </i>
-                                <span class="badge bg-important">5</span>
+                                @*<span class="badge bg-important">5</span>*@
                         </a>
                         <ul class="dropdown-menu extended tasks-bar">
                             <div class="notify-arrow notify-arrow-blue"></div>
@@ -126,7 +126,7 @@
                     <li id="mail_notificatoin_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-envelope-l"></i>
-                            <span class="badge bg-important">5</span>
+                            @*<span class="badge bg-important">5</span>*@
                         </a>
                         <ul class="dropdown-menu extended inbox">
                             <div class="notify-arrow notify-arrow-blue"></div>
@@ -191,25 +191,30 @@
                     <li id="alert_notificatoin_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-bell-l"></i>
-                            <span class="badge bg-important">@NotificationsHelper.GetNotificationsCount()</span>
+                            @{var messageCount = NotificationsHelper.GetNotificationsCount(ViewBag.UserId); }
+                            @{  if (messageCount > 0) {
+                                    <span class="badge bg-important">@messageCount</span>
+                                }
+                            }
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-blue"></div>
-                            <li>
-                                <p class="blue">Masz @NotificationsHelper.GetNotificationsCount() powiadomień!</p>
+                            <li style="text-align: center;">
+                                <p class="blue">Masz @messageCount.ToString() nowych powiadomień!</p>
                             </li>
-                            @foreach(Notification notification in NotificationsHelper.GetNotifications())
+                            @foreach(Notifications notification in NotificationsHelper.GetNotifications(ViewBag.UserId))
                             {
                                 <li>
-                                    <a href="@Url.Action("Index", "Notifications", new { id = notification.ID })">
-                                        <span class="label label-@notification.Label"><i class="icon_@notification.Type"></i></span>
-                                        @notification.Body.Truncate(25)
-                                        <span class="small italic pull-right">@notification.TimeAgo.MakeReadable()</span>
+                                    @{var isRead = notification.IsRead.HasValue && notification.IsRead.Value; }
+                                    <a href="@Url.Action("Details", "Notifications", new { id = notification.ID })" @(string.Format("{0}", isRead ? "" : @"style=font-weight:bolder;"))>
+                                        <span class="label label-@SWZIM_WEBWeb.Consts.Enumerations.NotificationLabel.danger"><i class="icon_@SWZIM_WEBWeb.Consts.Enumerations.NotificationType.profile"></i></span>
+                                        @notification.Label.Truncate(25)
+                                        <span class="small italic pull-right">@notification.Created.ToShortDateString()</span>
                                     </a>
                                 </li>
                             }
-                            <li>
-                                <a href="@Url.Action("Index", "Notifications", new { id = "" })">Pokaż wszystkie</a>
+                            <li style="text-align: center;">
+                                <a href="@Url.Action("Index", "Notifications", new { id = "" })" style="color: #007aff !important;">Pokaż wszystkie</a>
                             </li>
                         </ul>
                     </li>
@@ -220,7 +225,7 @@
                             <span class="profile-ava">
                                 <img alt="" src="~/img/avatar1_small.jpg">
                             </span>
-                            <span class="username">Jan kowalski</span>
+                            <span class="username">@((!string.IsNullOrEmpty(ViewBag.UserName)) ? ViewBag.UserName : "Jan kowalski")</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
@@ -297,8 +302,8 @@
                         <ul class="sub">
                             <li><a class="active" href="#">Import danych</a></li>
                             <li><a class="" href="#">Eksport danych</a></li>
-                            <li><a class="" href="#">Zarządzanie grupami</a></li>
-                            <li><a class="" href="#">Zarządzanie użytkownikami</a></li>
+                            <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/groups.aspx")"  target="_blank">Zarządzanie grupami</a></li>
+                            <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/people.aspx?MembershipGroupId=8")"  target="_blank">Zarządzanie użytkownikami</a></li>
                         </ul>
                     </li>
                     <li data-ctrl="Profile" data-action="Index">

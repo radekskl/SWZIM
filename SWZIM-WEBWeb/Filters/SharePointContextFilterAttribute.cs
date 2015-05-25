@@ -17,13 +17,6 @@ namespace SWZIM_WEBWeb
                 throw new ArgumentNullException("filterContext");
             }
 
-            //if (filterContext.HttpContext.Request.QueryString["SPHostUrl"] == null)
-            //{
-            //    var spHostUrl = SharePointContext.GetSPHostUrl(filterContext.HttpContext.Request, filterContext.HttpContext);
-            //    if (spHostUrl != null)
-            //        SharePointContextProvider.BookmarkifyUrl(filterContext, spHostUrl.AbsoluteUri);
-            //}
-
             Uri redirectUrl;
             switch (SharePointContextProvider.CheckRedirectionStatus(filterContext.HttpContext, out redirectUrl))
             {
@@ -48,13 +41,46 @@ namespace SWZIM_WEBWeb
                 if (clientContext != null)
                 {
                     User spUser = clientContext.Web.CurrentUser;
-                    clientContext.Load(spUser, user => user.Title, user => user.Id);
+                    clientContext.Load(spUser, user => user.Title, user => user.Id, user => user.Email);
                     clientContext.ExecuteQuery();
 
                     viewBag.UserName = spUser.Title;
                     viewBag.UserId = spUser.Id;
+                    viewBag.UserEmail = spUser.Email;
+
+                    if (viewBag.UserId != null && viewBag.UserId > 0)
+                    {
+                        EnsureUserCreated(viewBag.UserId, viewBag.UserName, viewBag.UserEmail);
+                    }
                 }
             }
         }
+
+        private void EnsureUserCreated(int userId, string userName, string userEmail)
+        {
+            //TODO: database connection, check and save user
+            using (var context = new SWZIM_dbEntities())
+            {
+                var user = context.Users.Find(userId);
+                if (user != null)
+                {
+                    if (userEmail != user.Email)
+                        user.Email = userEmail;
+                    if (userName != user.UserName)
+                        user.UserName = userName;
+                    context.SaveChanges();
+                }
+                else
+                {
+                    Users u = new Users();
+                    u.ID = userId;
+                    u.Email = userEmail;
+                    u.UserName = userName;
+                    context.Users.Add(u);
+                    context.SaveChanges();
+                }
+            }
+        }
+
     }
 }

@@ -1,0 +1,65 @@
+﻿@model SWZIM_WEBWeb.Notifications
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<section id="main-content">
+    <section class="wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <!--breadcrumbs start -->
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="icon_house_alt"></i> Home</a></li>
+                    <li class="active"> Powiadomienia</li>
+                </ul>
+                <!--breadcrumbs end -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Szczegóły powiadomienia
+                    </header>
+                    <div class="panel-body">
+                        <div>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Label)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Label)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Body)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Body)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Created)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Created)
+                                </dd>
+
+                            </dl>
+                        </div>
+                        <p>
+                            @Html.ActionLink("Przejdź do listy powiadomień", "Index")
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+</section>

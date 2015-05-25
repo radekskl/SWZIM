@@ -12,11 +12,17 @@ namespace SWZIM_WEBWeb
     using System;
     using System.Collections.Generic;
     
-    public partial class Test
+    public partial class Users
     {
+        public Users()
+        {
+            this.Notifications = new HashSet<Notifications>();
+        }
+    
         public int ID { get; set; }
-        public string Column1 { get; set; }
-        public string Column2 { get; set; }
-        public Nullable<int> Ocena { get; set; }
+        public string Email { get; set; }
+        public string UserName { get; set; }
+    
+        public virtual ICollection<Notifications> Notifications { get; set; }
     }
 }

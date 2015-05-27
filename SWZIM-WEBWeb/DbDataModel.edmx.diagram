@@ -22,9 +22,19 @@
         <AssociationConnector Association="SWZIM_dbModel.EventToGroups" ManuallyRouted="true" >
           <ConnectorPoint PointX="12.5" PointY="4.201396484375" />
           <ConnectorPoint PointX="12.5" PointY="6.8958333333333339" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="6.895833333333333" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="6.8958333333333339" />
           <ConnectorPoint PointX="3.625" PointY="6.8958333333333339" />
           <ConnectorPoint PointX="3.625" PointY="5.6246414856770821" />
           <ConnectorPoint PointX="3.25" PointY="5.6246414856770821" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementTypes" Width="1.5" PointX="12.875" PointY="5.875" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" ManuallyRouted="true" >
+          <ConnectorPoint PointX="6.96875" PointY="3.1052864583333331" />
+          <ConnectorPoint PointX="6.96875" PointY="3.5703192356770832" />
+          <ConnectorPoint PointX="7.75" PointY="3.5703192356770832" />
+          <ConnectorPoint PointX="7.75" PointY="7.3755598958333328" />
+          <ConnectorPoint PointX="12.875" PointY="7.3755598958333328" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

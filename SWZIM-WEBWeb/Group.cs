@@ -15,30 +15,24 @@ namespace SWZIM_WEBWeb
 using System;
     using System.Collections.Generic;
     
-public partial class Users
+public partial class Group
 {
 
-    public Users()
+    public Group()
     {
 
-        this.Notifications = new HashSet<Notifications>();
+        this.Users = new HashSet<Users>();
 
     }
 
 
-    public int ID { get; set; }
+    public int Id { get; set; }
 
-    public string Email { get; set; }
-
-    public string UserName { get; set; }
-
-    public int GroupId { get; set; }
+    public string Name { get; set; }
 
 
 
-    public virtual ICollection<Notifications> Notifications { get; set; }
-
-    public virtual Group Group { get; set; }
+    public virtual ICollection<Users> Users { get; set; }
 
 }
 

@@ -15,30 +15,20 @@ namespace SWZIM_WEBWeb
 using System;
     using System.Collections.Generic;
     
-public partial class MarkerIcons
+public partial class LayoutElementTypes
 {
-
-    public MarkerIcons()
-    {
-
-        this.EventTypes = new HashSet<EventTypes>();
-
-        this.LayoutElementTypes = new HashSet<LayoutElementTypes>();
-
-    }
-
 
     public int Id { get; set; }
 
     public string Name { get; set; }
 
-    public string Url { get; set; }
+    public Nullable<int> MarkerId { get; set; }
+
+    public Nullable<int> MarkerIconId { get; set; }
 
 
 
-    public virtual ICollection<EventTypes> EventTypes { get; set; }
-
-    public virtual ICollection<LayoutElementTypes> LayoutElementTypes { get; set; }
+    public virtual MarkerIcons MarkerIcons { get; set; }
 
 }
 

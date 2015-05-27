@@ -199,6 +199,9 @@
     <Compile Include="Layers.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LayoutElementTypes.cs">
+      <DependentUpon>DbDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MarkerIcons.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>

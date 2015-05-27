@@ -46,6 +46,8 @@ public partial class SWZIM_dbEntities : DbContext
 
     public virtual DbSet<EventTypes> EventTypes { get; set; }
 
+    public virtual DbSet<LayoutElementTypes> LayoutElementTypes { get; set; }
+
 }
 
 }

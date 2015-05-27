@@ -58,6 +58,14 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="LayoutElementTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarkerIconId" Type="int" />
+        </EntityType>
         <EntityType Name="MarkerIcons">
           <Key>
             <PropertyRef Name="Id" />
@@ -170,6 +178,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LayoutElementTypes_MarkersIcon">
+          <End Role="MarkerIcons" Type="Self.MarkerIcons" Multiplicity="0..1" />
+          <End Role="LayoutElementTypes" Type="Self.LayoutElementTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarkerIcons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LayoutElementTypes">
+              <PropertyRef Name="MarkerIconId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Notifications_0">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
@@ -201,6 +221,7 @@
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupToLayers" EntityType="Self.GroupToLayers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layers" EntityType="Self.Layers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LayoutElementTypes" EntityType="Self.LayoutElementTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -231,6 +252,10 @@
           <AssociationSet Name="FK_GroupToLayers_Layers" Association="Self.FK_GroupToLayers_Layers">
             <End Role="Layers" EntitySet="Layers" />
             <End Role="GroupToLayers" EntitySet="GroupToLayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayoutElementTypes_MarkersIcon" Association="Self.FK_LayoutElementTypes_MarkersIcon">
+            <End Role="MarkerIcons" EntitySet="MarkerIcons" />
+            <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_Notifications_0" Association="Self.FK_Notifications_0">
             <End Role="Users" EntitySet="Users" />
@@ -317,6 +342,11 @@
             <End Role="Events" EntitySet="Events" />
             <End Role="Groups" EntitySet="Groups" />
           </AssociationSet>
+          <EntitySet Name="LayoutElementTypes" EntityType="SWZIM_dbModel.LayoutElementTypes" />
+          <AssociationSet Name="FK_LayoutElementTypes_MarkersIcon" Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon">
+            <End Role="MarkerIcons" EntitySet="MarkerIcons" />
+            <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Groups">
           <Key>
@@ -336,6 +366,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_EventTypes_MarkerIcon" FromRole="MarkerIcons" ToRole="EventTypes" />
+          <NavigationProperty Name="LayoutElementTypes" Relationship="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" FromRole="MarkerIcons" ToRole="LayoutElementTypes" />
         </EntityType>
         <Association Name="FK_Users_Groups">
           <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="1" />
@@ -428,6 +459,28 @@
         <Association Name="EventToGroups">
           <End Type="SWZIM_dbModel.Events" Role="Events" Multiplicity="*" />
           <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
+        </Association>
+        <EntityType Name="LayoutElementTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkerId" Type="Int32" />
+          <Property Name="MarkerIconId" Type="Int32" />
+          <NavigationProperty Name="MarkerIcons" Relationship="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" FromRole="LayoutElementTypes" ToRole="MarkerIcons" />
+        </EntityType>
+        <Association Name="FK_LayoutElementTypes_MarkersIcon">
+          <End Type="SWZIM_dbModel.MarkerIcons" Role="MarkerIcons" Multiplicity="0..1" />
+          <End Type="SWZIM_dbModel.LayoutElementTypes" Role="LayoutElementTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarkerIcons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LayoutElementTypes">
+              <PropertyRef Name="MarkerIconId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -523,6 +576,15 @@
               <ScalarProperty Name="Id" ColumnName="EventId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="LayoutElementTypes">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElementTypes">
+              <MappingFragment StoreEntitySet="LayoutElementTypes">
+                <ScalarProperty Name="MarkerIconId" ColumnName="MarkerIconId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

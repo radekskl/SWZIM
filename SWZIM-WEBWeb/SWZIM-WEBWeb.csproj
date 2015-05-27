@@ -194,8 +194,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Groups.cs">
+      <DependentUpon>DbDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ExtensionsHelper.cs" />
     <Compile Include="Helpers\GroupsHelper.cs" />
+    <Compile Include="Layers.cs">
+      <DependentUpon>DbDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MarkerIcons.cs">
+      <DependentUpon>DbDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Helpers\NotificationsHelper.cs" />
     <Compile Include="Helpers\RouteHelper.cs" />
@@ -333,6 +342,9 @@
     <None Include="Properties\PublishProfiles\SWZIM - Web Deploy.pubxml" />
     <Content Include="PublishingProfile\SWZIM.azurewebsites.net.PublishSettings" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\img\gears16.gif" />
+    <Content Include="Scripts\img\gears24.gif" />
+    <Content Include="Scripts\img\squiggle.png" />
     <Content Include="Scripts\jmelosegui.googlemap.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -346,6 +358,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\markerclusterer.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Office.Controls.css" />
+    <Content Include="Scripts\Office.Controls.debug.js" />
+    <Content Include="Scripts\Office.Controls.js" />
+    <Content Include="Scripts\Office.Controls.ListView.debug.js" />
+    <Content Include="Scripts\Office.Controls.ListView.js" />
+    <Content Include="Scripts\Office.Controls.PeoplePicker.debug.js" />
+    <Content Include="Scripts\Office.Controls.PeoplePicker.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\scripts.js" />

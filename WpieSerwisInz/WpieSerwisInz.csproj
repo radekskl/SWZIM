@@ -257,6 +257,9 @@
     <None Include="Properties\PublishProfiles\Inz.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\GoogleMaps.js" />
+    <Content Include="Scripts\img\gears16.gif" />
+    <Content Include="Scripts\img\gears24.gif" />
+    <Content Include="Scripts\img\squiggle.png" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -265,6 +268,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Office.Controls.css" />
+    <Content Include="Scripts\Office.Controls.debug.js" />
+    <Content Include="Scripts\Office.Controls.js" />
+    <Content Include="Scripts\Office.Controls.ListView.debug.js" />
+    <Content Include="Scripts\Office.Controls.ListView.js" />
+    <Content Include="Scripts\Office.Controls.PeoplePicker.debug.js" />
+    <Content Include="Scripts\Office.Controls.PeoplePicker.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Script.js" />

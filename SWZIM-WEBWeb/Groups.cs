@@ -15,14 +15,24 @@ namespace SWZIM_WEBWeb
 using System;
     using System.Collections.Generic;
     
-public partial class MarkerIcon
+public partial class Groups
 {
+
+    public Groups()
+    {
+
+        this.Users = new HashSet<Users>();
+
+    }
+
 
     public int Id { get; set; }
 
     public string Name { get; set; }
 
-    public string Url { get; set; }
+
+
+    public virtual ICollection<Users> Users { get; set; }
 
 }
 

@@ -8,9 +8,9 @@
         <EntityTypeShape EntityType="SWZIM_dbModel.Notifications" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SWZIM_dbModel.Users" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="SWZIM_dbModel.FK_Notifications_0" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.MarkerIcon" Width="1.5" PointX="6" PointY="0.75" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.Group" Width="1.5" PointX="1.125" PointY="4" />
-        <AssociationConnector Association="SWZIM_dbModel.FK_Users_Group" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Groups" Width="1.5" PointX="1.75" PointY="4.125" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.MarkerIcons" Width="1.5" PointX="5.625" PointY="1.875" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_Users_Groups" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -38,7 +38,7 @@ public partial class Users
 
     public virtual ICollection<Notifications> Notifications { get; set; }
 
-    public virtual Group Group { get; set; }
+    public virtual Groups Groups { get; set; }
 
 }
 

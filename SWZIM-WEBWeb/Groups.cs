@@ -25,6 +25,8 @@ public partial class Groups
 
         this.Layers = new HashSet<Layers>();
 
+        this.Events = new HashSet<Events>();
+
     }
 
 
@@ -37,6 +39,8 @@ public partial class Groups
     public virtual ICollection<Users> Users { get; set; }
 
     public virtual ICollection<Layers> Layers { get; set; }
+
+    public virtual ICollection<Events> Events { get; set; }
 
 }
 

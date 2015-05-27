@@ -18,6 +18,14 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="EventTypeId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="EventToGroups">
+          <Key>
+            <PropertyRef Name="GroupId" />
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="EventId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="EventTypes">
           <Key>
             <PropertyRef Name="Id" />
@@ -101,6 +109,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EventToGroups_Events">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventToGroups" Type="Self.EventToGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EventToGroups">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventToGroups_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="EventToGroups" Type="Self.EventToGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EventToGroups">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EventTypes_MarkerIcon">
           <End Role="MarkerIcons" Type="Self.MarkerIcons" Multiplicity="1" />
           <End Role="EventTypes" Type="Self.EventTypes" Multiplicity="*" />
@@ -163,6 +195,7 @@
         </Association>
         <EntityContainer Name="SWZIM_dbModelStoreContainer">
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventToGroups" EntityType="Self.EventToGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventTypes" EntityType="Self.EventTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupToLayers" EntityType="Self.GroupToLayers" Schema="dbo" store:Type="Tables" />
@@ -177,6 +210,14 @@
           <AssociationSet Name="FK_Events_Users" Association="Self.FK_Events_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventToGroups_Events" Association="Self.FK_EventToGroups_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventToGroups" EntitySet="EventToGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventToGroups_Groups" Association="Self.FK_EventToGroups_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="EventToGroups" EntitySet="EventToGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_EventTypes_MarkerIcon" Association="Self.FK_EventTypes_MarkerIcon">
             <End Role="MarkerIcons" EntitySet="MarkerIcons" />
@@ -271,6 +312,10 @@
             <End Role="MarkerIcons" EntitySet="MarkerIcons" />
             <End Role="EventTypes" EntitySet="EventTypes" />
           </AssociationSet>
+          <AssociationSet Name="EventToGroups" Association="SWZIM_dbModel.EventToGroups">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Groups">
           <Key>
@@ -280,6 +325,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Users_Groups" FromRole="Groups" ToRole="Users" />
           <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.GroupToLayers" FromRole="Groups" ToRole="Layers" />
+          <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.EventToGroups" FromRole="Groups" ToRole="Events" />
         </EntityType>
         <EntityType Name="MarkerIcons">
           <Key>
@@ -329,6 +375,7 @@
           <Property Name="EventTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_Events_EventType" FromRole="Events" ToRole="EventTypes" />
           <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Events" ToRole="Users" />
+          <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.EventToGroups" FromRole="Events" ToRole="Groups" />
         </EntityType>
         <EntityType Name="EventTypes">
           <Key>
@@ -375,6 +422,10 @@
               <PropertyRef Name="MarkerIconId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="EventToGroups">
+          <End Type="SWZIM_dbModel.Events" Role="Events" Multiplicity="*" />
+          <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -461,6 +512,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="EventToGroups" TypeName="SWZIM_dbModel.EventToGroups" StoreEntitySet="EventToGroups">
+            <EndProperty Name="Groups">
+              <ScalarProperty Name="Id" ColumnName="GroupId" />
+            </EndProperty>
+            <EndProperty Name="Events">
+              <ScalarProperty Name="Id" ColumnName="EventId" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

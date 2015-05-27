@@ -190,6 +190,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Events.cs">
+      <DependentUpon>DbDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventTypes.cs">
+      <DependentUpon>DbDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Filters\SharePointContextFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

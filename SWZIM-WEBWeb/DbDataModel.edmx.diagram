@@ -19,6 +19,13 @@
         <AssociationConnector Association="SWZIM_dbModel.FK_Events_Users" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="SWZIM_dbModel.FK_EventTypes_MarkerIcon" />
+        <AssociationConnector Association="SWZIM_dbModel.EventToGroups" ManuallyRouted="true" >
+          <ConnectorPoint PointX="12.5" PointY="4.0090950520833326" />
+          <ConnectorPoint PointX="12.5" PointY="6.8958333333333339" />
+          <ConnectorPoint PointX="3.625" PointY="6.8958333333333339" />
+          <ConnectorPoint PointX="3.625" PointY="5.6246414856770821" />
+          <ConnectorPoint PointX="3.25" PointY="5.6246414856770821" />
+        </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

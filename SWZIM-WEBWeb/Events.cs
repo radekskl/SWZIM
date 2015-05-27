@@ -18,6 +18,14 @@ using System;
 public partial class Events
 {
 
+    public Events()
+    {
+
+        this.Groups = new HashSet<Groups>();
+
+    }
+
+
     public int Id { get; set; }
 
     public string Name { get; set; }
@@ -39,6 +47,8 @@ public partial class Events
     public virtual EventTypes EventTypes { get; set; }
 
     public virtual Users Users { get; set; }
+
+    public virtual ICollection<Groups> Groups { get; set; }
 
 }
 

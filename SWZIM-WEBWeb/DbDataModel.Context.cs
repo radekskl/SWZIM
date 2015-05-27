@@ -40,6 +40,8 @@ public partial class SWZIM_dbEntities : DbContext
 
     public virtual DbSet<MarkerIcons> MarkerIcons { get; set; }
 
+    public virtual DbSet<Layers> Layers { get; set; }
+
 }
 
 }

@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="SWZIM_dbModel.Groups" Width="1.5" PointX="1.75" PointY="4.125" />
         <EntityTypeShape EntityType="SWZIM_dbModel.MarkerIcons" Width="1.5" PointX="5.625" PointY="1.875" />
         <AssociationConnector Association="SWZIM_dbModel.FK_Users_Groups" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Layers" Width="1.5" PointX="7.625" PointY="3.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

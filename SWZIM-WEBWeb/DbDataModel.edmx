@@ -12,6 +12,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Layers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="MarkerIcons">
           <Key>
             <PropertyRef Name="Id" />
@@ -66,6 +74,7 @@
         </Association>
         <EntityContainer Name="SWZIM_dbModelStoreContainer">
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Layers" EntityType="Self.Layers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -130,6 +139,7 @@
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Layers" EntityType="SWZIM_dbModel.Layers" />
         </EntityContainer>
         <EntityType Name="Groups">
           <Key>
@@ -159,6 +169,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Layers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -199,6 +217,15 @@
             <EntityTypeMapping TypeName="SWZIM_dbModel.MarkerIcons">
               <MappingFragment StoreEntitySet="MarkerIcons">
                 <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Layers">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.Layers">
+              <MappingFragment StoreEntitySet="Layers">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

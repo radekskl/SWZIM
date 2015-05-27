@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SWZIM_WEBWeb;
+using Microsoft.SharePoint.Client.Utilities;
 
 namespace SWZIM_WEBWeb.Controllers
 {
@@ -47,11 +48,10 @@ namespace SWZIM_WEBWeb.Controllers
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateAppOnlyClientContextForSPAppWeb())
             {
-                //Microsoft.SharePoint.Client.UserCollection spUsers = clientContext.Web.SiteUsers;
-                //clientContext.Load(spUsesr, user => user.Title, user => user.Id, user => user.Email);
-                //clientContext.ExecuteQuery();
+                var users = clientContext.LoadQuery(clientContext.Web.SiteUsers.Where(u => u.PrincipalType == PrincipalType.User && u.UserId.NameIdIssuer == "urn:federation:microsoftonline"));
+                clientContext.ExecuteQuery();
+                ViewBag.UserList = new SelectList(users, "Id", "Title");
             }
-            ViewBag.UserList = new SelectList(db.Users, "ID", "Email");
             return View();
         }
 
@@ -61,20 +61,20 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Create([Bind(Include = "Label,Body")] Notifications notifications)
+        public ActionResult Create([Bind(Include = "Label,Body,UserId")] Notifications notifications)
         {
             if (ModelState.IsValid)
             {
                 
                 notifications.IsRead = false;
-                notifications.UserId = ViewBag.UserId; //dla kogo
+                //notifications.UserId = ViewBag.UserId; //dla kogo
                 notifications.Created = DateTime.Now;
                 db.Notifications.Add(notifications);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 
-            ViewBag.UserId = new SelectList(db.Users, "ID", "Email", notifications.UserId);
+            //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", notifications.UserId);
             return View(notifications);
         }
 

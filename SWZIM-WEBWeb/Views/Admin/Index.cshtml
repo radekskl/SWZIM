@@ -1,7 +1,35 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<section id="main-content">
+    <section class="wrapper">
 
+        <div class="row">
+            <div class="col-lg-12">
+                <!--breadcrumbs start -->
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="icon_house_alt"></i> Home</a></li>
+                    <li class="active"> Wystawianie powiadomień</li>
+                </ul>
+                <!--breadcrumbs end -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Wystawianie powiadomień
+                    </header>
+                    <div class="panel-body">
+                        <p>
+                            @Html.ActionLink("Utwórz nowe powiadomienie", "Create")
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+</section>

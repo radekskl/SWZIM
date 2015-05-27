@@ -202,7 +202,7 @@
                             <li style="text-align: center;">
                                 <p class="blue">Masz @messageCount.ToString() nowych powiadomień!</p>
                             </li>
-                            @foreach(Notifications notification in NotificationsHelper.GetNotifications(ViewBag.UserId))
+                            @foreach(Notifications notification in NotificationsHelper.GetNotifications(ViewBag.UserId, 5))
                             {
                                 <li>
                                     @{var isRead = notification.IsRead.HasValue && notification.IsRead.Value; }
@@ -303,7 +303,10 @@
                             <li><a class="active" href="#">Import danych</a></li>
                             <li><a class="" href="#">Eksport danych</a></li>
                             <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/groups.aspx")"  target="_blank">Zarządzanie grupami</a></li>
-                            <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/people.aspx?MembershipGroupId=8")"  target="_blank">Zarządzanie użytkownikami</a></li>
+                            <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/people.aspx?MembershipGroupId=8")" target="_blank">Zarządzanie użytkownikami</a></li>
+                            <li><a class="" href="@(Url.Action("Create", "Notifications"))">Wystawianie powiadomień</a></li>
+                        
+                            
                         </ul>
                     </li>
                     <li data-ctrl="Profile" data-action="Index">

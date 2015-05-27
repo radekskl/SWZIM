@@ -23,7 +23,7 @@ namespace SWZIM_WEBWeb.Helpers
             // get notification where isRead false;
         }
 
-        public static IEnumerable<Notifications> GetNotifications(int userId)
+        public static IEnumerable<Notifications> GetNotifications(int userId, int getCount)
         {
             IEnumerable<Notifications> results;
 
@@ -33,7 +33,7 @@ namespace SWZIM_WEBWeb.Helpers
                     .Where(o => o.UserId == userId)
                     .OrderByDescending(a => a.Created);
 
-                return results.ToList();
+                return results.ToList().Take(getCount);
             }
         }
 

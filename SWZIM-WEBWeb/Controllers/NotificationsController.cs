@@ -44,6 +44,13 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Create()
         {
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+            using (var clientContext = spContext.CreateAppOnlyClientContextForSPAppWeb())
+            {
+                //Microsoft.SharePoint.Client.UserCollection spUsers = clientContext.Web.SiteUsers;
+                //clientContext.Load(spUsesr, user => user.Title, user => user.Id, user => user.Email);
+                //clientContext.ExecuteQuery();
+            }
             ViewBag.UserList = new SelectList(db.Users, "ID", "Email");
             return View();
         }

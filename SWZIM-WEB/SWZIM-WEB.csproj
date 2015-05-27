@@ -48,6 +48,7 @@
       <OpcRelationship>manifest-icon</OpcRelationship>
     </Content>
     <Content Include="Elements.xml" />
+    <Content Include="EmptyElement\Elements.xml" />
     <Content Include="Features\Feature1\Feature1.Template.xml">
       <DependentUpon>Feature1.feature</DependentUpon>
     </Content>
@@ -76,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="EmptyElement\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{c40d9a91-5549-4419-bf55-4b4465cfdee2}</SharePointProjectItemId>
+    </None>
     <None Include="Features\Feature1\Feature1.feature">
       <FeatureId>{d21b8563-045d-4383-80dc-dbb7f3096b17}</FeatureId>
     </None>

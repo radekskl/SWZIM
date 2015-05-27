@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c5a3d589254544c7a50afcecfe439467" Name="Diagram1">
+      <Diagram DiagramId="c5a3d589254544c7a50afcecfe439467" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="SWZIM_dbModel.Notifications" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SWZIM_dbModel.Users" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="SWZIM_dbModel.FK_Notifications_0" ManuallyRouted="false" />
@@ -20,34 +20,17 @@
         </AssociationConnector>
         <AssociationConnector Association="SWZIM_dbModel.FK_EventTypes_MarkerIcon" />
         <AssociationConnector Association="SWZIM_dbModel.EventToGroups" ManuallyRouted="true" >
-          <ConnectorPoint PointX="12.5" PointY="4.201396484375" />
-          <ConnectorPoint PointX="12.5" PointY="5.1151432291666659" />
-          <ConnectorPoint PointX="10.25" PointY="5.1151432291666659" />
-          <ConnectorPoint PointX="10.25" PointY="3.875" />
-          <ConnectorPoint PointX="8.7395833333333339" PointY="3.8749999999999996" />
-          <ConnectorPoint PointX="8.5729166666666661" PointY="3.875" />
-          <ConnectorPoint PointX="7.052083333333333" PointY="3.8749999999999996" />
-          <ConnectorPoint PointX="6.885416666666667" PointY="3.875" />
-          <ConnectorPoint PointX="3.625" PointY="3.875" />
-          <ConnectorPoint PointX="3.625" PointY="5.5213056005859364" />
-          <ConnectorPoint PointX="3.25" PointY="5.5213056005859364" />
+          <ConnectorPoint PointX="11.75" PointY="3.8164071178385406" />
+          <ConnectorPoint PointX="7.052083333333333" PointY="3.81640711783854" />
+          <ConnectorPoint PointX="6.885416666666667" PointY="3.8164071178385406" />
+          <ConnectorPoint PointX="2.625" PointY="3.8164071178385406" />
+          <ConnectorPoint PointX="2.625" PointY="4.125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementTypes" Width="1.5" PointX="12.875" PointY="5.875" />
         <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" ManuallyRouted="true" >
           <ConnectorPoint PointX="6.96875" PointY="3.1052864583333331" />
-          <ConnectorPoint PointX="6.96875" PointY="8.8180143229166656" />
-          <ConnectorPoint PointX="10.9259375" PointY="8.8180143229166656" />
-          <ConnectorPoint PointX="10.9259375" PointY="7.3961393229166656" />
-          <ConnectorPoint PointX="12.875" PointY="7.3961393229166656" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElements" Width="1.5" PointX="8.5" PointY="4.125" />
-        <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" />
-        <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElements_Users" />
-        <AssociationConnector Association="SWZIM_dbModel.ElementToElement" ManuallyRouted="true" >
-          <ConnectorPoint PointX="9.0319230769230767" PointY="7.2590950520833317" />
-          <ConnectorPoint PointX="9.0319230769230767" PointY="7.8215950520833335" />
-          <ConnectorPoint PointX="9.4784615384615378" PointY="7.8215950520833335" />
-          <ConnectorPoint PointX="9.4784615384615378" PointY="7.2590950520833317" />
+          <ConnectorPoint PointX="6.96875" PointY="6.8817350260416674" />
+          <ConnectorPoint PointX="12.875" PointY="6.8817350260416674" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

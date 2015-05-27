@@ -76,6 +76,7 @@ namespace SWZIM_WEBWeb
                     u.ID = userId;
                     u.Email = userEmail;
                     u.UserName = userName;
+                    u.GroupId = 1;
                     context.Users.Add(u);
                     context.SaveChanges();
                 }

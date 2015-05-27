@@ -4,7 +4,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{AE9EA16F-B564-475E-8DFF-8653C27A7213}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -85,6 +86,12 @@
     <Reference Include="Microsoft.Office365.SharePoint">
       <HintPath>..\SWZIM-WEB\packages\Microsoft.Office365.SharePoint.1.0.22\lib\net40\Microsoft.Office365.SharePoint.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SharePoint.Client, Version=16.0.0.0">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.0.0.0">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Spatial">
       <HintPath>..\SWZIM-WEB\packages\Microsoft.Spatial.6.8.1\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.Spatial.dll</HintPath>
     </Reference>
@@ -151,8 +158,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Net.Http"></Reference>
-    <Reference Include="System.Net.Http.WebRequest"></Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
     <Reference Include="WebGrease">
       <HintPath>..\SWZIM-WEB\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -429,7 +438,8 @@
           <IISUrl>http://localhost:64038/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

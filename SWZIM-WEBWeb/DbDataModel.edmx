@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SWZIM_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ElementToElement">
+          <Key>
+            <PropertyRef Name="Element1" />
+            <PropertyRef Name="Element2" />
+          </Key>
+          <Property Name="Element1" Type="int" Nullable="false" />
+          <Property Name="Element2" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Events">
           <Key>
             <PropertyRef Name="Id" />
@@ -106,6 +114,30 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="80" />
           <Property Name="GroupId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ElementToElement_1">
+          <End Role="LayoutElements" Type="Self.LayoutElements" Multiplicity="1" />
+          <End Role="ElementToElement" Type="Self.ElementToElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayoutElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ElementToElement">
+              <PropertyRef Name="Element1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ElementToElement_2">
+          <End Role="LayoutElements" Type="Self.LayoutElements" Multiplicity="1" />
+          <End Role="ElementToElement" Type="Self.ElementToElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayoutElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ElementToElement">
+              <PropertyRef Name="Element2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Events_EventType">
           <End Role="EventTypes" Type="Self.EventTypes" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
@@ -251,6 +283,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SWZIM_dbModelStoreContainer">
+          <EntitySet Name="ElementToElement" EntityType="Self.ElementToElement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventToGroups" EntityType="Self.EventToGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventTypes" EntityType="Self.EventTypes" Schema="dbo" store:Type="Tables" />
@@ -262,6 +295,14 @@
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ElementToElement_1" Association="Self.FK_ElementToElement_1">
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="ElementToElement" EntitySet="ElementToElement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ElementToElement_2" Association="Self.FK_ElementToElement_2">
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="ElementToElement" EntitySet="ElementToElement" />
+          </AssociationSet>
           <AssociationSet Name="FK_Events_EventType" Association="Self.FK_Events_EventType">
             <End Role="EventTypes" EntitySet="EventTypes" />
             <End Role="Events" EntitySet="Events" />
@@ -401,6 +442,10 @@
           <AssociationSet Name="FK_LayoutElements_Users" Association="SWZIM_dbModel.FK_LayoutElements_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="LayoutElements" EntitySet="LayoutElements" />
+          </AssociationSet>
+          <AssociationSet Name="ElementToElement" Association="SWZIM_dbModel.ElementToElement">
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="LayoutElements1" EntitySet="LayoutElements" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Groups">
@@ -550,6 +595,8 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="LayoutElementTypes" Relationship="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" FromRole="LayoutElements" ToRole="LayoutElementTypes" />
           <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_LayoutElements_Users" FromRole="LayoutElements" ToRole="Users" />
+          <NavigationProperty Name="LayoutElements1" Relationship="SWZIM_dbModel.ElementToElement" FromRole="LayoutElements" ToRole="LayoutElements1" />
+          <NavigationProperty Name="LayoutElements2" Relationship="SWZIM_dbModel.ElementToElement" FromRole="LayoutElements1" ToRole="LayoutElements" />
         </EntityType>
         <Association Name="FK_LayoutElements_LayoutElementTypes">
           <End Type="SWZIM_dbModel.LayoutElementTypes" Role="LayoutElementTypes" Multiplicity="1" />
@@ -574,6 +621,10 @@
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="ElementToElement">
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements1" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -691,6 +742,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="ElementToElement" TypeName="SWZIM_dbModel.ElementToElement" StoreEntitySet="ElementToElement">
+            <EndProperty Name="LayoutElements1">
+              <ScalarProperty Name="Id" ColumnName="Element2" />
+            </EndProperty>
+            <EndProperty Name="LayoutElements">
+              <ScalarProperty Name="Id" ColumnName="Element1" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

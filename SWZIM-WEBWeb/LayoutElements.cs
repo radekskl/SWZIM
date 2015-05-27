@@ -18,6 +18,16 @@ using System;
 public partial class LayoutElements
 {
 
+    public LayoutElements()
+    {
+
+        this.LayoutElements1 = new HashSet<LayoutElements>();
+
+        this.LayoutElements2 = new HashSet<LayoutElements>();
+
+    }
+
+
     public int Id { get; set; }
 
     public string Name { get; set; }
@@ -37,6 +47,10 @@ public partial class LayoutElements
     public virtual LayoutElementTypes LayoutElementTypes { get; set; }
 
     public virtual Users Users { get; set; }
+
+    public virtual ICollection<LayoutElements> LayoutElements1 { get; set; }
+
+    public virtual ICollection<LayoutElements> LayoutElements2 { get; set; }
 
 }
 

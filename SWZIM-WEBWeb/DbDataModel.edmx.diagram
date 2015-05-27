@@ -35,12 +35,20 @@
         <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementTypes" Width="1.5" PointX="12.875" PointY="5.875" />
         <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" ManuallyRouted="true" >
           <ConnectorPoint PointX="6.96875" PointY="3.1052864583333331" />
-          <ConnectorPoint PointX="6.96875" PointY="7.3961393229166656" />
+          <ConnectorPoint PointX="6.96875" PointY="8.8180143229166656" />
+          <ConnectorPoint PointX="10.9259375" PointY="8.8180143229166656" />
+          <ConnectorPoint PointX="10.9259375" PointY="7.3961393229166656" />
           <ConnectorPoint PointX="12.875" PointY="7.3961393229166656" />
         </AssociationConnector>
         <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElements" Width="1.5" PointX="8.5" PointY="4.125" />
         <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" />
         <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElements_Users" />
+        <AssociationConnector Association="SWZIM_dbModel.ElementToElement" ManuallyRouted="true" >
+          <ConnectorPoint PointX="9.0319230769230767" PointY="7.2590950520833317" />
+          <ConnectorPoint PointX="9.0319230769230767" PointY="7.8215950520833335" />
+          <ConnectorPoint PointX="9.4784615384615378" PointY="7.8215950520833335" />
+          <ConnectorPoint PointX="9.4784615384615378" PointY="7.2590950520833317" />
+        </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

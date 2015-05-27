@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SWZIM_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="MarkerIcon">
           <Key>
             <PropertyRef Name="Id" />
@@ -31,6 +38,7 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="80" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Notifications_0">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -44,13 +52,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SWZIM_dbModelStoreContainer">
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarkerIcon" EntityType="Self.MarkerIcon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Notifications_0" Association="Self.FK_Notifications_0">
             <End Role="Users" EntitySet="Users" />
             <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Group" Association="Self.FK_Users_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -77,6 +102,8 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_0" FromRole="Users" ToRole="Notifications" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="SWZIM_dbModel.FK_Users_Group" FromRole="Users" ToRole="Group" />
         </EntityType>
         <Association Name="FK_Notifications_0">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -98,6 +125,11 @@
             <End Role="Notifications" EntitySet="Notifications" />
           </AssociationSet>
           <EntitySet Name="MarkerIcon" EntityType="SWZIM_dbModel.MarkerIcon" />
+          <EntitySet Name="Group" EntityType="SWZIM_dbModel.Group" />
+          <AssociationSet Name="FK_Users_Group" Association="SWZIM_dbModel.FK_Users_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="MarkerIcon">
           <Key>
@@ -107,6 +139,26 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Users_Group" FromRole="Group" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Users_Group">
+          <End Type="SWZIM_dbModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -128,6 +180,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="SWZIM_dbModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -138,6 +191,14 @@
             <EntityTypeMapping TypeName="SWZIM_dbModel.MarkerIcon">
               <MappingFragment StoreEntitySet="MarkerIcon">
                 <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.Group">
+              <MappingFragment StoreEntitySet="Group">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

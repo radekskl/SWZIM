@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="SWZIM_dbModel.Users" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="SWZIM_dbModel.FK_Notifications_0" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SWZIM_dbModel.MarkerIcon" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Group" Width="1.5" PointX="1.125" PointY="4" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_Users_Group" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,6 +12,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="GroupToLayers">
+          <Key>
+            <PropertyRef Name="GroupId" />
+            <PropertyRef Name="LayerId" />
+          </Key>
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="LayerId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Layers">
           <Key>
             <PropertyRef Name="Id" />
@@ -48,6 +56,30 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="80" />
           <Property Name="GroupId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_GroupToLayers_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="GroupToLayers" Type="Self.GroupToLayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupToLayers">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupToLayers_Layers">
+          <End Role="Layers" Type="Self.Layers" Multiplicity="1" />
+          <End Role="GroupToLayers" Type="Self.GroupToLayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Layers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupToLayers">
+              <PropertyRef Name="LayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Notifications_0">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
@@ -74,10 +106,19 @@
         </Association>
         <EntityContainer Name="SWZIM_dbModelStoreContainer">
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupToLayers" EntityType="Self.GroupToLayers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layers" EntityType="Self.Layers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GroupToLayers_Groups" Association="Self.FK_GroupToLayers_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupToLayers" EntitySet="GroupToLayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupToLayers_Layers" Association="Self.FK_GroupToLayers_Layers">
+            <End Role="Layers" EntitySet="Layers" />
+            <End Role="GroupToLayers" EntitySet="GroupToLayers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Notifications_0" Association="Self.FK_Notifications_0">
             <End Role="Users" EntitySet="Users" />
             <End Role="Notifications" EntitySet="Notifications" />
@@ -140,6 +181,10 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <EntitySet Name="Layers" EntityType="SWZIM_dbModel.Layers" />
+          <AssociationSet Name="GroupToLayers" Association="SWZIM_dbModel.GroupToLayers">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Layers" EntitySet="Layers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Groups">
           <Key>
@@ -148,6 +193,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Users_Groups" FromRole="Groups" ToRole="Users" />
+          <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.GroupToLayers" FromRole="Groups" ToRole="Layers" />
         </EntityType>
         <EntityType Name="MarkerIcons">
           <Key>
@@ -176,7 +222,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.GroupToLayers" FromRole="Layers" ToRole="Groups" />
         </EntityType>
+        <Association Name="GroupToLayers">
+          <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
+          <End Type="SWZIM_dbModel.Layers" Role="Layers" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -231,6 +282,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="GroupToLayers" TypeName="SWZIM_dbModel.GroupToLayers" StoreEntitySet="GroupToLayers">
+            <EndProperty Name="Layers">
+              <ScalarProperty Name="Id" ColumnName="LayerId" />
+            </EndProperty>
+            <EndProperty Name="Groups">
+              <ScalarProperty Name="Id" ColumnName="GroupId" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -18,11 +18,23 @@ using System;
 public partial class Layers
 {
 
+    public Layers()
+    {
+
+        this.Groups = new HashSet<Groups>();
+
+    }
+
+
     public int Id { get; set; }
 
     public string Name { get; set; }
 
     public string Description { get; set; }
+
+
+
+    public virtual ICollection<Groups> Groups { get; set; }
 
 }
 

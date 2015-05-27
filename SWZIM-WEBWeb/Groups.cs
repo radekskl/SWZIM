@@ -23,6 +23,8 @@ public partial class Groups
 
         this.Users = new HashSet<Users>();
 
+        this.Layers = new HashSet<Layers>();
+
     }
 
 
@@ -33,6 +35,8 @@ public partial class Groups
 
 
     public virtual ICollection<Users> Users { get; set; }
+
+    public virtual ICollection<Layers> Layers { get; set; }
 
 }
 

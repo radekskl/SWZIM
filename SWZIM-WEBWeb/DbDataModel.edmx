@@ -58,6 +58,18 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="LayoutElements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Longitude" Type="numeric" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="Latitude" Type="numeric" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="LayoutElementTypeId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="LayoutElementTypes">
           <Key>
             <PropertyRef Name="Id" />
@@ -178,6 +190,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LayoutElements_LayoutElementTypes">
+          <End Role="LayoutElementTypes" Type="Self.LayoutElementTypes" Multiplicity="1" />
+          <End Role="LayoutElements" Type="Self.LayoutElements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayoutElementTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LayoutElements">
+              <PropertyRef Name="LayoutElementTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LayoutElements_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="LayoutElements" Type="Self.LayoutElements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LayoutElements">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LayoutElementTypes_MarkersIcon">
           <End Role="MarkerIcons" Type="Self.MarkerIcons" Multiplicity="0..1" />
           <End Role="LayoutElementTypes" Type="Self.LayoutElementTypes" Multiplicity="*" />
@@ -221,6 +257,7 @@
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupToLayers" EntityType="Self.GroupToLayers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layers" EntityType="Self.Layers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LayoutElements" EntityType="Self.LayoutElements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LayoutElementTypes" EntityType="Self.LayoutElementTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
@@ -252,6 +289,14 @@
           <AssociationSet Name="FK_GroupToLayers_Layers" Association="Self.FK_GroupToLayers_Layers">
             <End Role="Layers" EntitySet="Layers" />
             <End Role="GroupToLayers" EntitySet="GroupToLayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayoutElements_LayoutElementTypes" Association="Self.FK_LayoutElements_LayoutElementTypes">
+            <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayoutElements_Users" Association="Self.FK_LayoutElements_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
           </AssociationSet>
           <AssociationSet Name="FK_LayoutElementTypes_MarkersIcon" Association="Self.FK_LayoutElementTypes_MarkersIcon">
             <End Role="MarkerIcons" EntitySet="MarkerIcons" />
@@ -293,6 +338,7 @@
           <Property Name="GroupId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.FK_Users_Groups" FromRole="Users" ToRole="Groups" />
           <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Users" ToRole="Events" />
+          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_Users" FromRole="Users" ToRole="LayoutElements" />
         </EntityType>
         <Association Name="FK_Notifications_0">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -346,6 +392,15 @@
           <AssociationSet Name="FK_LayoutElementTypes_MarkersIcon" Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon">
             <End Role="MarkerIcons" EntitySet="MarkerIcons" />
             <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
+          </AssociationSet>
+          <EntitySet Name="LayoutElements" EntityType="SWZIM_dbModel.LayoutElements" />
+          <AssociationSet Name="FK_LayoutElements_LayoutElementTypes" Association="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes">
+            <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayoutElements_Users" Association="SWZIM_dbModel.FK_LayoutElements_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Groups">
@@ -466,9 +521,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MarkerId" Type="Int32" />
           <Property Name="MarkerIconId" Type="Int32" />
           <NavigationProperty Name="MarkerIcons" Relationship="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" FromRole="LayoutElementTypes" ToRole="MarkerIcons" />
+          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" FromRole="LayoutElementTypes" ToRole="LayoutElements" />
         </EntityType>
         <Association Name="FK_LayoutElementTypes_MarkersIcon">
           <End Type="SWZIM_dbModel.MarkerIcons" Role="MarkerIcons" Multiplicity="0..1" />
@@ -479,6 +534,44 @@
             </Principal>
             <Dependent Role="LayoutElementTypes">
               <PropertyRef Name="MarkerIconId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LayoutElements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="LayoutElementTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LayoutElementTypes" Relationship="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" FromRole="LayoutElements" ToRole="LayoutElementTypes" />
+          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_LayoutElements_Users" FromRole="LayoutElements" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_LayoutElements_LayoutElementTypes">
+          <End Type="SWZIM_dbModel.LayoutElementTypes" Role="LayoutElementTypes" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayoutElementTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LayoutElements">
+              <PropertyRef Name="LayoutElementTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LayoutElements_Users">
+          <End Type="SWZIM_dbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LayoutElements">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -580,6 +673,19 @@
             <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElementTypes">
               <MappingFragment StoreEntitySet="LayoutElementTypes">
                 <ScalarProperty Name="MarkerIconId" ColumnName="MarkerIconId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LayoutElements">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElements">
+              <MappingFragment StoreEntitySet="LayoutElements">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LayoutElementTypeId" ColumnName="LayoutElementTypeId" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

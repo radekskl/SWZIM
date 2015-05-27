@@ -25,6 +25,8 @@ public partial class Users
 
         this.Events = new HashSet<Events>();
 
+        this.LayoutElements = new HashSet<LayoutElements>();
+
     }
 
 
@@ -43,6 +45,8 @@ public partial class Users
     public virtual Groups Groups { get; set; }
 
     public virtual ICollection<Events> Events { get; set; }
+
+    public virtual ICollection<LayoutElements> LayoutElements { get; set; }
 
 }
 

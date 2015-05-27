@@ -21,21 +21,26 @@
         <AssociationConnector Association="SWZIM_dbModel.FK_EventTypes_MarkerIcon" />
         <AssociationConnector Association="SWZIM_dbModel.EventToGroups" ManuallyRouted="true" >
           <ConnectorPoint PointX="12.5" PointY="4.201396484375" />
-          <ConnectorPoint PointX="12.5" PointY="6.8958333333333339" />
-          <ConnectorPoint PointX="7.833333333333333" PointY="6.895833333333333" />
-          <ConnectorPoint PointX="7.666666666666667" PointY="6.8958333333333339" />
-          <ConnectorPoint PointX="3.625" PointY="6.8958333333333339" />
-          <ConnectorPoint PointX="3.625" PointY="5.6246414856770821" />
-          <ConnectorPoint PointX="3.25" PointY="5.6246414856770821" />
+          <ConnectorPoint PointX="12.5" PointY="5.1151432291666659" />
+          <ConnectorPoint PointX="10.25" PointY="5.1151432291666659" />
+          <ConnectorPoint PointX="10.25" PointY="3.875" />
+          <ConnectorPoint PointX="8.7395833333333339" PointY="3.8749999999999996" />
+          <ConnectorPoint PointX="8.5729166666666661" PointY="3.875" />
+          <ConnectorPoint PointX="7.052083333333333" PointY="3.8749999999999996" />
+          <ConnectorPoint PointX="6.885416666666667" PointY="3.875" />
+          <ConnectorPoint PointX="3.625" PointY="3.875" />
+          <ConnectorPoint PointX="3.625" PointY="5.5213056005859364" />
+          <ConnectorPoint PointX="3.25" PointY="5.5213056005859364" />
         </AssociationConnector>
         <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementTypes" Width="1.5" PointX="12.875" PointY="5.875" />
         <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" ManuallyRouted="true" >
           <ConnectorPoint PointX="6.96875" PointY="3.1052864583333331" />
-          <ConnectorPoint PointX="6.96875" PointY="3.5703192356770832" />
-          <ConnectorPoint PointX="7.75" PointY="3.5703192356770832" />
-          <ConnectorPoint PointX="7.75" PointY="7.3755598958333328" />
-          <ConnectorPoint PointX="12.875" PointY="7.3755598958333328" />
+          <ConnectorPoint PointX="6.96875" PointY="7.3961393229166656" />
+          <ConnectorPoint PointX="12.875" PointY="7.3961393229166656" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElements" Width="1.5" PointX="8.5" PointY="4.125" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElements_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -48,6 +48,8 @@ public partial class SWZIM_dbEntities : DbContext
 
     public virtual DbSet<LayoutElementTypes> LayoutElementTypes { get; set; }
 
+    public virtual DbSet<LayoutElements> LayoutElements { get; set; }
+
 }
 
 }

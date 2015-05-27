@@ -13,6 +13,12 @@
         <AssociationConnector Association="SWZIM_dbModel.FK_Users_Groups" />
         <EntityTypeShape EntityType="SWZIM_dbModel.Layers" Width="1.5" PointX="5.25" PointY="4.25" />
         <AssociationConnector Association="SWZIM_dbModel.GroupToLayers" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Events" Width="1.5" PointX="11.75" PointY="0.875" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.EventTypes" Width="1.5" PointX="7.875" PointY="1.75" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_Events_EventType" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_Events_Users" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="SWZIM_dbModel.FK_EventTypes_MarkerIcon" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,6 +5,27 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SWZIM_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Latitude" Type="numeric" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="Longitude" Type="numeric" Precision="8" Scale="6" Nullable="false" />
+          <Property Name="AddedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="EventTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="MarkerIconId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="Id" />
@@ -56,6 +77,42 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="80" />
           <Property Name="GroupId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Events_EventType">
+          <End Role="EventTypes" Type="Self.EventTypes" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="EventTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventTypes_MarkerIcon">
+          <End Role="MarkerIcons" Type="Self.MarkerIcons" Multiplicity="1" />
+          <End Role="EventTypes" Type="Self.EventTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarkerIcons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EventTypes">
+              <PropertyRef Name="MarkerIconId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GroupToLayers_Groups">
           <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
           <End Role="GroupToLayers" Type="Self.GroupToLayers" Multiplicity="*" />
@@ -105,12 +162,26 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SWZIM_dbModelStoreContainer">
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventTypes" EntityType="Self.EventTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupToLayers" EntityType="Self.GroupToLayers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layers" EntityType="Self.Layers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Events_EventType" Association="Self.FK_Events_EventType">
+            <End Role="EventTypes" EntitySet="EventTypes" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Users" Association="Self.FK_Events_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventTypes_MarkerIcon" Association="Self.FK_EventTypes_MarkerIcon">
+            <End Role="MarkerIcons" EntitySet="MarkerIcons" />
+            <End Role="EventTypes" EntitySet="EventTypes" />
+          </AssociationSet>
           <AssociationSet Name="FK_GroupToLayers_Groups" Association="Self.FK_GroupToLayers_Groups">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="GroupToLayers" EntitySet="GroupToLayers" />
@@ -154,6 +225,7 @@
           <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_0" FromRole="Users" ToRole="Notifications" />
           <Property Name="GroupId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.FK_Users_Groups" FromRole="Users" ToRole="Groups" />
+          <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Users" ToRole="Events" />
         </EntityType>
         <Association Name="FK_Notifications_0">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -185,6 +257,20 @@
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Layers" EntitySet="Layers" />
           </AssociationSet>
+          <EntitySet Name="Events" EntityType="SWZIM_dbModel.Events" />
+          <EntitySet Name="EventTypes" EntityType="SWZIM_dbModel.EventTypes" />
+          <AssociationSet Name="FK_Events_EventType" Association="SWZIM_dbModel.FK_Events_EventType">
+            <End Role="EventTypes" EntitySet="EventTypes" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Users" Association="SWZIM_dbModel.FK_Events_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventTypes_MarkerIcon" Association="SWZIM_dbModel.FK_EventTypes_MarkerIcon">
+            <End Role="MarkerIcons" EntitySet="MarkerIcons" />
+            <End Role="EventTypes" EntitySet="EventTypes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Groups">
           <Key>
@@ -202,6 +288,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_EventTypes_MarkerIcon" FromRole="MarkerIcons" ToRole="EventTypes" />
         </EntityType>
         <Association Name="FK_Users_Groups">
           <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="1" />
@@ -227,6 +314,67 @@
         <Association Name="GroupToLayers">
           <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
           <End Type="SWZIM_dbModel.Layers" Role="Layers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="AddedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EventTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_Events_EventType" FromRole="Events" ToRole="EventTypes" />
+          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Events" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="EventTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkerIconId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.FK_Events_EventType" FromRole="EventTypes" ToRole="Events" />
+          <NavigationProperty Name="MarkerIcons" Relationship="SWZIM_dbModel.FK_EventTypes_MarkerIcon" FromRole="EventTypes" ToRole="MarkerIcons" />
+        </EntityType>
+        <Association Name="FK_Events_EventType">
+          <End Type="SWZIM_dbModel.EventTypes" Role="EventTypes" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.Events" Role="Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="EventTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Type="SWZIM_dbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.Events" Role="Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="AddedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventTypes_MarkerIcon">
+          <End Type="SWZIM_dbModel.MarkerIcons" Role="MarkerIcons" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.EventTypes" Role="EventTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarkerIcons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EventTypes">
+              <PropertyRef Name="MarkerIconId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -290,6 +438,29 @@
               <ScalarProperty Name="Id" ColumnName="GroupId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="EventTypeId" ColumnName="EventTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTypes">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.EventTypes">
+              <MappingFragment StoreEntitySet="EventTypes">
+                <ScalarProperty Name="MarkerIconId" ColumnName="MarkerIconId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -15,26 +15,30 @@ namespace SWZIM_WEBWeb
 using System;
     using System.Collections.Generic;
     
-public partial class Layers
+public partial class Events
 {
-
-    public Layers()
-    {
-
-        this.Groups = new HashSet<Groups>();
-
-    }
-
 
     public int Id { get; set; }
 
     public string Name { get; set; }
 
+    public decimal Latitude { get; set; }
+
+    public decimal Longitude { get; set; }
+
+    public int AddedBy { get; set; }
+
+    public System.DateTime CreatedAt { get; set; }
+
     public string Description { get; set; }
 
+    public int EventTypeId { get; set; }
 
 
-    public virtual ICollection<Groups> Groups { get; set; }
+
+    public virtual EventTypes EventTypes { get; set; }
+
+    public virtual Users Users { get; set; }
 
 }
 

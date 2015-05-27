@@ -15,13 +15,13 @@ namespace SWZIM_WEBWeb
 using System;
     using System.Collections.Generic;
     
-public partial class Layers
+public partial class EventTypes
 {
 
-    public Layers()
+    public EventTypes()
     {
 
-        this.Groups = new HashSet<Groups>();
+        this.Events = new HashSet<Events>();
 
     }
 
@@ -30,11 +30,13 @@ public partial class Layers
 
     public string Name { get; set; }
 
-    public string Description { get; set; }
+    public int MarkerIconId { get; set; }
 
 
 
-    public virtual ICollection<Groups> Groups { get; set; }
+    public virtual ICollection<Events> Events { get; set; }
+
+    public virtual MarkerIcons MarkerIcons { get; set; }
 
 }
 

@@ -42,6 +42,8 @@ public partial class Events
 
     public int EventTypeId { get; set; }
 
+    public int Status { get; set; }
+
 
 
     public virtual EventTypes EventTypes { get; set; }

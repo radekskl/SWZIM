@@ -17,6 +17,7 @@
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="EventTypeId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EventToGroups">
           <Key>
@@ -376,6 +377,7 @@
           <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_Events_EventType" FromRole="Events" ToRole="EventTypes" />
           <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Events" ToRole="Users" />
           <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.EventToGroups" FromRole="Events" ToRole="Groups" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EventTypes">
           <Key>
@@ -492,6 +494,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="SWZIM_dbModel.Events">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="EventTypeId" ColumnName="EventTypeId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />

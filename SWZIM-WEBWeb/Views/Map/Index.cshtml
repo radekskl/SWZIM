@@ -54,10 +54,10 @@
 
     function toggleWyswietl(id) {
         for (var i = 0; i < activeLayers.length; i++) {
-
+            alert(id);
         }
     }
-
+    //test
     function wyswietlWarstwe(id) {
         $.get("/Map/GetAllEventsForLayout/" + id, function (data) {
             for (var i = 0; i < data.length; i++) {

@@ -11,7 +11,7 @@ namespace SWZIM_WEBWeb.Helpers
         {
             using (var db = new SWZIM_dbEntities())
             {
-                return db.Layers.Where(l=> l.Groups.Any(g=> g.Users.Where(u => u.ID == userId).Count() > 0)).ToList();
+                return db.Layers.Where(l=> l.Groups.All(g=> g.Users.Where(u => u.ID == userId).Count() > 0)).ToList();
             }
         }
     }

@@ -59,6 +59,10 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 events.AddedBy = ViewBag.UserId;
                 events.CreatedAt = DateTime.Now;
+                //>> 
+                var gr = db.Groups.Find(1);
+                events.Groups.Add(gr);
+                //<<
                 db.Events.Add(events);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });

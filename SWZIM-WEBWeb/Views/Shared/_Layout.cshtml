@@ -271,9 +271,9 @@
                             @*<li><a class="active" href="#">Warstwa 1</a></li>
                             <li><a class="" href="#">Warstwa 2</a></li>
                             <li><a class="" href="#">Warstwa 3</a></li>*@
-                            @foreach (var item in LayersHelper.GetLayersList())
+                            @foreach (var item in LayersHelper.GetLayersList(ViewBag.UserId))
                             {
-                                <li><a href="@Url.Action("Details", "Layouts", new { id = item.Id })">@item.Name</a></li>
+                                <li><a href="@Url.Action("Layout", "Map", new { id = item.Id })">@item.Name</a></li>
                             }
                         </ul>
                     </li>

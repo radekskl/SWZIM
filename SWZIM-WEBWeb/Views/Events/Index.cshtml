@@ -27,7 +27,7 @@
                     </header>
                     <div class="panel-body">
                         <p>
-                            @Html.ActionLink("Dodaj nowe wydarzenie", "Create")
+                            @Html.ActionLink("Dodaj nowe wydarzenie", "Create", null, new { Class = "btn btn-default" })
                         </p>
                         <table class="table">
                             <tr>
@@ -52,9 +52,9 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.EventTypes.Name)
                                 </th>
-                                <th>
+                                @*<th>
                                     @Html.DisplayNameFor(model => model.Users.Email)
-                                </th>
+                                </th>*@
                                 <th></th>
                             </tr>
 
@@ -82,13 +82,13 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.EventTypes.Name)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.DisplayFor(modelItem => item.Users.Email)
-                                    </td>
+                                    </td>*@
                                     <td>
-                                        @Html.ActionLink("Edycja", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }) |
-                                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                                        @Html.ActionLink("Edycja", "Edit", new { id = item.Id }, new { Class = "btn btn-info  btn-sm" })
+                                        @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }, new { id = item.Id, Class = "btn btn-warning btn-sm" })
+                                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { id = item.Id, Class = "btn btn-danger btn-sm" })
                                     </td>
                                 </tr>
                             }

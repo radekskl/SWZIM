@@ -273,7 +273,7 @@
                             <li><a class="" href="#">Warstwa 3</a></li>*@
                             @foreach (var item in LayersHelper.GetLayersList(ViewBag.UserId))
                             {
-                                <li><a href="@Url.Action("Layout", "Map", new { id = item.Id })">@item.Name</a></li>
+                                <li><a href="javascript:wyswietlWarstwe(@item.Id)">@item.Name</a></li>
                             }
                         </ul>
                     </li>

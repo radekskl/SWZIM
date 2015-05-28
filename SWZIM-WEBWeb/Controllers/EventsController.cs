@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SWZIM_WEBWeb;
+using Microsoft.SharePoint.Client;
 
 namespace SWZIM_WEBWeb.Controllers
 {
@@ -44,6 +45,21 @@ namespace SWZIM_WEBWeb.Controllers
         {
             ViewBag.EventTypeId = new SelectList(db.EventTypes, "Id", "Name");
             ViewBag.AddedBy = new SelectList(db.Users, "ID", "Email");
+
+            //int uid = ViewBag.UserId;
+            //Users u = db.Users.Where(x => x.ID == uid).First();
+            var groups = db.Groups.AsEnumerable();
+            ViewBag.Groups = new SelectList(groups, "Id", "Name");
+
+            //grupy SP
+            //var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+            //using (var clientContext = spContext.CreateAppOnlyClientContextForSPAppWeb())
+            //{
+            //    var groups = clientContext.LoadQuery(clientContext.Web.SiteGroups.Where(x => x.PrincipalType == Microsoft.SharePoint.Client.Utilities.PrincipalType.SharePointGroup));
+            //    clientContext.ExecuteQuery();
+                
+            //    ViewBag.Groups = new SelectList(groups, "Id", "Title");
+            //}
             return View();
         }
 
@@ -60,6 +76,7 @@ namespace SWZIM_WEBWeb.Controllers
                 events.AddedBy = ViewBag.UserId;
                 events.CreatedAt = DateTime.Now;
                 //>> 
+
                 var gr = db.Groups.Find(1);
                 events.Groups.Add(gr);
                 //<<

@@ -14,6 +14,7 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
 public partial class Groups
 {
@@ -32,6 +33,7 @@ public partial class Groups
 
     public int Id { get; set; }
 
+    [DisplayName("Nazwa")]
     public string Name { get; set; }
 
 

@@ -41,12 +41,13 @@ namespace SWZIM_WEBWeb
                 if (clientContext != null)
                 {
                     User spUser = clientContext.Web.CurrentUser;
-                    clientContext.Load(spUser, user => user.Title, user => user.Id, user => user.Email);
+                    clientContext.Load(spUser, user => user.Title, user => user.Id, user => user.Email, user => user.LoginName);
                     clientContext.ExecuteQuery();
 
                     viewBag.UserName = spUser.Title;
                     viewBag.UserId = spUser.Id;
                     viewBag.UserEmail = spUser.Email;
+                    viewBag.LoginName = spUser.LoginName;
 
                     if (viewBag.UserId != null && viewBag.UserId > 0)
                     {

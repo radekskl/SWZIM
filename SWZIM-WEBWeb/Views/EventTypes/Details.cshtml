@@ -47,8 +47,8 @@
                             </dl>
                         </div>
                         <p>
-                            @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }) |
-                            @Html.ActionLink("Przejdź do listy zdarzeń", "Index")
+                            @Html.ActionLink("Edytuj", "Edit", null, new { id = Model.Id, Class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Przejdź do listy zdarzeń", "Index", null, new { Class = "btn btn-info  btn-sm" })
                         </p>
                     </div>
                 </section>

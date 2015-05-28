@@ -19,9 +19,9 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            var notifications = Helpers.NotificationsHelper.GetNotifications(ViewBag.UserId, 0);
+            var notifications = Helpers.NotificationsHelper.GetNotifications(ViewBag.UserId, 10);
             //var notifications = db.Notifications.Where(x => x.UserId == .Include(n => n.Users);
-            return View(notifications.ToList());
+            return View(notifications);
         }
 
         // GET: Notifications/Details/5

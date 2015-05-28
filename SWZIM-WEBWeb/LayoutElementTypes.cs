@@ -14,6 +14,7 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
 public partial class LayoutElementTypes
 {
@@ -28,8 +29,10 @@ public partial class LayoutElementTypes
 
     public int Id { get; set; }
 
+    [DisplayName("Nazwa")]
     public string Name { get; set; }
 
+    [DisplayName("Ikona")]
     public Nullable<int> MarkerIconId { get; set; }
 
 

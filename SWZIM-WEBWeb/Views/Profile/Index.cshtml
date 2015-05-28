@@ -1,0 +1,40 @@
+﻿@model IDictionary<string, string>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<section id="main-content">
+    <section class="wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <!--breadcrumbs start -->
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="icon_house_alt"></i> Home</a></li>
+                    <li class="active"> Profil użytkownika</li>
+                </ul>
+                <!--breadcrumbs end -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Profil użytkownika
+                    </header>
+                    <div class="panel-body">
+                        @foreach (var item in Model)
+                        {
+                            
+                            //TODO
+                        }
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+</section>

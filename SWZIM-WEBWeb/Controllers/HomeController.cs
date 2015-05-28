@@ -48,5 +48,13 @@ namespace SWZIM_WEBWeb.Controllers
 
             return View();
         }
+
+        [SharePointContextFilter]
+        public ActionResult Error()
+        {
+            ViewBag.Message = "Wystąpił błąd.";
+
+            return View();
+        }
     }
 }

@@ -15,5 +15,16 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        [SharePointContextFilter]
+        public ActionResult Layout(int? id)
+        {
+            if (id != null)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("Error", "Home");
+        }
+
     }
 }

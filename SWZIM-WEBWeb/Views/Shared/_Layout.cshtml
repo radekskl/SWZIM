@@ -268,9 +268,13 @@
                         </a>
 
                         <ul class="sub">
-                            <li><a class="active" href="#">Warstwa 1</a></li>
+                            @*<li><a class="active" href="#">Warstwa 1</a></li>
                             <li><a class="" href="#">Warstwa 2</a></li>
-                            <li><a class="" href="#">Warstwa 3</a></li>
+                            <li><a class="" href="#">Warstwa 3</a></li>*@
+                            @foreach (var item in LayersHelper.GetLayersList())
+                            {
+                                <li><a href="">@item.Name</a></li>
+                            }
                         </ul>
                     </li>
 

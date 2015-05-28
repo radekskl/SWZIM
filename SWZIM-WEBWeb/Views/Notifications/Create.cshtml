@@ -25,12 +25,12 @@
                         Utwórz powiadomienie
                     </header>
                     <div class="panel-body">
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <i class="arrow_carrot-left_alt2" style="font-size: 20px;"></i>
                                 @Html.ActionLink("Wróć do listy powiadomień", "Index")
                             </div>
-                        </div>
+                        </div>*@
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownListFor(x => x.UserId, (IEnumerable<SelectListItem>)ViewBag.UserList)
+                                        @Html.DropDownListFor(x => x.UserId, (IEnumerable<SelectListItem>)ViewBag.UserList, new { Class = "form-control text-box single-line" })
                                     </div>
                                 </div>
 

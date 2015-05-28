@@ -25,6 +25,7 @@ namespace SWZIM_WEBWeb.Helpers
 
         public static IEnumerable<Notifications> GetNotifications(int userId, int getCount)
         {
+            
             IEnumerable<Notifications> results;
 
             using (var context = new SWZIM_dbEntities())
@@ -32,7 +33,10 @@ namespace SWZIM_WEBWeb.Helpers
                 results = context.Notifications
                     .Where(o => o.UserId == userId)
                     .OrderByDescending(a => a.Created);
-
+                if (getCount == 0)
+                {
+                    results.ToList();
+                }
                 return results.ToList().Take(getCount);
             }
         }

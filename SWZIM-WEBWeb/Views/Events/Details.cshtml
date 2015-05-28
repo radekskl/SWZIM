@@ -1,0 +1,106 @@
+﻿@model SWZIM_WEBWeb.Events
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<section id="main-content">
+    <section class="wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <!--breadcrumbs start -->
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="icon_house_alt"></i> Home</a></li>
+                    <li class="active"> Szczegóły wydarzenia</li>
+                </ul>
+                <!--breadcrumbs end -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Szczegóły wydarzenia
+                    </header>
+                    <div class="panel-body">
+                        <div>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Name)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Latitude)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Latitude)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Longitude)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Longitude)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.CreatedAt)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.CreatedAt)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Description)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Status)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.EventTypes.Name)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.EventTypes.Name)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Users.Email)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.Users.Email)
+                                </dd>
+
+                            </dl>
+                        </div>
+                        <p>
+                            @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }) |
+                            @Html.ActionLink("Przejdź do listy zdarzeń", "Index")
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+</section>

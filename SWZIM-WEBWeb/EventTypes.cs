@@ -11,6 +11,7 @@ namespace SWZIM_WEBWeb
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class EventTypes
     {
@@ -18,9 +19,11 @@ namespace SWZIM_WEBWeb
         {
             this.Events = new HashSet<Events>();
         }
-    
+
         public int Id { get; set; }
+        [DisplayName("Nazwa")]
         public string Name { get; set; }
+        [DisplayName("Ikona")]
         public int MarkerIconId { get; set; }
     
         public virtual ICollection<Events> Events { get; set; }

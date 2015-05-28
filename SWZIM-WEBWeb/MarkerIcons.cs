@@ -11,6 +11,7 @@ namespace SWZIM_WEBWeb
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class MarkerIcons
     {
@@ -19,9 +20,11 @@ namespace SWZIM_WEBWeb
             this.EventTypes = new HashSet<EventTypes>();
             this.LayoutElementTypes = new HashSet<LayoutElementTypes>();
         }
-    
+
         public int Id { get; set; }
+        [DisplayName("Nazwa")]
         public string Name { get; set; }
+        [DisplayName("Adres URL")]
         public string Url { get; set; }
     
         public virtual ICollection<EventTypes> EventTypes { get; set; }

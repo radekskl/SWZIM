@@ -292,8 +292,9 @@
                     </li>*@
 
                     <li data-ctrl="Event" data-action="Index">
-                        <a class="" href="#">
-                            <i class="icon-table-l"></i>
+                        <a class="" href="@Url.Action("Index", "Events")">
+                            <i class=" icon-table-l">
+                            </i>
                             <span>Lista zdarzeń</span>
                         </a>
                     </li>
@@ -309,6 +310,8 @@
                             <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/groups.aspx")"  target="_blank">Zarządzanie grupami</a></li>
                             <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/people.aspx?MembershipGroupId=8")" target="_blank">Zarządzanie użytkownikami</a></li>
                             <li><a class="" href="@(Url.Action("Create", "Notifications"))">Wystawianie powiadomień</a></li>
+                            <li><a class="" href="@(Url.Action("Index", "EventTypes"))">Zarządzanie typami zdarzeń</a></li>
+                            <li><a class="" href="@(Url.Action("Index", "Events"))">Zarządzanie zdarzeniami</a></li>
                         
                             
                         </ul>

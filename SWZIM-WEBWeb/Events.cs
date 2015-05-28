@@ -11,6 +11,7 @@ namespace SWZIM_WEBWeb
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     
     public partial class Events
     {
@@ -18,15 +19,23 @@ namespace SWZIM_WEBWeb
         {
             this.Groups = new HashSet<Groups>();
         }
-    
+
         public int Id { get; set; }
+        [DisplayName("Nazwa")]
         public string Name { get; set; }
+        [DisplayName("Szer. geo.")]
         public decimal Latitude { get; set; }
+        [DisplayName("D³. geo.")]
         public decimal Longitude { get; set; }
+        [DisplayName("Doda³/a")]
         public int AddedBy { get; set; }
+        [DisplayName("Data utworzenia")]
         public System.DateTime CreatedAt { get; set; }
+        [DisplayName("Opis")]
         public string Description { get; set; }
+        [DisplayName("Typ zdarzenia")]
         public int EventTypeId { get; set; }
+        [DisplayName("Status")]
         public int Status { get; set; }
     
         public virtual EventTypes EventTypes { get; set; }

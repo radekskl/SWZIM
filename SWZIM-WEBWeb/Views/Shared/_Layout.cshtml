@@ -273,7 +273,7 @@
                             <li><a class="" href="#">Warstwa 3</a></li>*@
                             @foreach (var item in LayersHelper.GetLayersList())
                             {
-                                <li><a href="">@item.Name</a></li>
+                                <li><a href="@Url.Action("Details", "Layouts", new { id = item.Id })">@item.Name</a></li>
                             }
                         </ul>
                     </li>

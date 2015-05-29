@@ -15,6 +15,7 @@ namespace SWZIM_WEBWeb.Controllers
         private SWZIM_dbEntities db = new SWZIM_dbEntities();
 
         // GET: LayoutElementTypes
+        [SharePointContextFilter]
         public ActionResult Index()
         {
             var layoutElementTypes = db.LayoutElementTypes.Include(l => l.MarkerIcons);
@@ -22,6 +23,7 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         // GET: LayoutElementTypes/Details/5
+        [SharePointContextFilter]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         // GET: LayoutElementTypes/Create
+        [SharePointContextFilter]
         public ActionResult Create()
         {
             ViewBag.MarkerIconId = new SelectList(db.MarkerIcons, "Id", "Name");
@@ -48,6 +51,7 @@ namespace SWZIM_WEBWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
         public ActionResult Create([Bind(Include = "Id,Name,MarkerIconId")] LayoutElementTypes layoutElementTypes)
         {
             if (ModelState.IsValid)
@@ -62,6 +66,7 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         // GET: LayoutElementTypes/Edit/5
+        [SharePointContextFilter]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +87,7 @@ namespace SWZIM_WEBWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
         public ActionResult Edit([Bind(Include = "Id,Name,MarkerIconId")] LayoutElementTypes layoutElementTypes)
         {
             if (ModelState.IsValid)
@@ -95,6 +101,7 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         // GET: LayoutElementTypes/Delete/5
+        [SharePointContextFilter]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +119,7 @@ namespace SWZIM_WEBWeb.Controllers
         // POST: LayoutElementTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
         public ActionResult DeleteConfirmed(int id)
         {
             LayoutElementTypes layoutElementTypes = db.LayoutElementTypes.Find(id);

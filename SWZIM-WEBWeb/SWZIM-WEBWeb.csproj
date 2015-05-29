@@ -176,6 +176,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\EventTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutElementTypesController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PeopleManager.cs" />
@@ -429,6 +430,11 @@
     <Content Include="Views\EventTypes\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\LayoutElementTypes\Create.cshtml" />
+    <Content Include="Views\LayoutElementTypes\Delete.cshtml" />
+    <Content Include="Views\LayoutElementTypes\Details.cshtml" />
+    <Content Include="Views\LayoutElementTypes\Edit.cshtml" />
+    <Content Include="Views\LayoutElementTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

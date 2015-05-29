@@ -55,8 +55,8 @@
                             </dl>
                         </div>
                         <p>
-                            @Html.ActionLink("Użytkownicy", "Users", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })
-                            @Html.ActionLink("Warstwy", "Layers", new { id = item.Id }, new { @class = "btn btn-warning  btn-sm" })
+                            @Html.ActionLink("Użytkownicy", "Users", new { id = Model.Id }, new { @class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Warstwy", "Layers", new { id = Model.Id }, new { @class = "btn btn-warning  btn-sm" })
                         </p>
                         <p>
                             @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn btn-info  btn-sm" })

@@ -86,7 +86,7 @@ namespace SWZIM_WEBWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(layoutElementTypes).State = EntityState.Modified;
+                db.Entry(layoutElementTypes).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

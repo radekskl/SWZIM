@@ -438,7 +438,6 @@
     <Content Include="Views\LayoutElementTypes\Index.cshtml" />
     <Content Include="Views\MarkerIcons\Create.cshtml" />
     <Content Include="Views\MarkerIcons\Delete.cshtml" />
-    <Content Include="Views\MarkerIcons\Details.cshtml" />
     <Content Include="Views\MarkerIcons\Edit.cshtml" />
     <Content Include="Views\MarkerIcons\Index.cshtml" />
   </ItemGroup>

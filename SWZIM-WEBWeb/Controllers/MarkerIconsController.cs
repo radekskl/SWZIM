@@ -21,22 +21,7 @@ namespace SWZIM_WEBWeb.Controllers
             return View(db.MarkerIcons.ToList());
         }
 
-        // GET: MarkerIcons/Details/5
-        [SharePointContextFilter]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MarkerIcons markerIcons = db.MarkerIcons.Find(id);
-            if (markerIcons == null)
-            {
-                return HttpNotFound();
-            }
-            return View(markerIcons);
-        }
-
+        
         // GET: MarkerIcons/Create
         [SharePointContextFilter]
         public ActionResult Create()

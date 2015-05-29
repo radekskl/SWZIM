@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SWZIM_WEBWeb;
 using Microsoft.SharePoint.Client;
+using SWZIM_WEBWeb.Helpers;
 
 namespace SWZIM_WEBWeb.Controllers
 {
@@ -19,7 +20,8 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            var events = db.Events.Include(e => e.EventTypes).Include(e => e.Users);
+            //var events = db.Events.Include(e => e.EventTypes).Include(e => e.Users);
+            var events = EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 100);
             return View(events.ToList());
         }
 

@@ -12,10 +12,5 @@ namespace SWZIM_WEBWeb.Models
             public Events Event { get; set; }
             public LayoutElements LayoutElement { get; set; }
         }
-
-        public class SearchInput
-        {
-            public string TextToFind { get; set; }
-        }
     }
 }

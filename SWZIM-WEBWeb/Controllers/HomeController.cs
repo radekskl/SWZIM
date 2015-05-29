@@ -28,11 +28,11 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         [SharePointContextFilter]
-        public ActionResult Search(HelperViewModels.SearchInput model)
+        public ActionResult Search(string textToFind)
         {
-            ViewBag.TextToFind = model.TextToFind;
-            ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, model.TextToFind);
-            ViewData["layoutElements"] = LayersHelper.GetSearchForUser(ViewBag.UserId, model.TextToFind);
+            ViewBag.TextToFind = textToFind;
+            ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, textToFind);
+            ViewData["layoutElements"] = LayersHelper.GetSearchForUser(ViewBag.UserId, textToFind;
 
             return View();
         }

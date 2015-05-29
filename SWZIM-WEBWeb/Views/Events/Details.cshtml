@@ -8,16 +8,35 @@
         src="https://maps.googleapis.com/maps/api/js?v=3.exp">
 </script>
 <script type="text/javascript">
+    var rozmiar = new google.maps.Size(32, 32);
+    var punkt_startowy = new google.maps.Point(0, 0);
+    var punkt_zaczepienia = new google.maps.Point(16, 16);
+    var dymek = new google.maps.InfoWindow();
+    var map;
     function initialize() {
         var mapOptions = {
-            center: { lat: 52.233, lng: 21.017 },
-            zoom: 12
+            center: { lat: @Model.Latitude, lng: @Model.Longitude },
+            zoom: 16
         };
         map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
-
+        addMarker();
     }
     google.maps.event.addDomListener(window, 'load', initialize);
+
+    function addMarker() {
+        var iconUrl = '@Model.EventTypes.MarkerIcons.Url';
+        var ico = new google.maps.MarkerImage(iconUrl, rozmiar, punkt_startowy, punkt_zaczepienia);
+        var marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(@Model.Latitude, @Model.Longitude), icon: ico, title: '@Model.Name', text: '@Model.Description' });
+        google.maps.event.addListener(marker, "click", function () {
+            if (marker.text != undefined) {
+                dymek.setContent(marker.text);
+                dymek.open(map, marker);
+            }
+        });
+    }
+
+
 </script>
 
 <section id="main-content">
@@ -110,7 +129,7 @@
                             </dl>
                             
                         </div>
-                        <div id="map-canvas" style="height: 400px; width: 50%; float:left; left: 50px"></div>
+                        <div id="map-canvas" style="height: 400px; width: 50%; float:left; left: 80px"></div>
                         <p style="clear:both; padding-top: 15px">
                             @Html.ActionLink("Edycja", "Edit", null, new { id = Model.Id, Class = "btn btn-info  btn-sm" }) |
                             @Html.ActionLink("Przejdź do listy zdarzeń", "Index", null, new { Class = "btn btn-info  btn-sm" })

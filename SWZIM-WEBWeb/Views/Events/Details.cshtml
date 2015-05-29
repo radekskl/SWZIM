@@ -4,6 +4,22 @@
     ViewBag.Title = "Details";
 }
 
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp">
+</script>
+<script type="text/javascript">
+    function initialize() {
+        var mapOptions = {
+            center: { lat: 52.233, lng: 21.017 },
+            zoom: 12
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
 <section id="main-content">
     <section class="wrapper">
 
@@ -26,7 +42,7 @@
                     </header>
                     <div class="panel-body">
                         <div>
-                            <dl class="dl-horizontal">
+                            <dl class="dl-horizontal" style="float: left">
                                 <dt>
                                     @Html.DisplayNameFor(model => model.Name)
                                 </dt>
@@ -92,12 +108,15 @@
                                 </dd>
 
                             </dl>
+                            
                         </div>
-                        <p>
+                        <div id="map-canvas" style="height: 400px; width: 50%; float:left; left: 50px"></div>
+                        <p style="clear:both; padding-top: 15px">
                             @Html.ActionLink("Edycja", "Edit", null, new { id = Model.Id, Class = "btn btn-info  btn-sm" }) |
                             @Html.ActionLink("Przejdź do listy zdarzeń", "Index", null, new { Class = "btn btn-info  btn-sm" })
                         </p>
                     </div>
+                    
                 </section>
 
             </div>

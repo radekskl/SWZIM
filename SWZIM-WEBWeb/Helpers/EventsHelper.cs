@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace SWZIM_WEBWeb.Helpers
 {
@@ -12,7 +13,7 @@ namespace SWZIM_WEBWeb.Helpers
             using (var db = new SWZIM_dbEntities())
             {
                 var userGroup = db.Users.Find(userId).GroupId;
-                return db.Events.Where(l => l.Groups.Any(g => g.Id == userGroup)).OrderByDescending(x=> x.CreatedAt).Take(limit).ToList();
+                return db.Events.Include(e=> e.EventTypes).Where(l => l.Groups.Any(g => g.Id == userGroup)).OrderByDescending(x=> x.CreatedAt).Take(limit).ToList();
             }
         }
     }

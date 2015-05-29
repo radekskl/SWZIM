@@ -22,7 +22,7 @@ namespace SWZIM_WEBWeb.Controllers
         {
             //var events = db.Events.Include(e => e.EventTypes).Include(e => e.Users);
             var events = EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 100);
-            return View(events.ToList());
+            return View(events);
         }
 
         // GET: Events/Details/5

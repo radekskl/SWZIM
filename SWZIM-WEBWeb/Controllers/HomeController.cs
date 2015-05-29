@@ -32,7 +32,7 @@ namespace SWZIM_WEBWeb.Controllers
         {
             ViewBag.TextToFind = textToFind;
             ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, textToFind);
-            ViewData["layoutElements"] = LayersHelper.GetSearchForUser(ViewBag.UserId, textToFind;
+            ViewData["layoutElements"] = LayersHelper.GetSearchForUser(ViewBag.UserId, textToFind);
 
             return View();
         }

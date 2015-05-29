@@ -29,9 +29,9 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Search(string input)
         {
-            //var events = EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 10)
+            ViewBag.TextToFind = input;
             ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, input);
-            ViewData["layoutElements"] = null;
+            ViewData["layoutElements"] = LayersHelper.GetSearchForUser(ViewBag.UserId, input);
 
             return View();
         }

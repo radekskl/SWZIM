@@ -427,6 +427,7 @@
     <Content Include="Views\EventTypes\Edit.cshtml" />
     <Content Include="Views\EventTypes\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -178,6 +178,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayoutElementTypesController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\MarkerIconsController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PeopleManager.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -435,6 +436,11 @@
     <Content Include="Views\LayoutElementTypes\Details.cshtml" />
     <Content Include="Views\LayoutElementTypes\Edit.cshtml" />
     <Content Include="Views\LayoutElementTypes\Index.cshtml" />
+    <Content Include="Views\MarkerIcons\Create.cshtml" />
+    <Content Include="Views\MarkerIcons\Delete.cshtml" />
+    <Content Include="Views\MarkerIcons\Details.cshtml" />
+    <Content Include="Views\MarkerIcons\Edit.cshtml" />
+    <Content Include="Views\MarkerIcons\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,6 +21,7 @@ namespace SWZIM_WEBWeb.Helpers
         public static string MakeReadable(this TimeSpan value)
         {
             if (value == null) return string.Empty;
+            if (value.Days == 1) { return "1 dzień"; }
             if (value.Days > 0) { return string.Format("{0} dni", value.Days); }
             else return string.Format("{0} {1}", (value.Hours > 0) ? string.Format("{0} godz", value.Hours) : "", (value.Minutes > 0) ? string.Format("{0} min", value.Minutes) : "");
         }

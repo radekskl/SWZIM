@@ -29,7 +29,7 @@
                     <li>
                         @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "navbar-form" }))
                         {
-                            @Html.Hidden("SPHostUrl", new { Value = SharePointContext.GetSPHostUrl(HttpContext.Current.Request).AbsoluteUri })
+                            @Html.Hidden("SPHostUrl", new { SharePointContext.GetSPHostUrl(HttpContext.Current.Request).AbsoluteUri })
                             <input class="form-control" placeholder="Wyszukaj" type="text" id="textToFind" name="textToFind">
                         }
                     </li>

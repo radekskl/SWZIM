@@ -1,7 +1,7 @@
-﻿@model SWZIM_WEBWeb.LayoutElementTypes
+﻿@model SWZIM_WEBWeb.MarkerIcons
 
 @{
-    ViewBag.Title = "Edytuj typ elementu warstwy";
+    ViewBag.Title = "Dodaj ikone markera";
 }
 
 <section id="main-content">
@@ -29,7 +29,6 @@
 
                             <div class="form-horizontal">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.Id)
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
@@ -38,21 +37,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.MarkerIconId, "MarkerIconId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Url, "Url", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownList("MarkerIconId", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.MarkerIconId, "", new { @class = "text-danger" })
+                                        @Html.DropDownList("Url", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Save" class="btn btn-default" />
+                                        <input type="submit" value="Dodaj" class="btn btn-default" />
                                     </div>
                                 </div>
                             </div>
                         }
                         <div>
-                            @Html.ActionLink("Przejdź do listy typów elementu warstwy", "Index", null, new { Class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Przejdź do listy ikon markerów", "Index", null, new { Class = "btn btn-info  btn-sm" })
                         </div>
                     </div>
                 </section>

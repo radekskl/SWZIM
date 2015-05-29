@@ -10,19 +10,18 @@ using SWZIM_WEBWeb;
 
 namespace SWZIM_WEBWeb.Controllers
 {
-    public class LayoutElementTypesController : Controller
+    public class GroupsController : Controller
     {
         private SWZIM_dbEntities db = new SWZIM_dbEntities();
 
-        // GET: LayoutElementTypes
+        // GET: Groups
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            var layoutElementTypes = db.LayoutElementTypes.Include(l => l.MarkerIcons);
-            return View(layoutElementTypes.ToList());
+            return View(db.Groups.ToList());
         }
 
-        // GET: LayoutElementTypes/Details/5
+        // GET: Groups/Details/5
         [SharePointContextFilter]
         public ActionResult Details(int? id)
         {
@@ -30,42 +29,40 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LayoutElementTypes layoutElementTypes = db.LayoutElementTypes.Find(id);
-            if (layoutElementTypes == null)
+            Groups groups = db.Groups.Find(id);
+            if (groups == null)
             {
                 return HttpNotFound();
             }
-            return View(layoutElementTypes);
+            return View(groups);
         }
 
-        // GET: LayoutElementTypes/Create
+        // GET: Groups/Create
         [SharePointContextFilter]
         public ActionResult Create()
         {
-            ViewBag.MarkerIconId = new SelectList(db.MarkerIcons, "Id", "Name");
             return View();
         }
 
-        // POST: LayoutElementTypes/Create
+        // POST: Groups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Create([Bind(Include = "Id,Name,MarkerIconId")] LayoutElementTypes layoutElementTypes)
+        public ActionResult Create([Bind(Include = "Id,Name")] Groups groups)
         {
             if (ModelState.IsValid)
             {
-                db.LayoutElementTypes.Add(layoutElementTypes);
+                db.Groups.Add(groups);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 
-            ViewBag.MarkerIconId = new SelectList(db.MarkerIcons, "Id", "Name", layoutElementTypes.MarkerIconId);
-            return View(layoutElementTypes);
+            return View(groups);
         }
 
-        // GET: LayoutElementTypes/Edit/5
+        // GET: Groups/Edit/5
         [SharePointContextFilter]
         public ActionResult Edit(int? id)
         {
@@ -73,34 +70,32 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LayoutElementTypes layoutElementTypes = db.LayoutElementTypes.Find(id);
-            if (layoutElementTypes == null)
+            Groups groups = db.Groups.Find(id);
+            if (groups == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MarkerIconId = new SelectList(db.MarkerIcons, "Id", "Name", layoutElementTypes.MarkerIconId);
-            return View(layoutElementTypes);
+            return View(groups);
         }
 
-        // POST: LayoutElementTypes/Edit/5
+        // POST: Groups/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Edit([Bind(Include = "Id,Name,MarkerIconId")] LayoutElementTypes layoutElementTypes)
+        public ActionResult Edit([Bind(Include = "Id,Name")] Groups groups)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(layoutElementTypes).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(groups).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
-            ViewBag.MarkerIconId = new SelectList(db.MarkerIcons, "Id", "Name", layoutElementTypes.MarkerIconId);
-            return View(layoutElementTypes);
+            return View(groups);
         }
 
-        // GET: LayoutElementTypes/Delete/5
+        // GET: Groups/Delete/5
         [SharePointContextFilter]
         public ActionResult Delete(int? id)
         {
@@ -108,22 +103,22 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LayoutElementTypes layoutElementTypes = db.LayoutElementTypes.Find(id);
-            if (layoutElementTypes == null)
+            Groups groups = db.Groups.Find(id);
+            if (groups == null)
             {
                 return HttpNotFound();
             }
-            return View(layoutElementTypes);
+            return View(groups);
         }
 
-        // POST: LayoutElementTypes/Delete/5
+        // POST: Groups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
         public ActionResult DeleteConfirmed(int id)
         {
-            LayoutElementTypes layoutElementTypes = db.LayoutElementTypes.Find(id);
-            db.LayoutElementTypes.Remove(layoutElementTypes);
+            Groups groups = db.Groups.Find(id);
+            db.Groups.Remove(groups);
             db.SaveChanges();
             return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
         }

@@ -30,6 +30,8 @@
                         @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "navbar-form" }))
                         {
                             <input class="form-control" placeholder="Wyszukaj" type="text" id="textToFind" name="textToFind">
+                            @Html.Hidden("SPHostUrl", SharePointContext.GetSPHostUrl(HttpContext.Current.Request).AbsoluteUri)
+                            
                         }
                     </li>
                 </ul>
@@ -78,7 +80,7 @@
                             
                             
                             <li>
-                                <a href="@Url.Action("Index", "Events")">Wszystkie wydarzenia</a>
+                                <a href="@Url.Action("Index", "Events")" style="color: #007aff !important;">Pokaż wszystkie</a>
                             </li>
                         </ul>
                     </li>
@@ -128,9 +130,6 @@
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
                                 <a href="#"><i class="icon_profile"></i> Profil użytkownika</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_mail_alt"></i> Skrzynka odbiorcza</a>
                             </li>
                             <li>
                                 <a href="#"><i class="icon_key_alt"></i> Wyloguj</a>
@@ -209,7 +208,8 @@
                             <li><a class="" href="@(Url.Action("Create", "Notifications"))">Wystawianie powiadomień</a></li>
                             <li><a class="" href="@(Url.Action("Index", "EventTypes"))">Zarządzanie typami zdarzeń</a></li>
                             <li><a class="" href="@(Url.Action("Index", "Events"))">Zarządzanie zdarzeniami</a></li>
-                        
+                            <li><a class="" href="@(Url.Action("Index", "LayoutElementTypes"))">Zarządzanie typami el. warstw</a></li>
+                            <li><a class="" href="@(Url.Action("Index", "MarkerIcons"))">Zarządzanie ikonami</a></li>
                             
                         </ul>
                     </li>

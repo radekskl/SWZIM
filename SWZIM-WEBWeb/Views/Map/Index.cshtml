@@ -28,6 +28,12 @@
 
     function addMarker(options) {
         var marker = new google.maps.Marker(options);
+        google.maps.event.addListener(marker, "click", function () {
+            if (marker.text != undefined) {
+                dymek.setContent(marker.text);
+                dymek.open(map, marker);
+            }
+        });
         markers.push(marker);
     }
 

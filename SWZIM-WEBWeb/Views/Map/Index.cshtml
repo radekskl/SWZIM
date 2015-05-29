@@ -13,7 +13,7 @@
     var punkt_startowy = new google.maps.Point(0, 0);
     var punkt_zaczepienia = new google.maps.Point(16, 16);
     var dymek = new google.maps.InfoWindow();
-    var activeLayers = new Array();
+    var activeLayers = [];
 
     function initialize() {
         var mapOptions = {
@@ -50,10 +50,11 @@
     function onClickLayer(id) {
         var isInActivelayers = false;
         var position;
-        for (var i = 0; i < activeLayers; i++) {
+        for (var i = 0; i < activeLayers.length; i++) {
             if (activeLayers[i] == id) {
                 isInActivelayers = true;
                 position = i;
+                break;
             }
         }
 
@@ -75,6 +76,12 @@
                 markers.splice(i, 1);
             }
         }
+    }
+
+    function clearAllMarkers() {
+        setMarkers(null);
+        markers = [];
+        activeLayers = [];
     }
 
 </script>

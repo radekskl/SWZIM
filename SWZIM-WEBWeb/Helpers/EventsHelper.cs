@@ -7,7 +7,7 @@ namespace SWZIM_WEBWeb.Helpers
 {
     public class EventsHelper
     {
-        public static List<Events> GetLatestEventsForUser(string userId, int limit)
+        public static List<Events> GetLatestEventsForUser(int userId, int limit)
         {
             using (var db = new SWZIM_dbEntities())
             {

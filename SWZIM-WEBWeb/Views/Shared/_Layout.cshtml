@@ -49,18 +49,22 @@
                             <li>
                                 <p class="blue">Ostatnie wydarzenia</p>
                             </li>
-                            <li>
-                                <a href="">
-                                    <span class="photo"><img alt="avatar" src="~/img/avatar-mini.jpg"></span>
-                                    <span class="subject">
-                                        <span class="from">Greg  Martin</span>
-                                        <span class="time">1 min</span>
-                                    </span>
-                                    <span class="message">
-                                        I really like this admin panel.
-                                    </span>
-                                </a>
-                            </li>
+                            @foreach (var item in EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 5))
+                            {
+                                <li>
+                                    <a href="@Url.Action("")">
+                                        <span class="photo"><img alt="avatar" src="~/img/avatar-mini.jpg"></span>
+                                        <span class="subject">
+                                            <span class="from">Greg  Martin</span>
+                                            <span class="time">1 min</span>
+                                        </span>
+                                        <span class="message">
+                                            I really like this admin panel.
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            
                             
                             <li>
                                 <a href="#">See all messages</a>

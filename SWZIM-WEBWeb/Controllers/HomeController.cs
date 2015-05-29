@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SWZIM_WEBWeb.Models;
 
 namespace SWZIM_WEBWeb.Controllers
 {
@@ -27,11 +28,11 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         [SharePointContextFilter]
-        public ActionResult Search(string input)
+        public ActionResult Search(HelperViewModels.SearchInput model)
         {
-            ViewBag.TextToFind = input;
-            ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, input);
-            ViewData["layoutElements"] = LayersHelper.GetSearchForUser(ViewBag.UserId, input);
+            ViewBag.TextToFind = model.TextToFind;
+            ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, model.TextToFind);
+            ViewData["layoutElements"] = LayersHelper.GetSearchForUser(ViewBag.UserId, model.TextToFind);
 
             return View();
         }

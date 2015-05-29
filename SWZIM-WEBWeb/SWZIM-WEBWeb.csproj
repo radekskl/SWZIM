@@ -208,6 +208,7 @@
     <Compile Include="Groups.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EventsHelper.cs" />
     <Compile Include="Helpers\ExtensionsHelper.cs" />
     <Compile Include="Helpers\GroupsHelper.cs" />
     <Compile Include="Helpers\LayersHelper.cs" />

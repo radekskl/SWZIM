@@ -58,7 +58,7 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 db.LayoutElementTypes.Add(layoutElementTypes);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 
             ViewBag.MarkerIconId = new SelectList(db.MarkerIcons, "Id", "Name", layoutElementTypes.MarkerIconId);
@@ -94,7 +94,7 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 db.Entry(layoutElementTypes).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
             ViewBag.MarkerIconId = new SelectList(db.MarkerIcons, "Id", "Name", layoutElementTypes.MarkerIconId);
             return View(layoutElementTypes);

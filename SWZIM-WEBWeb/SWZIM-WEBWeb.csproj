@@ -214,6 +214,9 @@
     <Compile Include="Layers.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LayoutElementAttributes.cs">
+      <DependentUpon>DbDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LayoutElements.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>

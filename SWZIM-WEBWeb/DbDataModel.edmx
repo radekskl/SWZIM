@@ -66,6 +66,15 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="LayoutElementAttributes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LayoutElementId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="LayoutElements">
           <Key>
             <PropertyRef Name="Id" />
@@ -223,6 +232,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LayoutElementAttributes_LayoutElement">
+          <End Role="LayoutElements" Type="Self.LayoutElements" Multiplicity="1" />
+          <End Role="LayoutElementAttributes" Type="Self.LayoutElementAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayoutElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LayoutElementAttributes">
+              <PropertyRef Name="LayoutElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LayoutElements_LayoutElementTypes">
           <End Role="LayoutElementTypes" Type="Self.LayoutElementTypes" Multiplicity="1" />
           <End Role="LayoutElements" Type="Self.LayoutElements" Multiplicity="*" />
@@ -303,6 +324,7 @@
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupToLayers" EntityType="Self.GroupToLayers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layers" EntityType="Self.Layers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LayoutElementAttributes" EntityType="Self.LayoutElementAttributes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LayoutElements" EntityType="Self.LayoutElements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LayoutElementTypes" EntityType="Self.LayoutElementTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
@@ -343,6 +365,10 @@
           <AssociationSet Name="FK_GroupToLayers_Layers" Association="Self.FK_GroupToLayers_Layers">
             <End Role="Layers" EntitySet="Layers" />
             <End Role="GroupToLayers" EntitySet="GroupToLayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayoutElementAttributes_LayoutElement" Association="Self.FK_LayoutElementAttributes_LayoutElement">
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="LayoutElementAttributes" EntitySet="LayoutElementAttributes" />
           </AssociationSet>
           <AssociationSet Name="FK_LayoutElements_LayoutElementTypes" Association="Self.FK_LayoutElements_LayoutElementTypes">
             <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
@@ -467,6 +493,11 @@
           <AssociationSet Name="FK_LayoutElements_Layouts" Association="SWZIM_dbModel.FK_LayoutElements_Layouts">
             <End Role="Layers" EntitySet="Layers" />
             <End Role="LayoutElements" EntitySet="LayoutElements" />
+          </AssociationSet>
+          <EntitySet Name="LayoutElementAttributes" EntityType="SWZIM_dbModel.LayoutElementAttributes" />
+          <AssociationSet Name="FK_LayoutElementAttributes_LayoutElement" Association="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement">
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="LayoutElementAttributes" EntitySet="LayoutElementAttributes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Groups">
@@ -621,6 +652,7 @@
           <NavigationProperty Name="LayoutElements2" Relationship="SWZIM_dbModel.ElementToElement" FromRole="LayoutElements1" ToRole="LayoutElements" />
           <Property Name="LayersId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.FK_LayoutElements_Layouts" FromRole="LayoutElements" ToRole="Layers" />
+          <NavigationProperty Name="LayoutElementAttributes" Relationship="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement" FromRole="LayoutElements" ToRole="LayoutElementAttributes" />
         </EntityType>
         <Association Name="FK_LayoutElements_LayoutElementTypes">
           <End Type="SWZIM_dbModel.LayoutElementTypes" Role="LayoutElementTypes" Multiplicity="1" />
@@ -659,6 +691,28 @@
             </Principal>
             <Dependent Role="LayoutElements">
               <PropertyRef Name="LayersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LayoutElementAttributes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LayoutElementId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement" FromRole="LayoutElementAttributes" ToRole="LayoutElements" />
+        </EntityType>
+        <Association Name="FK_LayoutElementAttributes_LayoutElement">
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.LayoutElementAttributes" Role="LayoutElementAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayoutElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LayoutElementAttributes">
+              <PropertyRef Name="LayoutElementId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -787,6 +841,16 @@
               <ScalarProperty Name="Id" ColumnName="Element1" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="LayoutElementAttributes">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElementAttributes">
+              <MappingFragment StoreEntitySet="LayoutElementAttributes">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LayoutElementId" ColumnName="LayoutElementId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

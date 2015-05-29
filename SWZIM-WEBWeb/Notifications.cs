@@ -14,26 +14,20 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     
 public partial class Notifications
 {
 
     public int ID { get; set; }
 
-    [DisplayName("U¿ytkownik")]
     public int UserId { get; set; }
 
-    [DisplayName("Tytu³")]
     public string Label { get; set; }
 
-    [DisplayName("Zawartoœæ")]
     public string Body { get; set; }
 
-    [DisplayName("Przeczytano")]
     public Nullable<bool> IsRead { get; set; }
 
-    [DisplayName("Utworzono")]
     public System.DateTime Created { get; set; }
 
 

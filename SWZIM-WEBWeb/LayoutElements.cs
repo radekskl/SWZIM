@@ -14,7 +14,6 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     
 public partial class LayoutElements
 {
@@ -26,30 +25,25 @@ public partial class LayoutElements
 
         this.LayoutElements2 = new HashSet<LayoutElements>();
 
+        this.LayoutElementAttributes = new HashSet<LayoutElementAttributes>();
+
     }
 
 
     public int Id { get; set; }
 
-    [DisplayName("Nazwa")]
     public string Name { get; set; }
 
-    [DisplayName("Opis")]
     public string Description { get; set; }
 
-    [DisplayName("Dl. geo")]
     public decimal Longitude { get; set; }
 
-    [DisplayName("Szer.geo.")]
     public decimal Latitude { get; set; }
 
-    [DisplayName("Typ")]
     public int LayoutElementTypeId { get; set; }
 
-    [DisplayName("U¿ytkownik")]
     public int UserId { get; set; }
 
-    [DisplayName("Warstwa")]
     public int LayersId { get; set; }
 
 
@@ -63,6 +57,8 @@ public partial class LayoutElements
     public virtual ICollection<LayoutElements> LayoutElements2 { get; set; }
 
     public virtual Layers Layers { get; set; }
+
+    public virtual ICollection<LayoutElementAttributes> LayoutElementAttributes { get; set; }
 
 }
 

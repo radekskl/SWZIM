@@ -14,7 +14,6 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     
 public partial class Users
 {
@@ -33,13 +32,10 @@ public partial class Users
 
     public int ID { get; set; }
 
-    [DisplayName("Email")]
     public string Email { get; set; }
 
-    [DisplayName("Nazwa u¿ytkownika")]
     public string UserName { get; set; }
 
-    [DisplayName("Grupa")]
     public int GroupId { get; set; }
 
 

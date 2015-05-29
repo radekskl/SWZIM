@@ -14,7 +14,6 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     
 public partial class MarkerIcons
 {
@@ -31,10 +30,8 @@ public partial class MarkerIcons
 
     public int Id { get; set; }
 
-    [DisplayName("Nazwa")]
     public string Name { get; set; }
 
-    [DisplayName("Adres URL")]
     public string Url { get; set; }
 
 

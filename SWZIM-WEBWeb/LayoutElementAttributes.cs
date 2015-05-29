@@ -15,28 +15,20 @@ namespace SWZIM_WEBWeb
 using System;
     using System.Collections.Generic;
     
-public partial class LayoutElementTypes
+public partial class LayoutElementAttributes
 {
-
-    public LayoutElementTypes()
-    {
-
-        this.LayoutElements = new HashSet<LayoutElements>();
-
-    }
-
 
     public int Id { get; set; }
 
+    public int LayoutElementId { get; set; }
+
     public string Name { get; set; }
 
-    public Nullable<int> MarkerIconId { get; set; }
+    public string Value { get; set; }
 
 
 
-    public virtual MarkerIcons MarkerIcons { get; set; }
-
-    public virtual ICollection<LayoutElements> LayoutElements { get; set; }
+    public virtual LayoutElements LayoutElements { get; set; }
 
 }
 

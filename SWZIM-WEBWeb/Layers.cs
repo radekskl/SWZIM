@@ -14,7 +14,6 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     
 public partial class Layers
 {
@@ -31,10 +30,8 @@ public partial class Layers
 
     public int Id { get; set; }
 
-    [DisplayName("Nazwa")]
     public string Name { get; set; }
 
-    [DisplayName("Opis")]
     public string Description { get; set; }
 
 

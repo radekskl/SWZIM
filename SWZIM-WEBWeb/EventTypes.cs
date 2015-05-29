@@ -14,7 +14,6 @@ namespace SWZIM_WEBWeb
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     
 public partial class EventTypes
 {
@@ -29,10 +28,8 @@ public partial class EventTypes
 
     public int Id { get; set; }
 
-    [DisplayName("Nazwa")]
     public string Name { get; set; }
 
-    [DisplayName("Ikona")]
     public int MarkerIconId { get; set; }
 
 

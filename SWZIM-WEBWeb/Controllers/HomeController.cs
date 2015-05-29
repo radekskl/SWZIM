@@ -27,6 +27,7 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         [SharePointContextFilter]
+        [HttpPost]
         public ActionResult Search(string input)
         {
             ViewBag.TextToFind = input;

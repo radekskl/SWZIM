@@ -158,7 +158,8 @@
                             <li><a class="" href="#">Warstwa 3</a></li>*@
                             @foreach (var item in LayersHelper.GetLayersList(ViewBag.UserId))
                             {
-                                <li><a href="javascript:wyswietlWarstwe(@item.Id)">@item.Name</a></li>
+                                <li><a href="javascript:onClickLayer(@item.Id)">@item.Name</a></li>
+                                <li><a href="javascript:deleteLayer(@item.Id)">usun warstwe test</a></li>
                             }
                         </ul>
                     </li>

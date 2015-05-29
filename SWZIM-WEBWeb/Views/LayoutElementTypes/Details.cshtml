@@ -40,7 +40,7 @@
                             </dl>
                         </div>
                         <p>
-                            @Html.ActionLink("Edytuj", "Edit", null, new { id = Model.Id, Class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn btn-info  btn-sm" })
                             @Html.ActionLink("Przejdź do listy typów elementu warstwy", "Index", null, new { Class = "btn btn-info  btn-sm" })
                         </p>
                     </div>

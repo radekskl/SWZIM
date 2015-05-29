@@ -47,7 +47,7 @@
                         <ul class="dropdown-menu extended inbox">
                             <div class="notify-arrow notify-arrow-blue"></div>
                             <li>
-                                <p class="blue">Ostatnie wydarzenia</p>
+                                <p class="blue">Ostatnie zdarzenia</p>
                             </li>
                             @foreach (Events item in EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 5))
                             {
@@ -56,10 +56,17 @@
                                         <span class="photo"><img alt="avatar" src="/img/map-icons/exclamation31.png"></span>
                                         <span class="subject">
                                             <span class="from">@item.Name</span>
-                                            <span class="time">@{(DateTime.Now - item.CreatedAt).MakeReadable();}</span>
+                                            <span class="time">@DateHelper.HasOccured(item.CreatedAt)</span>
                                         </span>
                                         <span class="message">
-                                            @item.Description.Substring(0,37)
+                                            @if (item.Description.Length > 37)
+                                            {
+                                                @item.Description.Substring(0,37)  
+                                            }  
+                                            else
+                                            {
+                                                @item.Description
+                                            } 
                                         </span>
                                     </a>
                                 </li>

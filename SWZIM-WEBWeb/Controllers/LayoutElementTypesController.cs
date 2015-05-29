@@ -125,7 +125,7 @@ namespace SWZIM_WEBWeb.Controllers
             LayoutElementTypes layoutElementTypes = db.LayoutElementTypes.Find(id);
             db.LayoutElementTypes.Remove(layoutElementTypes);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
         }
 
         protected override void Dispose(bool disposing)

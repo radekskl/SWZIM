@@ -125,7 +125,7 @@ namespace SWZIM_WEBWeb.Controllers
             EventTypes eventTypes = db.EventTypes.Find(id);
             db.EventTypes.Remove(eventTypes);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
         }
 
         protected override void Dispose(bool disposing)

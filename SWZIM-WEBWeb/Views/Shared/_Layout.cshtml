@@ -56,7 +56,10 @@
                                         <span class="photo"><img alt="avatar" src="/img/map-icons/exclamation31.png"></span>
                                         <span class="subject">
                                             <span class="from">@item.Name</span>
-                                            <span class="time">@DateHelper.HasOccured(item.CreatedAt)</span>
+                                            @{
+                                                var timeDiff = (DateTime.Now - item.CreatedAt).MakeReadable();
+                                            }
+                                            <span class="time">@timeDiff</span>
                                         </span>
                                         <span class="message">
                                             @if (item.Description.Length > 37)

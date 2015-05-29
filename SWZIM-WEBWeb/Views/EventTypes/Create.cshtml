@@ -1,7 +1,7 @@
 ﻿@model SWZIM_WEBWeb.EventTypes
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Dodaj typ wydarzenia";
 }
 
 <section id="main-content">
@@ -12,7 +12,7 @@
                 <!--breadcrumbs start -->
                 <ul class="breadcrumb">
                     <li><a href="@Url.Action("Index", "Home")"><i class="icon_house_alt"></i> Home</a></li>
-                    <li class="active"> Dodaj typ wydarzenia</li>
+                    <li class="active"> @ViewBag.Title</li>
                 </ul>
                 <!--breadcrumbs end -->
             </div>
@@ -22,7 +22,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Dodaj nowy typ wydarzenia
+                        @ViewBag.Title
                     </header>
                     <div class="panel-body">
                         @using (Html.BeginForm())

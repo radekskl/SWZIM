@@ -49,17 +49,17 @@
                             <li>
                                 <p class="blue">Ostatnie wydarzenia</p>
                             </li>
-                            @foreach (var item in EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 5))
+                            @foreach (Events item in EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 5))
                             {
                                 <li>
-                                    <a href="@Url.Action("")">
-                                        <span class="photo"><img alt="avatar" src="~/img/avatar-mini.jpg"></span>
+                                    <a href="@Url.Action("Details", "Events", new { id = item.Id })">
+                                        <span class="photo"><img alt="avatar" src="/img/map-icons/exclamation31.png"></span>
                                         <span class="subject">
-                                            <span class="from">Greg  Martin</span>
-                                            <span class="time">1 min</span>
+                                            <span class="from">@item.Name</span>
+                                            <span class="time"></span>
                                         </span>
                                         <span class="message">
-                                            I really like this admin panel.
+                                            @item.Description.Substring(0,37)
                                         </span>
                                     </a>
                                 </li>

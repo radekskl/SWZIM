@@ -1,4 +1,5 @@
 ﻿using Microsoft.SharePoint.Client;
+using SWZIM_WEBWeb.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,16 @@ namespace SWZIM_WEBWeb.Controllers
                    // sharepoint CSOM here if needed
                 }
             }
+
+            return View();
+        }
+
+        [SharePointContextFilter]
+        public ActionResult Search(string input)
+        {
+            //var events = EventsHelper.GetLatestEventsForUser(ViewBag.UserId, 10)
+            ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, input);
+            ViewData["layoutElements"] = null;
 
             return View();
         }

@@ -28,7 +28,7 @@ namespace SWZIM_WEBWeb.Controllers
         }
 
         [SharePointContextFilter]
-        public ActionResult Search(string textToFind)
+        public ActionResult Search(string textToFind, string SPHostUrl)
         {
             ViewBag.TextToFind = textToFind;
             ViewData["events"] = EventsHelper.GetSearchForUser(ViewBag.UserId, textToFind);

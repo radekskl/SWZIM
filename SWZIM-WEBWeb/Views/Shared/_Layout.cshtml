@@ -27,8 +27,9 @@
                 <!--  search form start -->
                 <ul class="nav top-menu">
                     <li>
-                        @using (Html.BeginForm("Search", "Home", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Current.Request).AbsoluteUri }, FormMethod.Get, new { @class = "navbar-form" }))
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "navbar-form" }))
                         {
+                            @Html.Hidden("SPHostUrl", new { Value = SharePointContext.GetSPHostUrl(HttpContext.Current.Request).AbsoluteUri })
                             <input class="form-control" placeholder="Wyszukaj" type="text" id="textToFind" name="textToFind">
                         }
                     </li>

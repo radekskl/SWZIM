@@ -169,8 +169,8 @@
                             @foreach (var item in LayersHelper.GetLayersList(ViewBag.UserId))
                             {
                                 <li><a href="javascript:onClickLayer(@item.Id)">@item.Name</a></li>
-                                <li><a href="javascript:deleteLayer(@item.Id)">usun warstwe test</a></li>
                             }
+                            <li><a href="javascript:clearAllMarkers()">Wyczyść mape</a></li>
                         </ul>
                     </li>
 

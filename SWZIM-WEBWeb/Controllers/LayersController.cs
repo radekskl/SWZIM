@@ -10,19 +10,18 @@ using SWZIM_WEBWeb;
 
 namespace SWZIM_WEBWeb.Controllers
 {
-    public class GroupsController : Controller
+    public class LayersController : Controller
     {
         private SWZIM_dbEntities db = new SWZIM_dbEntities();
 
-        // GET: Groups
+        // GET: Layers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            return View(db.Groups.ToList());
+            return View(db.Layers.ToList());
         }
 
-
-        // GET: Groups/Details/5
+        // GET: Layers/Details/5
         [SharePointContextFilter]
         public ActionResult Details(int? id)
         {
@@ -30,40 +29,40 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Groups groups = db.Groups.Find(id);
-            if (groups == null)
+            Layers layers = db.Layers.Find(id);
+            if (layers == null)
             {
                 return HttpNotFound();
             }
-            return View(groups);
+            return View(layers);
         }
 
-        // GET: Groups/Create
+        // GET: Layers/Create
         [SharePointContextFilter]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Groups/Create
+        // POST: Layers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Create([Bind(Include = "Id,Name")] Groups groups)
+        public ActionResult Create([Bind(Include = "Id,Name,Description")] Layers layers)
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(groups);
+                db.Layers.Add(layers);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 
-            return View(groups);
+            return View(layers);
         }
 
-        // GET: Groups/Edit/5
+        // GET: Layers/Edit/5
         [SharePointContextFilter]
         public ActionResult Edit(int? id)
         {
@@ -71,32 +70,32 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Groups groups = db.Groups.Find(id);
-            if (groups == null)
+            Layers layers = db.Layers.Find(id);
+            if (layers == null)
             {
                 return HttpNotFound();
             }
-            return View(groups);
+            return View(layers);
         }
 
-        // POST: Groups/Edit/5
+        // POST: Layers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Groups groups)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description")] Layers layers)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(groups).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(layers).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
-            return View(groups);
+            return View(layers);
         }
 
-        // GET: Groups/Delete/5
+        // GET: Layers/Delete/5
         [SharePointContextFilter]
         public ActionResult Delete(int? id)
         {
@@ -104,22 +103,22 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Groups groups = db.Groups.Find(id);
-            if (groups == null)
+            Layers layers = db.Layers.Find(id);
+            if (layers == null)
             {
                 return HttpNotFound();
             }
-            return View(groups);
+            return View(layers);
         }
 
-        // POST: Groups/Delete/5
+        // POST: Layers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
         public ActionResult DeleteConfirmed(int id)
         {
-            Groups groups = db.Groups.Find(id);
-            db.Groups.Remove(groups);
+            Layers layers = db.Layers.Find(id);
+            db.Layers.Remove(layers);
             db.SaveChanges();
             return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
         }

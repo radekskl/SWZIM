@@ -177,6 +177,7 @@
     <Compile Include="Controllers\EventTypesController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayersController.cs" />
     <Compile Include="Controllers\LayoutElementTypesController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MarkerIconsController.cs" />
@@ -446,6 +447,11 @@
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\Edit.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Layers\Create.cshtml" />
+    <Content Include="Views\Layers\Delete.cshtml" />
+    <Content Include="Views\Layers\Details.cshtml" />
+    <Content Include="Views\Layers\Edit.cshtml" />
+    <Content Include="Views\Layers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

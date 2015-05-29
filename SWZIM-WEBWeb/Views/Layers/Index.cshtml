@@ -1,9 +1,8 @@
-﻿@model IEnumerable<SWZIM_WEBWeb.Groups>
+﻿@model IEnumerable<SWZIM_WEBWeb.Layers>
 
 @{
-    ViewBag.Title = "Lista grup";
+    ViewBag.Title = "Lista warstw";
 }
-
 
 <section id="main-content">
     <section class="wrapper">
@@ -25,7 +24,7 @@
                     </header>
                     <div class="panel-body">
                         <p>
-                            @Html.ActionLink("Utwórz nową grupę", "Create", null, new { Class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Utwórz nową warstwę", "Create", null, new { Class = "btn btn-info  btn-sm" })
                         </p>
                         <table class="table">
                             <tr>
@@ -33,7 +32,7 @@
                                     @Html.DisplayNameFor(model => model.Name)
                                 </th>
                                 <th>
-                                    Liczba przypisanych warstw
+                                    @Html.DisplayNameFor(model => model.Description)
                                 </th>
                                 <th></th>
                             </tr>
@@ -44,14 +43,14 @@
                                         @Html.DisplayFor(modelItem => item.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Layers.Count)
+                                        @Html.DisplayFor(modelItem => item.Description)
                                     </td>
                                     <td>
                                         @Html.ActionLink("Edycja", "Edit", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })
                                         @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }, new { @class = "btn btn-warning  btn-sm" })
                                         @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "btn btn-danger  btn-sm" })
-                                        @Html.ActionLink("Użytkownicy", "Users", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })
-                                        @Html.ActionLink("Warstwy", "Layers", new { id = item.Id }, new { @class = "btn btn-warning  btn-sm" })
+                                        @Html.ActionLink("Elementy warstw", "Users", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })
+                                        @Html.ActionLink("Grupy", "Layers", new { id = item.Id }, new { @class = "btn btn-warning  btn-sm" })
                                     </td>
                                 </tr>
                             }

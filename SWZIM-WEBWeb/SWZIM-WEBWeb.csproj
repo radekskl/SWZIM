@@ -227,6 +227,7 @@
     <Compile Include="MarkerIcons.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HelperViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Helpers\NotificationsHelper.cs" />
     <Compile Include="Helpers\RouteHelper.cs" />

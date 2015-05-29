@@ -131,7 +131,7 @@
                         </div>
                         <div id="map-canvas" style="height: 400px; width: 50%; float:left; left: 80px"></div>
                         <p style="clear:both; padding-top: 15px">
-                            @Html.ActionLink("Edycja", "Edit", null, new { id = Model.Id, Class = "btn btn-info  btn-sm" }) |
+                            @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }, new { id = Model.Id, Class = "btn btn-info  btn-sm" }) |
                             @Html.ActionLink("Przejdź do listy zdarzeń", "Index", null, new { Class = "btn btn-info  btn-sm" })
                         </p>
                     </div>

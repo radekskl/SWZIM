@@ -48,8 +48,23 @@
     }
 
     function onClickLayer(id) {
-        getLayer(id);
-        setMarkers(map)
+        var isInActivelayers = false;
+        var position;
+        for (var i = 0; i < activeLayers; i++) {
+            if (activeLayers[i] == id) {
+                isInActivelayers = true;
+                position = i;
+            }
+        }
+
+        if (isInActivelayers) {
+            deleteLayer(id);
+            activeLayers.splice(position, 1);
+        } else {
+            getLayer(id);
+            activeLayers.push(id);
+            setMarkers(map);
+        }
     }
 
     function deleteLayer(id) {

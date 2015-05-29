@@ -21,36 +21,6 @@ namespace SWZIM_WEBWeb.Controllers
             return View(db.Groups.ToList());
         }
 
-        // GET: Users
-        [SharePointContextFilter]
-        public ActionResult Users(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            List<Users> users = db.Users.Where(x => x.GroupId == id).ToList();
-            if (users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(users);
-        }
-
-        [SharePointContextFilter]
-        public ActionResult Layers(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            List<Layers> layers = db.Layers.Where(x => x.Groups.Any(y=> y.Id == id)).ToList();
-            if (layers == null)
-            {
-                return HttpNotFound();
-            }
-            return View(layers);
-        }
 
         // GET: Groups/Details/5
         [SharePointContextFilter]

@@ -56,7 +56,7 @@
                                         <span class="photo"><img alt="avatar" src="/img/map-icons/exclamation31.png"></span>
                                         <span class="subject">
                                             <span class="from">@item.Name</span>
-                                            <span class="time"></span>
+                                            <span class="time">@{(DateTime.Now-item.CreatedAt).MakeReadable()}</span>
                                         </span>
                                         <span class="message">
                                             @item.Description.Substring(0,37)
@@ -67,7 +67,7 @@
                             
                             
                             <li>
-                                <a href="#">See all messages</a>
+                                <a href="@Url.Action("Index", "Events")">Wszystkie wydarzenia</a>
                             </li>
                         </ul>
                     </li>

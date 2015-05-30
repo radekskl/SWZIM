@@ -18,7 +18,7 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            var layoutElements = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers);
+            var layoutElements = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count > 0);
             return View(layoutElements.ToList());
         }
 

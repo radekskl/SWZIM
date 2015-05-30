@@ -38,17 +38,15 @@
                                     </div>
                                 </div>
                                 @Html.HiddenFor(model => model.GroupId, new { Value = ViewBag.GrpId })
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Dodaj" class="btn btn-default" />
-                                    </div>
-                                </div>
+
+
+                                <p style="clear:both; padding-top: 15px">
+                                    <input type="submit" value="Dodaj" class="btn btn-info  btn-sm" />
+                                    @Html.ActionLink("Przejdź do listy grup", "Index", "Groups", null, new { Class = "btn btn-info  btn-sm" })
+                                </p>
                             </div>
                         }
 
-                        <div>
-                            @Html.ActionLink("Przejdź do listy grup", "Index", "Groups", null, new { Class = "btn btn-info  btn-sm" })
-                        </div>
                     </div>
                 </section>
 

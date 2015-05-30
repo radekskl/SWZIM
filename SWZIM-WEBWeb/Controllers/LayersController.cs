@@ -21,7 +21,7 @@ namespace SWZIM_WEBWeb.Controllers
             return View(db.Layers.ToList());
         }
 
-        // GET: Layers
+        // GET: Group
         [SharePointContextFilter]
         public ActionResult Group(int? id)
         {
@@ -43,6 +43,21 @@ namespace SWZIM_WEBWeb.Controllers
                 return HttpNotFound();
             }
             return View(layers.ToList());
+        }
+
+        // GET: AddLayerToGroup
+        [SharePointContextFilter]
+        public ActionResult AddLayerToGroup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var grp = db.Groups.Find(id);
+            ViewBag.GrpName = grp.Name;
+            ViewBag.GrpId = id;
+           
+            return View();
         }
 
         // GET: Layers/Details/5

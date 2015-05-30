@@ -29,7 +29,13 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var layers = db.Groups.Find(id).Layers;
+            var grp = db.Groups.Find(id);
+            if (grp == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.GrpName = grp.Name;
+            var layers = grp.Layers;
 
             if (layers == null)
             {

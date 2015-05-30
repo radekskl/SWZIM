@@ -24,7 +24,7 @@
                     </header>
                     <div class="panel-body">
                         <p>
-                            @Html.ActionLink("Dodaj wartwę do tej grupy", "Create", null, new { Class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Przypisz wartwę do tej grupy", "AddLayerToGroup", new { id = Request.QueryString["id"] }, new { Class = "btn btn-info  btn-sm" })
                         </p>
                         <table class="table">
                             <tr>
@@ -54,6 +54,9 @@
                                 </tr>
                             }
                         </table>
+                        <p>
+                            @Html.ActionLink("Przejdź do listy grup", "Groups", "Index", null, new { Class = "btn btn-info  btn-sm" })
+                        </p>
                     </div>
                 </section>
             </div>

@@ -452,6 +452,7 @@
     <Content Include="Views\Layers\Details.cshtml" />
     <Content Include="Views\Layers\Edit.cshtml" />
     <Content Include="Views\Layers\Index.cshtml" />
+    <Content Include="Views\Layers\Group.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

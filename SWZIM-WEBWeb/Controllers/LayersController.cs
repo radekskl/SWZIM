@@ -80,7 +80,7 @@ namespace SWZIM_WEBWeb.Controllers
                 var layer = db.Layers.Find(lfgvm.LayerId);
                 db.Groups.Find(lfgvm.GroupId).Layers.Add(layer);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+                return RedirectToAction("Group", new { id = lfgvm.GroupId,SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 
             //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", notifications.UserId);

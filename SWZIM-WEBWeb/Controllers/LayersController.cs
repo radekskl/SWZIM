@@ -87,6 +87,19 @@ namespace SWZIM_WEBWeb.Controllers
             return View(lfgvm);
         }
 
+        // GET: DeleteFromGroup
+        [SharePointContextFilter]
+        public ActionResult DeleteFromGroup(int? layerId, int? groupId)
+        {
+            if (layerId == null || groupId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var layer = db.Layers.Find(layerId);
+            db.Groups.Find(groupId).Layers.Remove(layer);
+            return RedirectToAction("Group", new { id = groupId, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+        }
+
         // GET: Layers/Details/5
         [SharePointContextFilter]
         public ActionResult Details(int? id)

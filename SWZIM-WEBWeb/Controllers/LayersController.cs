@@ -21,6 +21,23 @@ namespace SWZIM_WEBWeb.Controllers
             return View(db.Layers.ToList());
         }
 
+        // GET: Layers
+        [SharePointContextFilter]
+        public ActionResult Group(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var layers = db.Groups.Find(id).Layers;
+
+            if (layers == null)
+            {
+                return HttpNotFound();
+            }
+            return View(layers.ToList());
+        }
+
         // GET: Layers/Details/5
         [SharePointContextFilter]
         public ActionResult Details(int? id)

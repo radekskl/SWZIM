@@ -57,11 +57,11 @@ namespace SWZIM_WEBWeb.Controllers
             ViewBag.GrpName = grp.Name;
             ViewBag.GrpId = id;
             var layers = new List<Layers>();
-            foreach (var item in db.Groups)
+            foreach (var item in db.Layers)
             {
-                if (grp.Id != id)
+                if (!item.Groups.Any(x => x.Id == id))
                 {
-                    layers.AddRange(item.Layers);
+                    layers.Add(item);
                 }
             }
             ViewBag.NotInGrpLayers = new SelectList(layers, "Id", "Name");

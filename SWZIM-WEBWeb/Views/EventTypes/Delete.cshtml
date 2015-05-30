@@ -26,8 +26,8 @@
                         @ViewBag.Title
                     </header>
                     <div class="panel-body">
-                        <h3>Czy napewno chcesz usunąć ten typ zdarzenia?</h3>
-                        <div>
+                        <h3 style="text-align: center;">Czy napewno chcesz usunąć ten typ zdarzenia?</h3>
+                        <p>
                             <h4>Typ zdarzenia</h4>
                             <hr />
                             <dl class="dl-horizontal">
@@ -53,10 +53,10 @@
                             {
                                 @Html.AntiForgeryToken()
 
-                                <div class="form-actions no-color">
-                                    <input type="submit" value="Usuń" class="btn btn-default" /> |
+                                <p style="padding-top: 15px">
+                                    <input type="submit" value="Usuń" class="btn btn-info  btn-sm" />
                                     @Html.ActionLink("Przejdź do listy typów zdarzeń", "Index", null, new { Class = "btn btn-info  btn-sm" })
-                                </div>
+                                </p>
                             }
                         </div>
                     </div>

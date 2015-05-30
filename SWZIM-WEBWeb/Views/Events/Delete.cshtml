@@ -57,7 +57,8 @@
                         Usuwanie wydarzenia
                     </header>
                     <div class="panel-body" >
-                        <h3 style="text-align: center; font-weight: bold;">Czy na pewno chcesz usunąć to zdarzenie?</h3>
+                        <h3 style="text-align: center;">Czy na pewno chcesz usunąć to zdarzenie?</h3>
+                        <br />
                         <div style="float: left; padding-left: 20px; padding-right: 30px; min-width: 45%;">
                             <dl class="dl-horizontal">
                                 <dt>
@@ -133,10 +134,10 @@
                         {
                             @Html.AntiForgeryToken()
 
-                            <div style="clear: both; padding-top: 15px;">
+                            <p style="clear: both; padding-top: 15px;">
                                 <input type="submit" value="Usuń" class="btn btn-info  btn-sm" />
                                 @Html.ActionLink("Powrót do lisy zdarzeń", "Index", null, new { Class = "btn btn-info  btn-sm" })
-                            </div>
+                            </p>
                         }
                     </div>
                 </section>

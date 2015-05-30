@@ -35,6 +35,7 @@ namespace SWZIM_WEBWeb.Controllers
                 return HttpNotFound();
             }
             ViewBag.GrpName = grp.Name;
+            ViewBag.GrpId = id;
             var layers = grp.Layers;
 
             if (layers == null)

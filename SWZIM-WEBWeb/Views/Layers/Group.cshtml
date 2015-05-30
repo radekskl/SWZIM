@@ -24,7 +24,7 @@
                     </header>
                     <div class="panel-body">
                         <p>
-                            @Html.ActionLink("Przypisz wartwę do tej grupy", "AddLayerToGroup", new { id = Request.Params["id"] }, new { Class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Przypisz wartwę do tej grupy", "AddLayerToGroup", new { id = @ViewBag.GrpId }, new { Class = "btn btn-info  btn-sm" })
                         </p>
                         <table class="table">
                             <tr>

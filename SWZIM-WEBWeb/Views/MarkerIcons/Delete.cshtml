@@ -23,7 +23,7 @@
                         @ViewBag.Title
                     </header>
                     <div class="panel-body">
-                        <h3>Czy napewno chcesz usunąć tą ikone markera ?</h3>
+                        <h3 style="text-align: center;">Czy napewno chcesz usunąć tą ikone markera ?</h3>
                         <div>
                             <h4>Ikona markera</h4>
                             <hr />
@@ -45,10 +45,10 @@
                             {
                                 @Html.AntiForgeryToken()
 
-                                <div class="form-actions no-color">
-                                    <input type="submit" value="Usuń" class="btn btn-default" /> |
+                                <p style="padding-top: 15px;">
+                                    <input type="submit" value="Usuń" class="btn btn-info  btn-sm" />
                                     @Html.ActionLink("Przejdź do listy ikon markerów", "Index", null, new { Class = "btn btn-info  btn-sm" })
-                                </div>
+                                </p>
                             }
                         </div>
                     </div>

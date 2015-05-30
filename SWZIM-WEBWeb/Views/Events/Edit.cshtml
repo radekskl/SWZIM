@@ -27,7 +27,7 @@
     function addMarker() {
         var iconUrl = '@Model.EventTypes.MarkerIcons.Url';
         var ico = new google.maps.MarkerImage(iconUrl, rozmiar, punkt_startowy, punkt_zaczepienia);
-        var marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(@Model.Latitude, @Model.Longitude), icon: ico, title: '@Model.Name', text: '@Model.Description' });
+        var marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(@Model.Latitude, @Model.Longitude), icon: ico, title: '@Model.Name', text: '@Model.Description', draggable: true });
         //obsluga zdarzenia przesuniecia markera
         google.maps.event.addListener(marker, "dragend", function (event) {
             //zapis wspolrzednych do pol tekstowych

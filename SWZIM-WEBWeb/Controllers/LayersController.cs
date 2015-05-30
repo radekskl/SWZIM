@@ -97,6 +97,7 @@ namespace SWZIM_WEBWeb.Controllers
             }
             var layer = db.Layers.Find(layerId);
             db.Groups.Find(groupId).Layers.Remove(layer);
+            db.SaveChanges();
             return RedirectToAction("Group", new { id = groupId, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
         }
 

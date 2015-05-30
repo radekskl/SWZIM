@@ -53,8 +53,8 @@
                                         @Html.DisplayFor(modelItem => item.Created)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
-                                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { Class = "btn btn-info  btn-sm" })
+                                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { Class = "btn btn-danger  btn-sm" })
                                     </td>
                                 </tr>
                             }

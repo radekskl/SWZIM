@@ -69,6 +69,24 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        // POST: AddLayerToGroup
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
+        public ActionResult AddLayerToGroup([Bind(Include = "GroupId,LayerId")] SWZIM_WEBWeb.Models.HelperViewModels.LayerForGroupViewModel lfgvm)
+        {
+            if (ModelState.IsValid)
+            {
+                var layer = db.Layers.Find(lfgvm.LayerId);
+                db.Groups.Find(lfgvm.GroupId).Layers.Add(layer);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+            }
+
+            //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", notifications.UserId);
+            return View(lfgvm);
+        }
+
         // GET: Layers/Details/5
         [SharePointContextFilter]
         public ActionResult Details(int? id)

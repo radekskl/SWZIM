@@ -15,6 +15,7 @@ namespace SWZIM_WEBWeb.Models
 
         public class LayerForGroupViewModel
         {
+            public int GroupId { get; set; }
             public int LayerId { get; set; }
         }
     }

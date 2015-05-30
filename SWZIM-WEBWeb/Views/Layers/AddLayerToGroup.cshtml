@@ -37,7 +37,7 @@
                                         @Html.DropDownListFor(x => x.LayerId, (IEnumerable<SelectListItem>)ViewBag.NotInGrpLayers, new { @class = "form-control text-box single-line" })
                                     </div>
                                 </div>
-
+                                @Html.HiddenFor(model => model.GroupId, new { Value = ViewBag.GrpId })
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
                                         <input type="submit" value="Dodaj" class="btn btn-default" />

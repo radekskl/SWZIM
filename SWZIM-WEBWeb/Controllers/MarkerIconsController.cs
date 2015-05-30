@@ -75,9 +75,9 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 db.Entry(markerIcons).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
-            return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+            return View(markerIcons);
         }
 
         // GET: MarkerIcons/Delete/5

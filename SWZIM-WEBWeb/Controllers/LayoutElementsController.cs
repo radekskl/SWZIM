@@ -18,7 +18,7 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            var layoutElements = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers);
+            var layoutElements = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count > 0);
             return View(layoutElements.ToList());
         }
 
@@ -43,7 +43,7 @@ namespace SWZIM_WEBWeb.Controllers
         public ActionResult Create()
         {
             ViewBag.LayoutElementTypeId = new SelectList(db.LayoutElementTypes, "Id", "Name");
-            ViewBag.UserId = new SelectList(db.Users, "ID", "Email");
+            //ViewBag.UserId = new SelectList(db.Users, "ID", "Email");
             ViewBag.LayersId = new SelectList(db.Layers, "Id", "Name");
             return View();
         }
@@ -64,7 +64,7 @@ namespace SWZIM_WEBWeb.Controllers
             }
 
             ViewBag.LayoutElementTypeId = new SelectList(db.LayoutElementTypes, "Id", "Name", layoutElements.LayoutElementTypeId);
-            ViewBag.UserId = new SelectList(db.Users, "ID", "Email", layoutElements.UserId);
+            //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", layoutElements.UserId);
             ViewBag.LayersId = new SelectList(db.Layers, "Id", "Name", layoutElements.LayersId);
             return View(layoutElements);
         }
@@ -83,7 +83,7 @@ namespace SWZIM_WEBWeb.Controllers
                 return HttpNotFound();
             }
             ViewBag.LayoutElementTypeId = new SelectList(db.LayoutElementTypes, "Id", "Name", layoutElements.LayoutElementTypeId);
-            ViewBag.UserId = new SelectList(db.Users, "ID", "Email", layoutElements.UserId);
+            //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", layoutElements.UserId);
             ViewBag.LayersId = new SelectList(db.Layers, "Id", "Name", layoutElements.LayersId);
             return View(layoutElements);
         }
@@ -103,7 +103,7 @@ namespace SWZIM_WEBWeb.Controllers
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
             ViewBag.LayoutElementTypeId = new SelectList(db.LayoutElementTypes, "Id", "Name", layoutElements.LayoutElementTypeId);
-            ViewBag.UserId = new SelectList(db.Users, "ID", "Email", layoutElements.UserId);
+            //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", layoutElements.UserId);
             ViewBag.LayersId = new SelectList(db.Layers, "Id", "Name", layoutElements.LayersId);
             return View(layoutElements);
         }

@@ -110,6 +110,7 @@ namespace SWZIM_WEBWeb.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(layoutElements).State = System.Data.Entity.EntityState.Modified;
+                layoutElements.UserId = ViewBag.UserId;
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }

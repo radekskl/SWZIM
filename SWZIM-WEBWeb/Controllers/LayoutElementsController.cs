@@ -40,13 +40,10 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.ElementId = new SelectList(db.LayoutElements, "Id", "Name");
-            LayoutElements layoutElements = db.LayoutElements.Find(id);
-            if (layoutElements == null)
-            {
-                return HttpNotFound();
-            }
-            return View(layoutElements);
+            ViewBag.ElementList = new SelectList(db.LayoutElements, "Id", "Name");
+            ViewBag.ElementId = id;
+            
+            return View();
         }
 
 

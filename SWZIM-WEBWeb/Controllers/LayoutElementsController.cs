@@ -46,6 +46,20 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        // POST: AddTo
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
+        public ActionResult AddTo(SWZIM_WEBWeb.Models.HelperViewModels.AddElementToElementViewModel model)
+        {
+            var el = db.LayoutElements.Find(model.LayoutElement1);
+            var add = db.LayoutElements.Find(model.LayoutElement2);
+            el.LayoutElements1.Add(add);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+        }
+
 
         // GET: LayoutElements/Details/5
         [SharePointContextFilter]

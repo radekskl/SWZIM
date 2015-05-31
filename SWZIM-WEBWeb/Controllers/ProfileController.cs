@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace SWZIM_WEBWeb.Controllers
 {
@@ -40,9 +41,11 @@ namespace SWZIM_WEBWeb.Controllers
                     {
                         if (user.Groups != null)
                         {
-                            model.UserGroup = user.Groups.First(); // ? nie wiem co ztym
+                            model.UserGroup = user.Groups.ToList(); 
                         }
+                        model.User = user;
                     }
+                    
                     return View(model);
                 }
             }

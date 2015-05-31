@@ -38,6 +38,12 @@
                                     <li class="">
                                         <a data-toggle="tab" href="#manage">Zarządzanie</a>
                                     </li>
+                                    <li class="">
+                                        <a data-toggle="tab" href="#events">Dodane zdarzenia</a>
+                                    </li>
+                                    <li class="">
+                                        <a data-toggle="tab" href="#elems">Dodane elementy warstwy</a>
+                                    </li>
                                 </ul>
                             </header>
                             <div class="panel-body">
@@ -73,7 +79,14 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-2" for="">Grupa</label>
                                                     <div class="col-md-10">
-                                                        <input class="form-control text-box single-line" type="text" value="@Model.UserGroup.Name" disabled>
+                                                        @{
+                                                            string grps = "";
+                                                            foreach (var item in Model.UserGroup)
+                                                            {
+                                                                grps += item.Name + " ";
+                                                            }
+                                                        }
+                                                        <input class="form-control text-box single-line" type="text" value="@grps" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,6 +94,98 @@
                                     </div>
                                     <div id="manage" class="tab-pane" style="min-height: 300px;">
                                         <a href="https://portal.office.com/profile" class="btn btn-info btn-sm" target="_blank">Edytuj profil publiczny</a>
+                                    </div>
+
+                                    <div id="events" class="tab-pane" style="min-height: 300px;">
+                                        <table class="table">
+                                            <tr>
+                                                <th>
+                                                    Nazwa zdarzenia
+                                                </th>
+                                                <th>
+                                                    Szerokość geogr.
+                                                </th>
+                                                <th>
+                                                    Długość geogr.
+                                                </th>
+                                                <th>
+                                                    Data
+                                                </th>
+                                                <th>
+                                                    Opis
+                                                </th>
+                                                <th>
+                                                    Status
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                            @foreach (var item in Model.User.Events)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Name)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Latitude)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Longitude)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.CreatedAt)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Description)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Status)
+                                                    </td>
+                                                    <td>
+                                                        @Html.ActionLink("Szczegóły", "Details", "Events", new { id = item.Id }, new { id = item.Id, Class = "btn btn-warning btn-sm" })
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+
+                                    <div id="elems" class="tab-pane" style="min-height: 300px;">
+                                        <table class="table">
+                                            <tr>
+                                                <th>
+                                                    Nazwa zdarzenia
+                                                </th>
+                                                <th>
+                                                    Szerokość geogr.
+                                                </th>
+                                                <th>
+                                                    Długość geogr.
+                                                </th>
+                                                <th>
+                                                    Opis
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                            @foreach (var item in Model.User.LayoutElements)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Name)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Latitude)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Longitude)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Description)
+                                                    </td>
+                                                    <td>
+                                                        @Html.ActionLink("Szczegóły", "Details","LayoutElements", new { id = item.Id }, new { id = item.Id, Class = "btn btn-warning btn-sm" })
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
                                     </div>
                                 </div>
                             </div>

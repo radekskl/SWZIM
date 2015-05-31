@@ -13,7 +13,9 @@ namespace SWZIM_WEBWeb.Models
         public string PersonalSpace { get; set; }
         public string UserName { get; set; }
         public string PictureUrl { get; set; }
-        public Groups UserGroup { get; set; }
+        public List<Groups> UserGroup { get; set; }
+
+        public Users User { get; set; }
 
 
         public ProfileDataModel() { }

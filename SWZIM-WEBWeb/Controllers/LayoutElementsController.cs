@@ -133,6 +133,14 @@ namespace SWZIM_WEBWeb.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             LayoutElements layoutElements = db.LayoutElements.Find(id);
+            foreach (var item in layoutElements.LayoutElements1.ToList())
+            {
+                layoutElements.LayoutElements1.Remove(item);
+            }
+            foreach (var item in layoutElements.LayoutElements2.ToList())
+            {
+                layoutElements.LayoutElements2.Remove(item);
+            }
             db.LayoutElements.Remove(layoutElements);
             db.SaveChanges();
             return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });

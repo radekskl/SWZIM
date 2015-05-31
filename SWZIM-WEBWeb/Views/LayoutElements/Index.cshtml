@@ -86,7 +86,14 @@
                                         @Html.DisplayFor(modelItem => item.Layers.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LayoutElements2.GetAllParentLayoutElements())
+                                        @{
+                                            var result = "";
+                                        }
+                                        @foreach (var itn in item.LayoutElements2)
+                                        {
+                                            result += itn.Name + " ";
+                                        }
+                                        @result
                                     </td>
                                     <td>
                                         @Html.ActionLink("Edycja", "Edit", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })

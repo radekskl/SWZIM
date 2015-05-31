@@ -468,6 +468,7 @@
     <Content Include="Views\LayoutElements\Parts.cshtml" />
     <Content Include="Views\LayoutElements\AddTo.cshtml" />
     <Content Include="Views\LayoutElements\Layers.cshtml" />
+    <Content Include="Views\LayoutElements\AddAttribute.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

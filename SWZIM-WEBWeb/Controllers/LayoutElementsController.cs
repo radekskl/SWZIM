@@ -49,6 +49,33 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        //GET: AddAttribute
+        [SharePointContextFilter]
+        public ActionResult AddAttribute(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View();
+        }
+
+        //POST: AddAttribute
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
+        public ActionResult AddAttribute([Bind(Include = "Id,Name,Value,LayoutElementId")] LayoutElementAttributes lea)
+        {
+            if (ModelState.IsValid)
+            {
+                db.LayoutElementAttributes.Add(lea);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id=lea.LayoutElementId ,SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+            }
+
+            return View(lea);
+        }
+
         // GET: AddTo
         [SharePointContextFilter]
         public ActionResult AddTo(int? id)

@@ -36,7 +36,7 @@ namespace SWZIM_WEBWeb.Helpers
                 var result = new List<LayoutElements>();
                 foreach (var item in layerGroups)
                 {
-                    result.AddRange(item.LayoutElements.Where(e => e.Name.Contains(value) || e.Description.Contains(value));
+                    result.AddRange(item.LayoutElements.Where(e => e.Name.Contains(value) || e.Description.Contains(value)));
                 }
                 return result.ToList();
             }

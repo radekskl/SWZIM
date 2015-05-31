@@ -28,11 +28,15 @@ namespace SWZIM_WEBWeb.Helpers
             using (var db = new SWZIM_dbEntities())
             {
                 var userGroup = db.Users.Find(userId).Groups;
-                var layers = db.Groups.Find(userGroup).Layers;
-                var result = new List<LayoutElements>();
-                foreach (var l in layers)
+                var layerGroups = new List<Layers>();
+                foreach (var item in userGroup)
                 {
-                    result.AddRange(l.LayoutElements.Where(e => e.Name.Contains(value) || e.Description.Contains(value)));
+                    layerGroups.AddRange(item.Layers);
+                }
+                var result = new List<LayoutElements>();
+                foreach (var item in layerGroups)
+                {
+                    result.AddRange(item.LayoutElements.Where(e => e.Name.Contains(value) || e.Description.Contains(value));
                 }
                 return result.ToList();
             }

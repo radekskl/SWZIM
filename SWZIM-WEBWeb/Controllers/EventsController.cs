@@ -154,7 +154,7 @@ namespace SWZIM_WEBWeb.Controllers
         {
             Events events = db.Events.Find(id);
 
-            foreach (var item in db.Layers.Where(l=>l.Events.Any(e=>e.Id == events.Id)))
+            foreach (var item in db.Layers.Where(l=>l.Events.All(e=>e.Id == events.Id)))
             {
                 db.Layers.Remove(item);
             }

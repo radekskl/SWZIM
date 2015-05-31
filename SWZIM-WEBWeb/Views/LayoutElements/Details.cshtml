@@ -52,7 +52,7 @@
                                 </dd>
 
                                 <dt>
-                                    @Html.DisplayFor(model => model.Latitude)
+                                    @Html.DisplayNameFor(model => model.Latitude)
                                 </dt>
 
                                 <dd>
@@ -60,7 +60,7 @@
                                 </dd>
 
                                 <dt>
-                                    @Html.DisplayFor(model => model.Longitude)
+                                    @Html.DisplayNameFor(model => model.Longitude)
                                 </dt>
 
                                 <dd>
@@ -93,6 +93,7 @@
                             }
                         </table>
                         <p>
+                            @Html.ActionLink("Dodaj atrybut", "Layers", new { id = Model.Id }, new { @class = "btn btn-danger  btn-sm" })
                             @Html.ActionLink("Cześci elementu warstwy", "Layers", new { id = Model.Id }, new { @class = "btn btn-warning  btn-sm" })
                         </p>
                         <p>

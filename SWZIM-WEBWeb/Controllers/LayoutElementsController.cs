@@ -96,7 +96,7 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Longitude,Latitude,LayoutElementTypeId,LayersId")] LayoutElements layoutElements)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Longitude,Latitude,LayoutElementTypeId,UserId,LayersId")] LayoutElements layoutElements)
         {
             if (ModelState.IsValid)
             {

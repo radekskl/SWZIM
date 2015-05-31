@@ -63,16 +63,16 @@ namespace SWZIM_WEBWeb.Controllers
 
         //GET: DeleteAttribute
         [SharePointContextFilter]
-        public ActionResult DeleteAttribute(int? id)
+        public ActionResult DeleteAttribute(int? id, int? elId)
         {
-            if (id == null)
+            if (id == null || elId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var attr = db.LayoutElementAttributes.Find(id);
             db.LayoutElementAttributes.Remove(attr);
             db.SaveChanges();
-            return View();
+            return RedirectToAction("Details", new { id = elId, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
         }
 
         //POST: AddAttribute

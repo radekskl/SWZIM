@@ -57,6 +57,7 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.ElementId = id;
             return View();
         }
 

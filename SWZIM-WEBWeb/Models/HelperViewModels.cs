@@ -18,5 +18,11 @@ namespace SWZIM_WEBWeb.Models
             public int GroupId { get; set; }
             public int LayerId { get; set; }
         }
+
+        public class AddEventViewModel
+        {
+            public Events Event { get; set; }
+            public int LayerId { get; set; }
+        }
     }
 }

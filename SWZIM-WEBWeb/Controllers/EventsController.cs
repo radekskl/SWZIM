@@ -50,8 +50,8 @@ namespace SWZIM_WEBWeb.Controllers
 
             //int uid = ViewBag.UserId;
             //Users u = db.Users.Where(x => x.ID == uid).First();
-            var groups = db.Groups.AsEnumerable();
-            ViewBag.Groups = new SelectList(groups, "Id", "Name");
+            var layers = db.Layers.AsEnumerable();
+            ViewBag.Layers = new SelectList(layers, "Id", "Name");
 
             //grupy SP
             //var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
@@ -71,23 +71,22 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Create([Bind(Include = "Id,Name,Latitude,Longitude,Description,EventTypeId,Status")] Events events)
+        public ActionResult Create([Bind(Include = "Id,Name,Latitude,Longitude,Description,EventTypeId,Status,LayerId")] SWZIM_WEBWeb.Models.HelperViewModels.AddEventViewModel events)
         {
             if (ModelState.IsValid)
             {
-                events.AddedBy = ViewBag.UserId;
-                events.CreatedAt = DateTime.Now;
-                //>> 
+                events.Event.AddedBy = ViewBag.UserId;
+                events.Event.CreatedAt = DateTime.Now;
 
-                var gr = db.Groups.Find(1);
-                events.Groups.Add(gr);
-                //<<
-                db.Events.Add(events);
+                var layer = db.Layers.Find(events.LayerId);
+                events.Event.Layers.Add(layer);
+
+                db.Events.Add(events.Event);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 
-            ViewBag.EventTypeId = new SelectList(db.EventTypes, "Id", "Name", events.EventTypeId);
+            ViewBag.EventTypeId = new SelectList(db.EventTypes, "Id", "Name", events.Event.EventTypeId);
            // ViewBag.AddedBy = new SelectList(db.Users, "ID", "Email", events.AddedBy);
             return View(events);
         }

@@ -24,5 +24,11 @@ namespace SWZIM_WEBWeb.Models
             public Events Event { get; set; }
             public int LayerId { get; set; }
         }
+
+        public class AddElementToElementViewModel
+        {
+            public int LayoutElement1 { get; set; }
+            public int LayoutElement2 { get; set; }
+        }
     }
 }

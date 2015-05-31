@@ -23,7 +23,7 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
-        // GET: LayoutElements
+        // GET: Parts
         [SharePointContextFilter]
         public ActionResult Parts(int? id)
         {
@@ -31,6 +31,24 @@ namespace SWZIM_WEBWeb.Controllers
             ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count > 0 && x.LayoutElements2.Any(le => le.Id == id)).ToList();
             return View();
         }
+
+        // GET: AddTo
+        [SharePointContextFilter]
+        public ActionResult AddTo(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.ElementId = new SelectList(db.LayoutElements, "Id", "Name");
+            LayoutElements layoutElements = db.LayoutElements.Find(id);
+            if (layoutElements == null)
+            {
+                return HttpNotFound();
+            }
+            return View(layoutElements);
+        }
+
 
         // GET: LayoutElements/Details/5
         [SharePointContextFilter]

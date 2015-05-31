@@ -55,10 +55,11 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Longitude,Latitude,LayoutElementTypeId,UserId,LayersId")] LayoutElements layoutElements)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Longitude,Latitude,LayoutElementTypeId,LayersId")] LayoutElements layoutElements)
         {
             if (ModelState.IsValid)
             {
+                layoutElements.UserId = ViewBag.UserId;
                 db.LayoutElements.Add(layoutElements);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });

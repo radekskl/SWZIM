@@ -160,7 +160,7 @@ namespace SWZIM_WEBWeb.Controllers
             
             db.Events.Remove(events);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
         }
 
         protected override void Dispose(bool disposing)

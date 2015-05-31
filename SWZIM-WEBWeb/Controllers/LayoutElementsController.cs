@@ -54,7 +54,7 @@ namespace SWZIM_WEBWeb.Controllers
         {
             var el = db.LayoutElements.Find(model.LayoutElement1);
             var add = db.LayoutElements.Find(model.LayoutElement2);
-            el.LayoutElements1.Add(add);
+            add.LayoutElements1.Add(el);
             db.SaveChanges();
 
             return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });

@@ -72,7 +72,7 @@
                                     @Html.DisplayNameFor(model => model.Layers.Name)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.LayoutElements1.Count)
+                                    Należy do
                                 </th>
                                 <th></th>
                             </tr>
@@ -86,7 +86,7 @@
                                         @Html.DisplayFor(modelItem => item.Layers.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LayoutElements1.Count)
+                                        @Html.DisplayFor(modelItem => item.LayoutElements2.GetAllParentLayoutElements())
                                     </td>
                                     <td>
                                         @Html.ActionLink("Edycja", "Edit", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })

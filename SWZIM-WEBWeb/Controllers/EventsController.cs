@@ -155,7 +155,7 @@ namespace SWZIM_WEBWeb.Controllers
             Events events = db.Events.Find(id);
             foreach (var item in events.Layers.ToList())
             {
-                db.Layers.Remove(item);
+                events.Layers.Remove(item);
             }
             
             db.Events.Remove(events);

@@ -18,8 +18,8 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count == 0);
-            ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count > 0);;
+            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count == 0).ToList();
+            ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count > 0).ToList();
             return View();
         }
 

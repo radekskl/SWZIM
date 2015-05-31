@@ -29,8 +29,9 @@
     function addMarker(options) {
         var marker = new google.maps.Marker(options);
         google.maps.event.addListener(marker, "click", function () {
-            if (marker.text != undefined) {
-                dymek.setContent(marker.text);
+            
+            if (marker.text != undefined && marker.title != undefined) {
+                dymek.setContent('<strong>' + marker.title + '</strong><br />' + marker.text);
                 dymek.open(map, marker);
             }
         });

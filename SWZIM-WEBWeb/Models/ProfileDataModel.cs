@@ -7,6 +7,15 @@ namespace SWZIM_WEBWeb.Models
 {
     public class ProfileDataModel
     {
+        public string PreferredName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PersonalSpace { get; set; }
+        public string UserName { get; set; }
+        public string PictureUrl { get; set; }
+        public Groups UserGroup { get; set; }
 
+
+        public ProfileDataModel() { }
     }
 }

@@ -54,15 +54,26 @@
                                         @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    @Html.Label("Odbiorca", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.RadioButton("o", "u", true, new { Class = "sentTo" }) Użytkowik<br/>
+                                        @Html.RadioButton("o", "g", false, new { Class = "sentTo" }) Grupa<br/>
+                                    </div>
+                                </div>
+                                        
+                                @Html.HiddenFor(model => model.IsGroup)
+                                
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.DropDownListFor(x => x.UserId, (IEnumerable<SelectListItem>)ViewBag.UserList, new { Class = "form-control text-box single-line" })
+                                        @Html.DropDownListFor(x => x.UserId, (IEnumerable<SelectListItem>)ViewBag.UserList, new { Class = "form-control text-box single-line hidden", DataType = "u" })
+                                        @Html.DropDownListFor(x => x.UserId, (IEnumerable<SelectListItem>)ViewBag.GroupList, new { Class = "form-control text-box single-line hidden", DataType = "g" })
                                     </div>
                                 </div>
+
                                 <p style="clear:both; padding-top: 15px">
-                                        <input type="submit" value="Utwórz" class="btn btn-info  btn-sm" />
+                                        <input type="submit" onclick="prepareForm()" value="Utwórz" class="btn btn-info  btn-sm" />
                                 </p>
                             </div>
                         }
@@ -74,3 +85,42 @@
         </div>
     </section>
 </section>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            if ($('.sentTo').val() == "u") {
+                $('select[datatype=u]').removeClass("hidden");
+                $('select[datatype=g]').addClass("hidden");
+                $('#IsGroup').val("false");
+            }
+            else {
+                $('select[datatype=u]').addClass("hidden");
+                $('select[datatype=g]').removeClass("hidden");
+                $('#IsGroup').val("true");
+            }
+        });
+
+        $(".sentTo").click(function () {
+            if ($(this).val() == "u") {
+                $('select[datatype=u]').removeClass("hidden");
+                $('select[datatype=g]').addClass("hidden");
+                $('#IsGroup').val("false");
+            }
+            else {
+                $('select[datatype=u]').addClass("hidden");
+                $('select[datatype=g]').removeClass("hidden");
+                $('#IsGroup').val("true");
+            }
+        });
+
+        function prepareForm() {
+            if ($('#IsGroup').val() == "true") {
+                $('select[datatype=u]').remove();
+            } else {
+                $('select[datatype=g]').remove();
+            }
+        }
+    </script>
+}

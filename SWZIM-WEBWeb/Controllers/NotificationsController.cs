@@ -52,6 +52,10 @@ namespace SWZIM_WEBWeb.Controllers
                 var users = clientContext.LoadQuery(clientContext.Web.SiteUsers.Where(u => u.PrincipalType == PrincipalType.User && u.UserId.NameIdIssuer == "urn:federation:microsoftonline"));
                 clientContext.ExecuteQuery();
                 ViewBag.UserList = new SelectList(users, "Id", "Title");
+
+
+                var groups = db.Groups.ToList();
+                ViewBag.GroupList = new SelectList(groups, "Id", "Name");
             }
             return View();
         }
@@ -62,16 +66,30 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Create([Bind(Include = "Label,Body,UserId")] Notifications notifications)
+        public ActionResult Create([Bind(Include = "Label,Body,UserId,IsGroup")] Notifications notifications)
         {
             if (ModelState.IsValid)
             {
-                
                 notifications.IsRead = false;
-                //notifications.UserId = ViewBag.UserId; //dla kogo
                 notifications.Created = DateTime.Now;
-                db.Notifications.Add(notifications);
-                db.SaveChanges();
+
+                if (notifications.IsGroup)
+                {
+                    var groupID = notifications.UserId;
+                    var group = db.Groups.Find(groupID);
+                    foreach (var user in group.Users)
+                    {
+                        notifications.UserId = user.ID;
+                        db.Notifications.Add(notifications);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    db.Notifications.Add(notifications);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 

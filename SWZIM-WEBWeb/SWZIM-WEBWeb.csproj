@@ -315,8 +315,11 @@
     <Content Include="img\map-icons\cones2.png" />
     <Content Include="img\map-icons\cranes1.png" />
     <Content Include="img\map-icons\crash1.png" />
+    <Content Include="img\map-icons\crossing4.png" />
+    <Content Include="img\map-icons\crossing5.png" />
     <Content Include="img\map-icons\danger10.png" />
     <Content Include="img\map-icons\day7.png" />
+    <Content Include="img\map-icons\delete30.png" />
     <Content Include="img\map-icons\distance1.png" />
     <Content Include="img\map-icons\driving1.png" />
     <Content Include="img\map-icons\emergency10.png" />
@@ -331,6 +334,7 @@
     <Content Include="img\map-icons\road44.png" />
     <Content Include="img\map-icons\road47.png" />
     <Content Include="img\map-icons\roadsign14.png" />
+    <Content Include="img\map-icons\traffic-light.png" />
     <Content Include="img\map-icons\traffic-signal.png" />
     <Content Include="img\map-icons\transport106.png" />
     <Content Include="img\map-icons\transport109.png" />

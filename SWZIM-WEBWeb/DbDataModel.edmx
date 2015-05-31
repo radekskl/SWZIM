@@ -114,6 +114,7 @@
           <Property Name="Body" Type="varchar" MaxLength="500" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="IsRead" Type="bit" />
+          <Property Name="IsGroup" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -410,6 +411,7 @@
           <NavigationProperty Name="Users" Relationship="Self.FK_Notifications_0" FromRole="Notifications" ToRole="Users" />
           <Property Name="IsRead" Type="Boolean" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsGroup" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -725,6 +727,7 @@
           <EntitySetMapping Name="Notifications">
             <EntityTypeMapping TypeName="SWZIM_dbModel.Notifications">
               <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="IsRead" ColumnName="IsRead" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

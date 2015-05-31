@@ -35,15 +35,7 @@ namespace SWZIM_WEBWeb.Controllers
 
         public JsonResult GetAllEventsForLayout(int id)
         {
-
-            var groups = db.Layers.Find(id).Groups;
-            var events = new List<Events>();
-
-            foreach (var g in groups)
-            {
-                events.AddRange(g.Events);
-            }
-
+            var events = db.Events.Where(e => e.Layers.Any(l => l.Id == id));
             // do poprawy
             return Json(events.Select(x => new { id = x.Id, lon = x.Longitude, lat = x.Latitude, name = x.Name, desc = x.Description,
                                     addedBy = x.AddedBy, status = x.Status, eType = x.EventTypes.Name, icon = x.EventTypes.MarkerIcons.Url

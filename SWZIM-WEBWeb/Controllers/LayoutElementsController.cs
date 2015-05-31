@@ -23,10 +23,27 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        // GET: Layers
+        [SharePointContextFilter]
+        public ActionResult Layers(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count == 0 && x.LayersId == id).ToList();
+            ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count > 0 && x.LayersId == id).ToList();
+            return View();
+        }
+
         // GET: Parts
         [SharePointContextFilter]
         public ActionResult Parts(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count == 0 && x.LayoutElements2.Any(le=>le.Id == id)).ToList();
             ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count > 0 && x.LayoutElements2.Any(le => le.Id == id)).ToList();
             return View();

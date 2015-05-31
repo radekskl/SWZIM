@@ -467,6 +467,7 @@
     <Content Include="Views\LayoutElements\Index.cshtml" />
     <Content Include="Views\LayoutElements\Parts.cshtml" />
     <Content Include="Views\LayoutElements\AddTo.cshtml" />
+    <Content Include="Views\LayoutElements\Layers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

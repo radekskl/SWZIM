@@ -94,8 +94,7 @@
                                     <td>@item.Name</td>
                                     <td>@item.Value</td>
                                     <td>
-                                        @Html.ActionLink("Edycja", "Edit", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })
-                                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "btn btn-danger  btn-sm" })
+                                        @Html.ActionLink("Usuń", "DeleteAttribute", new { id = item.Id }, new { @class = "btn btn-danger  btn-sm" })
                                     </td>
                                 </tr>
                             }

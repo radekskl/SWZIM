@@ -61,6 +61,20 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        //GET: DeleteAttribute
+        [SharePointContextFilter]
+        public ActionResult DeleteAttribute(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var attr = db.LayoutElementAttributes.Find(id);
+            db.LayoutElementAttributes.Remove(attr);
+            db.SaveChanges();
+            return View();
+        }
+
         //POST: AddAttribute
         [HttpPost]
         [ValidateAntiForgeryToken]

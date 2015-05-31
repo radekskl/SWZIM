@@ -101,8 +101,12 @@
                             }
                         </table>
                         <p>
-                            @Html.ActionLink("Dodaj atrybut", "Layers", new { id = Model.Id }, new { @class = "btn btn-danger  btn-sm" })
-                            @Html.ActionLink("Cześci elementu warstwy", "Layers", new { id = Model.Id }, new { @class = "btn btn-warning  btn-sm" })
+                            @Html.ActionLink("Dodaj atrybut","Parts", new { id = Model.Id }, new { @class = "btn btn-danger  btn-sm" })
+                            @if (Model.LayoutElements1.Count > 0)
+                            {
+                                @Html.ActionLink("Cześci elementu warstwy", "Layers", new { id = Model.Id }, new { @class = "btn btn-warning  btn-sm" })
+                            }
+                            
                         </p>
                         <p>
                             @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn btn-info  btn-sm" })

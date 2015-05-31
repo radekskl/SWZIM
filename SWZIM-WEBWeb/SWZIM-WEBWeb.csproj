@@ -465,6 +465,7 @@
     <Content Include="Views\LayoutElements\Details.cshtml" />
     <Content Include="Views\LayoutElements\Edit.cshtml" />
     <Content Include="Views\LayoutElements\Index.cshtml" />
+    <Content Include="Views\LayoutElements\Parts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

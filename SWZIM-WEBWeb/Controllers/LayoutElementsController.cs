@@ -23,6 +23,15 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        // GET: LayoutElements
+        [SharePointContextFilter]
+        public ActionResult Parts(int? id)
+        {
+            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count == 0 && x.LayoutElements2.Any(le=>le.Id == id)).ToList();
+            ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count > 0 && x.LayoutElements2.Any(le => le.Id == id)).ToList();
+            return View();
+        }
+
         // GET: LayoutElements/Details/5
         [SharePointContextFilter]
         public ActionResult Details(int? id)

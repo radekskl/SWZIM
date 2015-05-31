@@ -67,7 +67,9 @@
         if (isInActivelayers) {
             deleteLayer(id);
             activeLayers.splice(position, 1);
+            $('li[layer="' + id + '"]').removeClass('active');
         } else {
+            $('li[layer="' + id + '"]').addClass('active');
             getLayer(id);
             activeLayers.push(id);
             setMarkers(map);

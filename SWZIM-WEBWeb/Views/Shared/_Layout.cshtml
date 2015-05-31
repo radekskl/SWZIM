@@ -168,7 +168,7 @@
                             <li><a class="" href="#">Warstwa 3</a></li>*@
                             @foreach (var item in LayersHelper.GetLayersList(ViewBag.UserId))
                             {
-                                <li><a href="javascript:onClickLayer(@item.Id)">@item.Name</a></li>
+                                <li layer="@item.Id"><a href="javascript:onClickLayer(@item.Id)">@item.Name</a></li>
                             }
                             <li><a href="javascript:clearAllMarkers()">Wyczyść mape</a></li>
                         </ul>
@@ -187,7 +187,7 @@
                         </ul>
                     </li>*@
 
-                    <li data-ctrl="Event" data-action="Index">
+                    <li data-ctrl="Events" data-action="Index">
                         <a class="" href="@Url.Action("Index", "Events")">
                             <i class=" icon-table-l">
                             </i>
@@ -204,14 +204,14 @@
                             <li><a class="active" href="#">Import danych</a></li>
                             <li><a class="" href="#">Eksport danych</a></li>
                             <li>@*<a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/groups.aspx")"  target="_blank">Zarządzanie grupami</a>*@</li>
-                            <li><a class="" href="@(Url.Action("Index", "Groups"))">Zarządzanie grupami</a></li>
-                            <li><a class="" href="@(Url.Action("Index", "Layers"))">Zarządzanie warstwami</a></li>
+                            <li data-ctrl="Groups" data-action="Index"><a class="" href="@(Url.Action("Index", "Groups"))">Zarządzanie grupami</a></li>
+                            <li data-ctrl="Layers" data-action="Index"><a class="" href="@(Url.Action("Index", "Layers"))">Zarządzanie warstwami</a></li>
                             <li><a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/people.aspx?MembershipGroupId=8")" target="_blank">Zarządzanie użytkownikami</a></li>
-                            <li><a class="" href="@(Url.Action("Create", "Notifications"))">Wystawianie powiadomień</a></li>
-                            <li><a class="" href="@(Url.Action("Index", "EventTypes"))">Zarządzanie typami zdarzeń</a></li>
-                            <li><a class="" href="@(Url.Action("Index", "Events"))">Zarządzanie zdarzeniami</a></li>
-                            <li><a class="" href="@(Url.Action("Index", "LayoutElementTypes"))">Zarządzanie typami el. warstw</a></li>
-                            <li><a class="" href="@(Url.Action("Index", "MarkerIcons"))">Zarządzanie ikonami</a></li>
+                            <li data-ctrl="Notifications" data-action="Create"><a class="" href="@(Url.Action("Create", "Notifications"))">Wystawianie powiadomień</a></li>
+                            <li data-ctrl="EventTypes" data-action="Index"><a class="" href="@(Url.Action("Index", "EventTypes"))">Zarządzanie typami zdarzeń</a></li>
+                            <li data-ctrl="Events" data-action="Index"><a class="" href="@(Url.Action("Index", "Events"))">Zarządzanie zdarzeniami</a></li>
+                            <li data-ctrl="LayoutElementTypes" data-action="Index"><a class="" href="@(Url.Action("Index", "LayoutElementTypes"))">Zarządzanie typami el. warstw</a></li>
+                            <li data-ctrl="MarkerIcons" data-action="Index"><a class="" href="@(Url.Action("Index", "MarkerIcons"))">Zarządzanie ikonami</a></li>
                             
                         </ul>
                     </li>
@@ -244,6 +244,20 @@
         var actionName = '@ViewContext.RouteData.Values["Action"].ToString()';
         $(function () {
             $('li[data-ctrl="' + controllerName + '"][data-action="' + actionName + '"]').addClass('active');
+            if ($('li[data-ctrl="' + controllerName + '"][data-action="' + actionName + '"]').parent().attr("class") == "sub") {
+                $('li[data-ctrl="Admin"][data-action="Index"]').addClass('active');
+                var last = jQuery('.sub-menu.open', jQuery('#sidebar'));
+                jQuery('.menu-arrow').removeClass('arrow_carrot-right');
+                jQuery('.sub', last).slideUp(200);
+                var sub = jQuery(this).next();
+                if (sub.is(":visible")) {
+                    jQuery('.menu-arrow').addClass('arrow_carrot-right');
+                    sub.slideUp(200);
+                } else {
+                    jQuery('.menu-arrow').addClass('arrow_carrot-down');
+                    sub.slideDown(200);
+                }
+            }
         });
     </script>
     @RenderSection("scripts", required: false)

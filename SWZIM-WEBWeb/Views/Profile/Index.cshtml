@@ -24,12 +24,22 @@
                     <header class="panel-heading">
                         Profil użytkownika
                     </header>
+                    @*<div class="panel panel-primary">
+                        <div class="panel-heading">Panel heading</div>
+                        <div class="panel-content">Panel content</div>
+                    </div>*@
                     <div class="panel-body">
-                        @foreach (var item in Model)
-                        {
+                        <table>
                             
-                            //TODO
-                        }
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Key</td>
+                                    <td>@item.Value</td>
+                                </tr>
+                            }
+                        </table>
 
                     </div>
                 </section>

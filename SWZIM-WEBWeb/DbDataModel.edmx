@@ -27,12 +27,12 @@
           <Property Name="EventTypeId" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="EventToGroups">
+        <EntityType Name="EventToLayers">
           <Key>
-            <PropertyRef Name="GroupId" />
+            <PropertyRef Name="LayerId" />
             <PropertyRef Name="EventId" />
           </Key>
-          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="LayerId" Type="int" Nullable="false" />
           <Property Name="EventId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EventTypes">
@@ -123,6 +123,13 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="UsersToGroups">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="GroupId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_ElementToElement_1">
@@ -173,27 +180,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventToGroups_Events">
-          <End Role="Events" Type="Self.Events" Multiplicity="1" />
-          <End Role="EventToGroups" Type="Self.EventToGroups" Multiplicity="*" />
+        <Association Name="FK_EventToLayers">
+          <End Role="Layers" Type="Self.Layers" Multiplicity="1" />
+          <End Role="EventToLayers" Type="Self.EventToLayers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Events">
+            <Principal Role="Layers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="EventToGroups">
-              <PropertyRef Name="EventId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventToGroups_Groups">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
-          <End Role="EventToGroups" Type="Self.EventToGroups" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="EventToGroups">
-              <PropertyRef Name="GroupId" />
+            <Dependent Role="EventToLayers">
+              <PropertyRef Name="LayerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -230,6 +225,18 @@
             </Principal>
             <Dependent Role="GroupToLayers">
               <PropertyRef Name="LayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LayersToEvents">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventToLayers" Type="Self.EventToLayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EventToLayers">
+              <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -305,22 +312,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_Groups">
+        <Association Name="FK_UsersToGroups_ToGroups">
           <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <End Role="UsersToGroups" Type="Self.UsersToGroups" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Groups">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="UsersToGroups">
               <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersToGroups_ToUsers">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersToGroups" Type="Self.UsersToGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UsersToGroups">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SWZIM_dbModelStoreContainer">
           <EntitySet Name="ElementToElement" EntityType="Self.ElementToElement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EventToGroups" EntityType="Self.EventToGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventToLayers" EntityType="Self.EventToLayers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventTypes" EntityType="Self.EventTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupToLayers" EntityType="Self.GroupToLayers" Schema="dbo" store:Type="Tables" />
@@ -331,6 +350,7 @@
           <EntitySet Name="MarkerIcons" EntityType="Self.MarkerIcons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersToGroups" EntityType="Self.UsersToGroups" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ElementToElement_1" Association="Self.FK_ElementToElement_1">
             <End Role="LayoutElements" EntitySet="LayoutElements" />
             <End Role="ElementToElement" EntitySet="ElementToElement" />
@@ -347,13 +367,9 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Events" EntitySet="Events" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventToGroups_Events" Association="Self.FK_EventToGroups_Events">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="EventToGroups" EntitySet="EventToGroups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventToGroups_Groups" Association="Self.FK_EventToGroups_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="EventToGroups" EntitySet="EventToGroups" />
+          <AssociationSet Name="FK_EventToLayers" Association="Self.FK_EventToLayers">
+            <End Role="Layers" EntitySet="Layers" />
+            <End Role="EventToLayers" EntitySet="EventToLayers" />
           </AssociationSet>
           <AssociationSet Name="FK_EventTypes_MarkerIcon" Association="Self.FK_EventTypes_MarkerIcon">
             <End Role="MarkerIcons" EntitySet="MarkerIcons" />
@@ -366,6 +382,10 @@
           <AssociationSet Name="FK_GroupToLayers_Layers" Association="Self.FK_GroupToLayers_Layers">
             <End Role="Layers" EntitySet="Layers" />
             <End Role="GroupToLayers" EntitySet="GroupToLayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LayersToEvents" Association="Self.FK_LayersToEvents">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventToLayers" EntitySet="EventToLayers" />
           </AssociationSet>
           <AssociationSet Name="FK_LayoutElementAttributes_LayoutElement" Association="Self.FK_LayoutElementAttributes_LayoutElement">
             <End Role="LayoutElements" EntitySet="LayoutElements" />
@@ -391,73 +411,34 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Notifications" EntitySet="Notifications" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_Groups" Association="Self.FK_Users_Groups">
+          <AssociationSet Name="FK_UsersToGroups_ToGroups" Association="Self.FK_UsersToGroups_ToGroups">
             <End Role="Groups" EntitySet="Groups" />
+            <End Role="UsersToGroups" EntitySet="UsersToGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersToGroups_ToUsers" Association="Self.FK_UsersToGroups_ToUsers">
             <End Role="Users" EntitySet="Users" />
+            <End Role="UsersToGroups" EntitySet="UsersToGroups" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SWZIM_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Notifications">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Body" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Notifications_0" FromRole="Notifications" ToRole="Users" />
-          <Property Name="IsRead" Type="Boolean" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsGroup" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_0" FromRole="Users" ToRole="Notifications" />
-          <Property Name="GroupId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.FK_Users_Groups" FromRole="Users" ToRole="Groups" />
-          <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Users" ToRole="Events" />
-          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_Users" FromRole="Users" ToRole="LayoutElements" />
-        </EntityType>
-        <Association Name="FK_Notifications_0">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Notifications">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SWZIM_dbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Notifications" EntityType="Self.Notifications" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_Notifications_0" Association="Self.FK_Notifications_0">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Notifications" EntitySet="Notifications" />
-          </AssociationSet>
-          <EntitySet Name="Groups" EntityType="SWZIM_dbModel.Groups" />
-          <EntitySet Name="MarkerIcons" EntityType="SWZIM_dbModel.MarkerIcons" />
-          <AssociationSet Name="FK_Users_Groups" Association="SWZIM_dbModel.FK_Users_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <EntitySet Name="Layers" EntityType="SWZIM_dbModel.Layers" />
-          <AssociationSet Name="GroupToLayers" Association="SWZIM_dbModel.GroupToLayers">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="Layers" EntitySet="Layers" />
+          <EntitySet Name="LayoutElements" EntityType="SWZIM_dbModel.LayoutElements" />
+          <AssociationSet Name="ElementToElement" Association="SWZIM_dbModel.ElementToElement">
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="LayoutElements1" EntitySet="LayoutElements" />
           </AssociationSet>
           <EntitySet Name="Events" EntityType="SWZIM_dbModel.Events" />
           <EntitySet Name="EventTypes" EntityType="SWZIM_dbModel.EventTypes" />
+          <EntitySet Name="Groups" EntityType="SWZIM_dbModel.Groups" />
+          <EntitySet Name="Layers" EntityType="SWZIM_dbModel.Layers" />
+          <EntitySet Name="LayoutElementAttributes" EntityType="SWZIM_dbModel.LayoutElementAttributes" />
+          <EntitySet Name="LayoutElementTypes" EntityType="SWZIM_dbModel.LayoutElementTypes" />
+          <EntitySet Name="MarkerIcons" EntityType="SWZIM_dbModel.MarkerIcons" />
+          <EntitySet Name="Notifications" EntityType="SWZIM_dbModel.Notifications" />
+          <EntitySet Name="Users" EntityType="SWZIM_dbModel.Users" />
           <AssociationSet Name="FK_Events_EventType" Association="SWZIM_dbModel.FK_Events_EventType">
             <End Role="EventTypes" EntitySet="EventTypes" />
             <End Role="Events" EntitySet="Events" />
@@ -470,16 +451,14 @@
             <End Role="MarkerIcons" EntitySet="MarkerIcons" />
             <End Role="EventTypes" EntitySet="EventTypes" />
           </AssociationSet>
-          <AssociationSet Name="EventToGroups" Association="SWZIM_dbModel.EventToGroups">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="Groups" EntitySet="Groups" />
+          <AssociationSet Name="FK_LayoutElements_Layouts" Association="SWZIM_dbModel.FK_LayoutElements_Layouts">
+            <End Role="Layers" EntitySet="Layers" />
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
           </AssociationSet>
-          <EntitySet Name="LayoutElementTypes" EntityType="SWZIM_dbModel.LayoutElementTypes" />
-          <AssociationSet Name="FK_LayoutElementTypes_MarkersIcon" Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon">
-            <End Role="MarkerIcons" EntitySet="MarkerIcons" />
-            <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
+          <AssociationSet Name="FK_LayoutElementAttributes_LayoutElement" Association="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement">
+            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="LayoutElementAttributes" EntitySet="LayoutElementAttributes" />
           </AssociationSet>
-          <EntitySet Name="LayoutElements" EntityType="SWZIM_dbModel.LayoutElements" />
           <AssociationSet Name="FK_LayoutElements_LayoutElementTypes" Association="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes">
             <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
             <End Role="LayoutElements" EntitySet="LayoutElements" />
@@ -488,65 +467,49 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="LayoutElements" EntitySet="LayoutElements" />
           </AssociationSet>
-          <AssociationSet Name="ElementToElement" Association="SWZIM_dbModel.ElementToElement">
-            <End Role="LayoutElements" EntitySet="LayoutElements" />
-            <End Role="LayoutElements1" EntitySet="LayoutElements" />
+          <AssociationSet Name="FK_LayoutElementTypes_MarkersIcon" Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon">
+            <End Role="MarkerIcons" EntitySet="MarkerIcons" />
+            <End Role="LayoutElementTypes" EntitySet="LayoutElementTypes" />
           </AssociationSet>
-          <AssociationSet Name="FK_LayoutElements_Layouts" Association="SWZIM_dbModel.FK_LayoutElements_Layouts">
+          <AssociationSet Name="FK_Notifications_0" Association="SWZIM_dbModel.FK_Notifications_0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="EventToLayers" Association="SWZIM_dbModel.EventToLayers">
             <End Role="Layers" EntitySet="Layers" />
-            <End Role="LayoutElements" EntitySet="LayoutElements" />
+            <End Role="Events" EntitySet="Events" />
           </AssociationSet>
-          <EntitySet Name="LayoutElementAttributes" EntityType="SWZIM_dbModel.LayoutElementAttributes" />
-          <AssociationSet Name="FK_LayoutElementAttributes_LayoutElement" Association="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement">
-            <End Role="LayoutElements" EntitySet="LayoutElements" />
-            <End Role="LayoutElementAttributes" EntitySet="LayoutElementAttributes" />
+          <AssociationSet Name="GroupToLayers" Association="SWZIM_dbModel.GroupToLayers">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Layers" EntitySet="Layers" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Groups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Users_Groups" FromRole="Groups" ToRole="Users" />
-          <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.GroupToLayers" FromRole="Groups" ToRole="Layers" />
-          <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.EventToGroups" FromRole="Groups" ToRole="Events" />
-        </EntityType>
-        <EntityType Name="MarkerIcons">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_EventTypes_MarkerIcon" FromRole="MarkerIcons" ToRole="EventTypes" />
-          <NavigationProperty Name="LayoutElementTypes" Relationship="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" FromRole="MarkerIcons" ToRole="LayoutElementTypes" />
-        </EntityType>
-        <Association Name="FK_Users_Groups">
-          <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="1" />
-          <End Type="SWZIM_dbModel.Users" Role="Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="GroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Layers">
+          <AssociationSet Name="UsersToGroups" Association="SWZIM_dbModel.UsersToGroups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="LayoutElements">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.GroupToLayers" FromRole="Layers" ToRole="Groups" />
-          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_Layouts" FromRole="Layers" ToRole="LayoutElements" />
-        </EntityType>
-        <Association Name="GroupToLayers">
-          <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
-          <End Type="SWZIM_dbModel.Layers" Role="Layers" Multiplicity="*" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
+          <Property Name="LayoutElementTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LayoutElements1" Relationship="SWZIM_dbModel.ElementToElement" FromRole="LayoutElements" ToRole="LayoutElements1" />
+          <NavigationProperty Name="LayoutElements2" Relationship="SWZIM_dbModel.ElementToElement" FromRole="LayoutElements1" ToRole="LayoutElements" />
+          <Property Name="LayersId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.FK_LayoutElements_Layouts" FromRole="LayoutElements" ToRole="Layers" />
+          <NavigationProperty Name="LayoutElementAttributes" Relationship="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement" FromRole="LayoutElements" ToRole="LayoutElementAttributes" />
+          <NavigationProperty Name="LayoutElementTypes" Relationship="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" FromRole="LayoutElements" ToRole="LayoutElementTypes" />
+          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_LayoutElements_Users" FromRole="LayoutElements" ToRole="Users" />
+          </EntityType>
+        <Association Name="ElementToElement">
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements1" Multiplicity="*" />
         </Association>
         <EntityType Name="Events">
           <Key>
@@ -560,10 +523,10 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EventTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_Events_EventType" FromRole="Events" ToRole="EventTypes" />
           <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Events" ToRole="Users" />
-          <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.EventToGroups" FromRole="Events" ToRole="Groups" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.EventToLayers" FromRole="Events" ToRole="Layers" />
         </EntityType>
         <EntityType Name="EventTypes">
           <Key>
@@ -574,6 +537,81 @@
           <Property Name="MarkerIconId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.FK_Events_EventType" FromRole="EventTypes" ToRole="Events" />
           <NavigationProperty Name="MarkerIcons" Relationship="SWZIM_dbModel.FK_EventTypes_MarkerIcon" FromRole="EventTypes" ToRole="MarkerIcons" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.GroupToLayers" FromRole="Groups" ToRole="Layers" />
+          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.UsersToGroups" FromRole="Groups" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Layers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_Layouts" FromRole="Layers" ToRole="LayoutElements" />
+          <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.EventToLayers" FromRole="Layers" ToRole="Events" />
+          <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.GroupToLayers" FromRole="Layers" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="LayoutElementAttributes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LayoutElementId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement" FromRole="LayoutElementAttributes" ToRole="LayoutElements" />
+        </EntityType>
+        <EntityType Name="LayoutElementTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MarkerIconId" Type="Int32" />
+          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" FromRole="LayoutElementTypes" ToRole="LayoutElements" />
+          <NavigationProperty Name="MarkerIcons" Relationship="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" FromRole="LayoutElementTypes" ToRole="MarkerIcons" />
+        </EntityType>
+        <EntityType Name="MarkerIcons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EventTypes" Relationship="SWZIM_dbModel.FK_EventTypes_MarkerIcon" FromRole="MarkerIcons" ToRole="EventTypes" />
+          <NavigationProperty Name="LayoutElementTypes" Relationship="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" FromRole="MarkerIcons" ToRole="LayoutElementTypes" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRead" Type="Boolean" />
+          <Property Name="IsGroup" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_Notifications_0" FromRole="Notifications" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="SWZIM_dbModel.FK_Events_Users" FromRole="Users" ToRole="Events" />
+          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_Users" FromRole="Users" ToRole="LayoutElements" />
+          <NavigationProperty Name="Notifications" Relationship="SWZIM_dbModel.FK_Notifications_0" FromRole="Users" ToRole="Notifications" />
+          <NavigationProperty Name="Groups" Relationship="SWZIM_dbModel.UsersToGroups" FromRole="Users" ToRole="Groups" />
         </EntityType>
         <Association Name="FK_Events_EventType">
           <End Type="SWZIM_dbModel.EventTypes" Role="EventTypes" Multiplicity="1" />
@@ -611,51 +649,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="EventToGroups">
-          <End Type="SWZIM_dbModel.Events" Role="Events" Multiplicity="*" />
-          <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
-        </Association>
-        <EntityType Name="LayoutElementTypes">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MarkerIconId" Type="Int32" />
-          <NavigationProperty Name="MarkerIcons" Relationship="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" FromRole="LayoutElementTypes" ToRole="MarkerIcons" />
-          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" FromRole="LayoutElementTypes" ToRole="LayoutElements" />
-        </EntityType>
-        <Association Name="FK_LayoutElementTypes_MarkersIcon">
-          <End Type="SWZIM_dbModel.MarkerIcons" Role="MarkerIcons" Multiplicity="0..1" />
-          <End Type="SWZIM_dbModel.LayoutElementTypes" Role="LayoutElementTypes" Multiplicity="*" />
+        <Association Name="FK_LayoutElements_Layouts">
+          <End Type="SWZIM_dbModel.Layers" Role="Layers" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MarkerIcons">
+            <Principal Role="Layers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LayoutElementTypes">
-              <PropertyRef Name="MarkerIconId" />
+            <Dependent Role="LayoutElements">
+              <PropertyRef Name="LayersId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="LayoutElements">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
-          <Property Name="Latitude" Type="Decimal" Nullable="false" Precision="8" Scale="6" />
-          <Property Name="LayoutElementTypeId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="LayoutElementTypes" Relationship="SWZIM_dbModel.FK_LayoutElements_LayoutElementTypes" FromRole="LayoutElements" ToRole="LayoutElementTypes" />
-          <NavigationProperty Name="Users" Relationship="SWZIM_dbModel.FK_LayoutElements_Users" FromRole="LayoutElements" ToRole="Users" />
-          <NavigationProperty Name="LayoutElements1" Relationship="SWZIM_dbModel.ElementToElement" FromRole="LayoutElements" ToRole="LayoutElements1" />
-          <NavigationProperty Name="LayoutElements2" Relationship="SWZIM_dbModel.ElementToElement" FromRole="LayoutElements1" ToRole="LayoutElements" />
-          <Property Name="LayersId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Layers" Relationship="SWZIM_dbModel.FK_LayoutElements_Layouts" FromRole="LayoutElements" ToRole="Layers" />
-          <NavigationProperty Name="LayoutElementAttributes" Relationship="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement" FromRole="LayoutElements" ToRole="LayoutElementAttributes" />
-        </EntityType>
+        <Association Name="FK_LayoutElementAttributes_LayoutElement">
+          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.LayoutElementAttributes" Role="LayoutElementAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LayoutElements">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LayoutElementAttributes">
+              <PropertyRef Name="LayoutElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LayoutElements_LayoutElementTypes">
           <End Type="SWZIM_dbModel.LayoutElementTypes" Role="LayoutElementTypes" Multiplicity="1" />
           <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
@@ -680,105 +697,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ElementToElement">
-          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
-          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements1" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_LayoutElements_Layouts">
-          <End Type="SWZIM_dbModel.Layers" Role="Layers" Multiplicity="1" />
-          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="*" />
+        <Association Name="FK_LayoutElementTypes_MarkersIcon">
+          <End Type="SWZIM_dbModel.MarkerIcons" Role="MarkerIcons" Multiplicity="0..1" />
+          <End Type="SWZIM_dbModel.LayoutElementTypes" Role="LayoutElementTypes" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Layers">
+            <Principal Role="MarkerIcons">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LayoutElements">
-              <PropertyRef Name="LayersId" />
+            <Dependent Role="LayoutElementTypes">
+              <PropertyRef Name="MarkerIconId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="LayoutElementAttributes">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LayoutElementId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LayoutElements" Relationship="SWZIM_dbModel.FK_LayoutElementAttributes_LayoutElement" FromRole="LayoutElementAttributes" ToRole="LayoutElements" />
-        </EntityType>
-        <Association Name="FK_LayoutElementAttributes_LayoutElement">
-          <End Type="SWZIM_dbModel.LayoutElements" Role="LayoutElements" Multiplicity="1" />
-          <End Type="SWZIM_dbModel.LayoutElementAttributes" Role="LayoutElementAttributes" Multiplicity="*" />
+        <Association Name="FK_Notifications_0">
+          <End Type="SWZIM_dbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="SWZIM_dbModel.Notifications" Role="Notifications" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="LayoutElements">
-              <PropertyRef Name="Id" />
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="LayoutElementAttributes">
-              <PropertyRef Name="LayoutElementId" />
+            <Dependent Role="Notifications">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="EventToLayers">
+          <End Type="SWZIM_dbModel.Layers" Role="Layers" Multiplicity="*" />
+          <End Type="SWZIM_dbModel.Events" Role="Events" Multiplicity="*" />
+        </Association>
+        <Association Name="GroupToLayers">
+          <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
+          <End Type="SWZIM_dbModel.Layers" Role="Layers" Multiplicity="*" />
+        </Association>
+        <Association Name="UsersToGroups">
+          <End Type="SWZIM_dbModel.Groups" Role="Groups" Multiplicity="*" />
+          <End Type="SWZIM_dbModel.Users" Role="Users" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SWZIM_dbModelStoreContainer" CdmEntityContainer="SWZIM_dbEntities">
-          <EntitySetMapping Name="Notifications">
-            <EntityTypeMapping TypeName="SWZIM_dbModel.Notifications">
-              <MappingFragment StoreEntitySet="Notifications">
-                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="LayoutElements">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElements">
+              <MappingFragment StoreEntitySet="LayoutElements">
+                <ScalarProperty Name="LayersId" ColumnName="LayersId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Label" ColumnName="Label" />
-                <ScalarProperty Name="Body" ColumnName="Body" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="SWZIM_dbModel.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Groups">
-            <EntityTypeMapping TypeName="SWZIM_dbModel.Groups">
-              <MappingFragment StoreEntitySet="Groups">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MarkerIcons">
-            <EntityTypeMapping TypeName="SWZIM_dbModel.MarkerIcons">
-              <MappingFragment StoreEntitySet="MarkerIcons">
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Layers">
-            <EntityTypeMapping TypeName="SWZIM_dbModel.Layers">
-              <MappingFragment StoreEntitySet="Layers">
+                <ScalarProperty Name="LayoutElementTypeId" ColumnName="LayoutElementTypeId" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="GroupToLayers" TypeName="SWZIM_dbModel.GroupToLayers" StoreEntitySet="GroupToLayers">
-            <EndProperty Name="Layers">
-              <ScalarProperty Name="Id" ColumnName="LayerId" />
+          <AssociationSetMapping Name="ElementToElement" TypeName="SWZIM_dbModel.ElementToElement" StoreEntitySet="ElementToElement">
+            <EndProperty Name="LayoutElements1">
+              <ScalarProperty Name="Id" ColumnName="Element2" />
             </EndProperty>
-            <EndProperty Name="Groups">
-              <ScalarProperty Name="Id" ColumnName="GroupId" />
+            <EndProperty Name="LayoutElements">
+              <ScalarProperty Name="Id" ColumnName="Element1" />
             </EndProperty>
           </AssociationSetMapping>
           <EntitySetMapping Name="Events">
@@ -805,45 +785,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="EventToGroups" TypeName="SWZIM_dbModel.EventToGroups" StoreEntitySet="EventToGroups">
-            <EndProperty Name="Groups">
-              <ScalarProperty Name="Id" ColumnName="GroupId" />
-            </EndProperty>
-            <EndProperty Name="Events">
-              <ScalarProperty Name="Id" ColumnName="EventId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="LayoutElementTypes">
-            <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElementTypes">
-              <MappingFragment StoreEntitySet="LayoutElementTypes">
-                <ScalarProperty Name="MarkerIconId" ColumnName="MarkerIconId" />
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LayoutElements">
-            <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElements">
-              <MappingFragment StoreEntitySet="LayoutElements">
-                <ScalarProperty Name="LayersId" ColumnName="LayersId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LayoutElementTypeId" ColumnName="LayoutElementTypeId" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <EntitySetMapping Name="Layers">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.Layers">
+              <MappingFragment StoreEntitySet="Layers">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ElementToElement" TypeName="SWZIM_dbModel.ElementToElement" StoreEntitySet="ElementToElement">
-            <EndProperty Name="LayoutElements1">
-              <ScalarProperty Name="Id" ColumnName="Element2" />
-            </EndProperty>
-            <EndProperty Name="LayoutElements">
-              <ScalarProperty Name="Id" ColumnName="Element1" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="LayoutElementAttributes">
             <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElementAttributes">
               <MappingFragment StoreEntitySet="LayoutElementAttributes">
@@ -854,6 +812,70 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LayoutElementTypes">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.LayoutElementTypes">
+              <MappingFragment StoreEntitySet="LayoutElementTypes">
+                <ScalarProperty Name="MarkerIconId" ColumnName="MarkerIconId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarkerIcons">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.MarkerIcons">
+              <MappingFragment StoreEntitySet="MarkerIcons">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.Notifications">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SWZIM_dbModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EventToLayers" TypeName="SWZIM_dbModel.EventToLayers" StoreEntitySet="EventToLayers">
+            <EndProperty Name="Events">
+              <ScalarProperty Name="Id" ColumnName="EventId" />
+            </EndProperty>
+            <EndProperty Name="Layers">
+              <ScalarProperty Name="Id" ColumnName="LayerId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="GroupToLayers" TypeName="SWZIM_dbModel.GroupToLayers" StoreEntitySet="GroupToLayers">
+            <EndProperty Name="Layers">
+              <ScalarProperty Name="Id" ColumnName="LayerId" />
+            </EndProperty>
+            <EndProperty Name="Groups">
+              <ScalarProperty Name="Id" ColumnName="GroupId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UsersToGroups" TypeName="SWZIM_dbModel.UsersToGroups" StoreEntitySet="UsersToGroups">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="ID" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Groups">
+              <ScalarProperty Name="Id" ColumnName="GroupId" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

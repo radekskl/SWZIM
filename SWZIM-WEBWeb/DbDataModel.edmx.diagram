@@ -5,35 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c5a3d589254544c7a50afcecfe439467" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="SWZIM_dbModel.Notifications" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.Users" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="SWZIM_dbModel.FK_Notifications_0" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.Groups" Width="1.5" PointX="1.75" PointY="4.125" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.MarkerIcons" Width="1.5" PointX="5.625" PointY="1.125" />
-        <AssociationConnector Association="SWZIM_dbModel.FK_Users_Groups" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.Layers" Width="1.5" PointX="5.25" PointY="4.25" />
-        <AssociationConnector Association="SWZIM_dbModel.GroupToLayers" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.Events" Width="1.5" PointX="11.75" PointY="0.875" />
-        <EntityTypeShape EntityType="SWZIM_dbModel.EventTypes" Width="1.5" PointX="8.875" PointY="1.25" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Events" Width="1.75" PointX="5.25" PointY="5.875" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.EventTypes" Width="1.75" PointX="3" PointY="8.5" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Groups" Width="1.75" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Layers" Width="1.75" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementAttributes" Width="1.75" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementTypes" Width="1.75" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.MarkerIcons" Width="1.75" PointX="0.75" PointY="8.5" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Notifications" Width="1.75" PointX="5.25" PointY="1.75" />
+        <EntityTypeShape EntityType="SWZIM_dbModel.Users" Width="1.75" PointX="3" PointY="1.875" />
         <AssociationConnector Association="SWZIM_dbModel.FK_Events_EventType" />
-        <AssociationConnector Association="SWZIM_dbModel.FK_Events_Users" ManuallyRouted="false" >
-        </AssociationConnector>
+        <AssociationConnector Association="SWZIM_dbModel.FK_Events_Users" />
         <AssociationConnector Association="SWZIM_dbModel.FK_EventTypes_MarkerIcon" />
-        <AssociationConnector Association="SWZIM_dbModel.EventToGroups" ManuallyRouted="true" >
-          <ConnectorPoint PointX="12.5" PointY="4.201396484375" />
-          <ConnectorPoint PointX="12.5" PointY="5.1151432291666659" />
-          <ConnectorPoint PointX="7.25" PointY="5.1151432291666659" />
-          <ConnectorPoint PointX="7.25" PointY="4" />
-          <ConnectorPoint PointX="7.052083333333333" PointY="3.9999999999999996" />
-          <ConnectorPoint PointX="6.885416666666667" PointY="4" />
-          <ConnectorPoint PointX="3.625" PointY="4" />
-          <ConnectorPoint PointX="3.625" PointY="4.6200696145833327" />
-          <ConnectorPoint PointX="3.25" PointY="4.6200696145833327" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementTypes" Width="1.875" PointX="10.125" PointY="5.625" />
-        <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" ManuallyRouted="false" >
-        </AssociationConnector>
-        <EntityTypeShape EntityType="SWZIM_dbModel.LayoutElementAttributes" Width="1.5" PointX="3" PointY="6.75" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_LayoutElementTypes_MarkersIcon" />
+        <AssociationConnector Association="SWZIM_dbModel.FK_Notifications_0" />
+        <AssociationConnector Association="SWZIM_dbModel.EventToLayers" />
+        <AssociationConnector Association="SWZIM_dbModel.GroupToLayers" />
+        <AssociationConnector Association="SWZIM_dbModel.UsersToGroups" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

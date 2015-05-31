@@ -121,7 +121,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="profile-ava">
-                                <img alt="" src="~/img/avatar1_small.jpg">
+                                <img alt="" src="@string.Format("https://outlook.office365.com/api/beta/Users('{0}')/UserPhoto/$value", ViewBag.UserEmail)" width="33px;" height="33px" />
                             </span>
                             <span class="username">@((!string.IsNullOrEmpty(ViewBag.UserName)) ? ViewBag.UserName : "Jan kowalski")</span>
                             <b class="caret"></b>
@@ -129,10 +129,10 @@
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> Profil użytkownika</a>
+                                <a href="@Url.Action("Index", "Profile")"><i class="icon_profile"></i> Profil użytkownika</a>
                             </li>
                             <li>
-                                <a href="#"><i class="icon_key_alt"></i> Wyloguj</a>
+                                <a href="@(ViewBag.SPHostUrl + "/_layouts/15/SignOut.aspx")"><i class="icon_key_alt"></i> Wyloguj</a>
                             </li>
                             <li>
                                 <a href="http://jazz.wcy.wat.edu.pl:8086/ReqWeb/MainFrame.jsp"><i class="icon_key_alt"></i> Dokumentacja</a>
@@ -216,13 +216,13 @@
                         </ul>
                     </li>
                     <li data-ctrl="Profile" data-action="Index">
-                        <a class="" href="#">
+                        <a class="" href="@Url.Action("Index", "Profile")">
                             <i class="icon_profile"></i>
                             <span>Profil użytkownika</span>
                         </a>
                     </li>
                     <li>
-                        <a class="" href="#">
+                        <a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/SignOut.aspx")">
                             <i class="arrow_left_alt"></i>
                             <span>Wyloguj</span>
                         </a>

@@ -1,74 +1,108 @@
 ﻿@model SWZIM_WEBWeb.LayoutElements
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Szczegóły elementu warstwy";
 }
 
-<h2>Details</h2>
+<section id="main-content">
+    <section class="wrapper">
 
-<div>
-    <h4>LayoutElements</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        <div class="row">
+            <div class="col-lg-12">
+                <!--breadcrumbs start -->
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="icon_house_alt"></i> Home</a></li>
+                    <li class="active"> @ViewBag.Title</li>
+                </ul>
+                <!--breadcrumbs end -->
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        @ViewBag.Title
+                    </header>
+                    <div class="panel-body">
+                        <div>
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Name)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Description)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
+                                <dt>
+                                    Ilość przypisanych elementów warstw
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.LayoutElements1.Count)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.Latitude)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LayoutElementTypes.Name)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Latitude)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LayoutElementTypes.Name)
-        </dd>
+                                <dt>
+                                    @Html.DisplayFor(model => model.Longitude)
+                                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Users.Email)
-        </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Longitude)
+                                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Users.Email)
-        </dd>
+                            </dl>
+                        </div>
+                        <h3>Elementy warstwy pojedyncze</h3>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Nazwa atrybutu
+                                </th>
+                                <th>
+                                    Wartość atrybutu
+                                </th>
+                                <th></th>
+                            </tr>
+                            @foreach (var item in Model.LayoutElementAttributes)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Value</td>
+                                    <td>
+                                        @Html.ActionLink("Edycja", "Edit", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })
+                                        @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "btn btn-danger  btn-sm" })
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                        <p>
+                            @Html.ActionLink("Cześci elementu warstwy", "Layers", new { id = Model.Id }, new { @class = "btn btn-warning  btn-sm" })
+                        </p>
+                        <p>
+                            @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn btn-info  btn-sm" })
+                            @Html.ActionLink("Przejdź do listy elementów warstwy", "Index", null, new { Class = "btn btn-info  btn-sm" })
+                        </p>
+                    </div>
+                </section>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Layers.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Layers.Name)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </div>
+        </div>
+    </section>
+</section>

@@ -4011,3 +4011,7 @@ span.customSelect.changed {
 .customSelectInner {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
+
+.hidden {
+    display:none;
+}

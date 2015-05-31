@@ -52,9 +52,6 @@
     <Reference Include="Jmelosegui.Mvc.Googlemap">
       <HintPath>..\SWZIM-WEB\packages\Jmelosegui.Mvc.Googlemap.0.6.0.0\lib\net45\Jmelosegui.Mvc.Googlemap.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.ActiveDirectory.GraphClient">
-      <HintPath>..\SWZIM-WEB\packages\Microsoft.Azure.ActiveDirectory.GraphClient.2.0.8\lib\portable-net40+wp8+win8+MonoAndroid10+MonoTouch10+WindowsPhoneApp81\Microsoft.Azure.ActiveDirectory.GraphClient.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,6 +82,7 @@
     </Reference>
     <Reference Include="Microsoft.Office365.SharePoint">
       <HintPath>..\SWZIM-WEB\packages\Microsoft.Office365.SharePoint.1.0.22\lib\net40\Microsoft.Office365.SharePoint.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client, Version=16.0.0.0">
       <Private>True</Private>
@@ -92,7 +90,9 @@
     <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=16.0.0.0">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SharePoint.Client.UserProfiles, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Spatial">
       <HintPath>..\SWZIM-WEB\packages\Microsoft.Spatial.6.8.1\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.Spatial.dll</HintPath>
     </Reference>
@@ -178,6 +178,7 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayersController.cs" />
+    <Compile Include="Controllers\LayoutElementsController.cs" />
     <Compile Include="Controllers\LayoutElementTypesController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MarkerIconsController.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Helpers\NotificationsHelper.cs" />
     <Compile Include="Helpers\RouteHelper.cs" />
+    <Compile Include="Models\ProfileDataModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Notifications.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
@@ -313,8 +315,11 @@
     <Content Include="img\map-icons\cones2.png" />
     <Content Include="img\map-icons\cranes1.png" />
     <Content Include="img\map-icons\crash1.png" />
+    <Content Include="img\map-icons\crossing4.png" />
+    <Content Include="img\map-icons\crossing5.png" />
     <Content Include="img\map-icons\danger10.png" />
     <Content Include="img\map-icons\day7.png" />
+    <Content Include="img\map-icons\delete30.png" />
     <Content Include="img\map-icons\distance1.png" />
     <Content Include="img\map-icons\driving1.png" />
     <Content Include="img\map-icons\emergency10.png" />
@@ -329,6 +334,7 @@
     <Content Include="img\map-icons\road44.png" />
     <Content Include="img\map-icons\road47.png" />
     <Content Include="img\map-icons\roadsign14.png" />
+    <Content Include="img\map-icons\traffic-light.png" />
     <Content Include="img\map-icons\traffic-signal.png" />
     <Content Include="img\map-icons\transport106.png" />
     <Content Include="img\map-icons\transport109.png" />
@@ -454,6 +460,11 @@
     <Content Include="Views\Layers\Index.cshtml" />
     <Content Include="Views\Layers\Group.cshtml" />
     <Content Include="Views\Layers\AddLayerToGroup.cshtml" />
+    <Content Include="Views\LayoutElements\Create.cshtml" />
+    <Content Include="Views\LayoutElements\Delete.cshtml" />
+    <Content Include="Views\LayoutElements\Details.cshtml" />
+    <Content Include="Views\LayoutElements\Edit.cshtml" />
+    <Content Include="Views\LayoutElements\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

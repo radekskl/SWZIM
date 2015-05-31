@@ -1,4 +1,5 @@
 ﻿using Microsoft.SharePoint.Client.UserProfiles;
+using SWZIM_WEBWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace SWZIM_WEBWeb.Controllers
 {
     public class ProfileController : Controller
     {
+        private SWZIM_dbEntities db = new SWZIM_dbEntities();
+
         // GET: Profile
         [SharePointContextFilter]
         public ActionResult Index()
@@ -23,7 +26,24 @@ namespace SWZIM_WEBWeb.Controllers
                     PersonProperties personProperties = peopleManager.GetMyProperties();
                     clientContext.Load(personProperties);
                     clientContext.ExecuteQuery();
-                    return View(personProperties.UserProfileProperties);
+                    ProfileDataModel model = new ProfileDataModel();
+                    //fill desired properties
+                    model.FirstName = personProperties.UserProfileProperties["FirstName"];
+                    model.LastName = personProperties.UserProfileProperties["LastName"];
+                    model.PersonalSpace = personProperties.UserProfileProperties["PersonalSpace"];
+                    model.UserName = personProperties.UserProfileProperties["UserName"];
+                    model.PictureUrl = string.Format("https://outlook.office365.com/api/beta/Users('{0}')/UserPhoto/$value", model.UserName);
+                    model.PreferredName = personProperties.UserProfileProperties["PreferredName"];
+
+                    Users user = db.Users.Find(ViewBag.UserId);
+                    if (user != null)
+                    {
+                        if (user.Groups != null)
+                        {
+                            model.UserGroup = user.Groups;
+                        }
+                    }
+                    return View(model);
                 }
             }
 

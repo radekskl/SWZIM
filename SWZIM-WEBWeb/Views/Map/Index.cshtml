@@ -90,6 +90,10 @@
     function clearAllMarkers() {
         setMarkers(null);
         markers = [];
+        //usuwanie podswietlenia z aktywna warstwa
+        for (var i = 0; i < activeLayers.length; i++) {
+            $('li[layer="' + activeLayers[i] + '"]').removeClass('active');
+        }
         activeLayers = [];
     }
 

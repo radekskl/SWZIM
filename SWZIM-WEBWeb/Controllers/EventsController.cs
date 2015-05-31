@@ -153,7 +153,7 @@ namespace SWZIM_WEBWeb.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Events events = db.Events.Find(id);
-            foreach (var item in events.Layers)
+            foreach (var item in events.Layers.ToList())
             {
                 db.Layers.Remove(item);
             }

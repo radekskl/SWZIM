@@ -12,8 +12,13 @@ namespace SWZIM_WEBWeb.Helpers
         {
             using (var db = new SWZIM_dbEntities())
             {
-                var userGroup = db.Users.Find(userId).GroupId;
-                return db.Layers.Where(l => l.Groups.Any(g => g.Id == userGroup)).ToList();
+                var userGroup = db.Users.Find(userId).Groups;
+                var layerGroups = new List<Layers>();
+                foreach (var item in userGroup)
+                {
+                    layerGroups.AddRange(item.Layers);
+                }
+                return layerGroups.ToList();
                                
             }
         }
@@ -22,7 +27,7 @@ namespace SWZIM_WEBWeb.Helpers
         {
             using (var db = new SWZIM_dbEntities())
             {
-                var userGroup = db.Users.Find(userId).GroupId;
+                var userGroup = db.Users.Find(userId).Groups;
                 var layers = db.Groups.Find(userGroup).Layers;
                 var result = new List<LayoutElements>();
                 foreach (var l in layers)

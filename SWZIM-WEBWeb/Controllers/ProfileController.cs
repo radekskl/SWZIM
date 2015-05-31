@@ -40,7 +40,7 @@ namespace SWZIM_WEBWeb.Controllers
                     {
                         if (user.Groups != null)
                         {
-                            model.UserGroup = user.Groups;
+                            //model.UserGroup = user.Groups; / ? nie wiem co ztym
                         }
                     }
                     return View(model);

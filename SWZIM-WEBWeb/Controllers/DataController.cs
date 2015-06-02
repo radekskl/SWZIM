@@ -27,6 +27,17 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        // POST: Import
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
+        public ActionResult Import(SWZIM_WEBWeb.Models.HelperViewModels.ImportExportFileViewModel model)
+        {
+            
+
+            return View();
+        }
+
         // GET: Export
         [SharePointContextFilter]
         public ActionResult Export()

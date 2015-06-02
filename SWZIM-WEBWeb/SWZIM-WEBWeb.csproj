@@ -240,6 +240,7 @@
     <Compile Include="Helpers\RouteHelper.cs" />
     <Compile Include="Models\ProfileDataModel.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\XMIHelperModel.cs" />
     <Compile Include="Notifications.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>

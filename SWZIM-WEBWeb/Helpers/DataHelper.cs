@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWZIM_WEBWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace SWZIM_WEBWeb.Helpers
         {
             string result = "";
 
-            Dictionary<string, string> idToName = new Dictionary<string, string>(); // pozniej za value bedzie obiekt
+            Dictionary<string, string> idToName = new Dictionary<string, string>();
+            Dictionary<string, XMIHelperModel.LatLong> coordinates = new Dictionary<string, XMIHelperModel.LatLong>();
 
             Stream stream = GetXMLStream(file);
             XmlTextReader reader = new XmlTextReader(stream);
@@ -39,17 +41,28 @@ namespace SWZIM_WEBWeb.Helpers
                 }
                 if (reader.Prefix.Equals("ProfilCAD"))
                 {
-                    result += reader.LocalName + "\n";
-                    if (reader.HasAttributes)
+                    if (reader.LocalName.Equals("Lokalizacja")) // kordyty do obiektow
                     {
-                        while (reader.MoveToNextAttribute())
-                        {
-                            result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
-                            if (reader.Name.Equals("base_Class"))
-                                result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
-                        }
-                        reader.MoveToElement();
+                        var xmiId = reader.GetAttribute("xmi:id");
+                        var lat = decimal.Parse(reader.GetAttribute("szerokoscGeograficzna"));
+                        var log = decimal.Parse(reader.GetAttribute("dlugoscGeograficzna"));
+                        coordinates.Add(xmiId, new XMIHelperModel.LatLong() { Latitude = lat, Longitude = log });
                     }
+                    else
+                    {
+                        result += reader.LocalName + "\n";
+                        if (reader.HasAttributes)
+                        {
+                            while (reader.MoveToNextAttribute())
+                            {
+                                result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
+                                if (reader.Name.Equals("base_Class"))
+                                    result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
+                            }
+                            reader.MoveToElement();
+                        }
+                    }
+                    
                 }
 
 

@@ -201,8 +201,8 @@
                             <span class="menu-arrow arrow_carrot-right"></span>
                         </a>
                         <ul class="sub">
-                            <li><a class="active" href="#">Import danych</a></li>
-                            <li><a class="" href="#">Eksport danych</a></li>
+                            <li data-ctrl="Data" data-action="Import"><a class="" href="@(Url.Action("Import", "Data"))">Import danych</a></li>
+                            <li data-ctrl="Data" data-action="Export"><a class="" href="@(Url.Action("Export", "Data"))">Export danych</a></li>
                             <li>@*<a class="" href="@(ViewBag.SPHostUrl + "/_layouts/15/groups.aspx")"  target="_blank">Zarządzanie grupami</a>*@</li>
                             <li data-ctrl="Groups" data-action="Index"><a class="" href="@(Url.Action("Index", "Groups"))">Zarządzanie grupami</a></li>
                             <li data-ctrl="Layers" data-action="Index"><a class="" href="@(Url.Action("Index", "Layers"))">Zarządzanie warstwami</a></li>
@@ -213,8 +213,7 @@
                             <li data-ctrl="Events" data-action="Index"><a class="" href="@(Url.Action("Index", "Events"))">Zarządzanie zdarzeniami</a></li>
                             <li data-ctrl="LayoutElementTypes" data-action="Index"><a class="" href="@(Url.Action("Index", "LayoutElementTypes"))">Zarządzanie typami el. warstw</a></li>
                             <li data-ctrl="MarkerIcons" data-action="Index"><a class="" href="@(Url.Action("Index", "MarkerIcons"))">Zarządzanie ikonami</a></li>
-                            <li data-ctrl="Data" data-action="Import"><a class="" href="@(Url.Action("Import", "Data"))">Import</a></li>
-                            <li data-ctrl="Data" data-action="Export"><a class="" href="@(Url.Action("Export", "Data"))">Export</a></li>
+                            
                             
                         </ul>
                     </li>

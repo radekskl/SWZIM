@@ -24,7 +24,7 @@
                         @ViewBag.Title
                     </header>
                     <div class="panel-body">
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("Import", "Data", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Current.Request).AbsoluteUri }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
 
@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.File, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        <input type="file" name="File" />
+                                        <input type="file" id="File" name="File" />
                                     </div>
                                 </div>
                                 <p style="padding-top: 15px">

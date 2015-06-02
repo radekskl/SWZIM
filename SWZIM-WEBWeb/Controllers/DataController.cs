@@ -37,12 +37,19 @@ namespace SWZIM_WEBWeb.Controllers
             list.Add(new Layers() { Id = 0, Name = "Nowa" });
 
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
-            var listZPliku = DataHelper.ParseXMI(model.File);
-            //ViewBag.Results = DataHelper.Test(model.File);
-            //foreach (var item in listZPliku)
-            //{
-            //    ViewBag.Results += String.Format("{0} => {1}\n", item.Name, item.ClassName);
-            //}
+            var listFromFile = DataHelper.ParseXMI(model.File);
+
+            int choosedLayer = 1; // główny layer
+
+            if (model.LayerId == 0)
+            {
+                choosedLayer = LayersHelper.InsertLayer(ViewBag.UserId);
+            }
+            else
+                choosedLayer = model.LayerId;
+
+            var listForDB = DataHelper.RefactorCADProfileToLayoutElements(listFromFile,choosedLayer, ViewBag.UserId);
+            
             return View();
         }
 

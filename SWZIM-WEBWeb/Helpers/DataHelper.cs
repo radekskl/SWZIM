@@ -46,6 +46,7 @@ namespace SWZIM_WEBWeb.Helpers
                         var xmiId = reader.GetAttribute("xmi:id");
                         var lat = decimal.Parse(reader.GetAttribute("szerokoscGeograficzna"));
                         var log = decimal.Parse(reader.GetAttribute("dlugoscGeograficzna"));
+                        //tutaj jeszcze jakas walidacje by sie przydalo
                         coordinates.Add(xmiId, new XMIHelperModel.LatLong() { Latitude = lat, Longitude = log });
                     }
                     else
@@ -88,7 +89,7 @@ namespace SWZIM_WEBWeb.Helpers
             return list;
         }
 
-        public static List<LayoutElements> RefactorCADProfileToLayoutElements(List<XMIHelperModel.ProfilCADModel> input, int layerId)
+        public static List<LayoutElements> RefactorCADProfileToLayoutElements(List<XMIHelperModel.ProfilCADModel> input, int layerId, int userId)
         {
             List<LayoutElements> list = new List<LayoutElements>();
             foreach (var item in input)
@@ -97,11 +98,22 @@ namespace SWZIM_WEBWeb.Helpers
                 {
                     LayoutElements le = new LayoutElements();
                     le.LayersId = layerId;
-                    le.LayoutElementTypeId = 1;//
+                    le.LayoutElementTypeId = LayoutElementsHelper.GetLEType(item.ClassName);
+                    le.Name = item.Name;
+                    le.Longitude = item.Coordinates.Longitude;
+                    le.Latitude = item.Coordinates.Latitude;
+                    le.Description = "Zaimportowany z pliku XMI";
+                    le.UserId = userId;
+                    foreach (var itx in item.Attributes)
+                    {
+                        le.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
+                    }
+                    list.Add(le);
                 }
             }
             return list;
         }
+
 
     }
 }

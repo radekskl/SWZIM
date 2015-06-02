@@ -41,5 +41,20 @@ namespace SWZIM_WEBWeb.Helpers
                 return result.ToList();
             }
         }
+
+        public static int InsertLayer(int userId)
+        {
+            int result = -1;
+            using (var db = new SWZIM_dbEntities())
+            {
+                Layers l = new Layers();
+                l.Name = "Warstwa " + DateTime.Now.ToShortTimeString();
+                l.Description = "Warstwa zaimportowana przez " + db.Users.Find(userId).UserName;
+                db.Layers.Add(l);
+                db.SaveChanges();
+                result = l.Id;
+            }
+            return result;
+        }
     }
 }

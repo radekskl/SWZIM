@@ -57,5 +57,27 @@ namespace SWZIM_WEBWeb.Helpers
             }
             return result;
         }
+
+        public static bool InsertEvents(List<Events> list, int layerId)
+        {
+            try
+            {
+                using (var db = new SWZIM_dbEntities())
+                {
+                    foreach (var item in list)
+                    {
+                        db.Events.Add(item);
+                        db.Layers.Find(layerId).Events.Add(item);
+                    }
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
     }
 }

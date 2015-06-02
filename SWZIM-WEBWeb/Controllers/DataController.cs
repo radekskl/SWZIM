@@ -52,7 +52,7 @@ namespace SWZIM_WEBWeb.Controllers
             var listLEForDB = DataHelper.RefactorCADProfileToLayoutElements(listFromFile.Where(x=>x.Type == 0).ToList(),choosedLayer, ViewBag.UserId);
             var listEventsForDB = DataHelper.RefactorCADProfileToEvents(listFromFile.Where(x => x.Type == 1).ToList(), ViewBag.UserId);
 
-            if(LayoutElementsHelper.InsertLayoutElements(listLEForDB))
+            if(LayoutElementsHelper.InsertLayoutElements(listLEForDB) && EventsHelper.InsertEvents(listEventsForDB, choosedLayer))
                 return RedirectToAction("Layers", "LayoutElements", new { id = choosedLayer, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             else
                 return View();

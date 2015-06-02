@@ -19,6 +19,7 @@ namespace SWZIM_WEBWeb.Models
             public string ClassName { get; set; }
             public Dictionary<string, string> Attributes { get; set; }
             public LatLong Coordinates { get; set; }
+            public int Type { get; set; } // 0 <- elem. warstwy / 1 <- zdarzenie  
 
         }
     }

@@ -84,6 +84,7 @@ namespace SWZIM_WEBWeb.Helpers
                 {
                     item.Coordinates = coordinates[attr.Value];
                 }
+                // podzial na wydarzenia i elementy modelu
             }
 
             return list;

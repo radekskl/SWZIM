@@ -49,8 +49,11 @@ namespace SWZIM_WEBWeb.Controllers
                 choosedLayer = model.LayerId;
 
             var listForDB = DataHelper.RefactorCADProfileToLayoutElements(listFromFile,choosedLayer, ViewBag.UserId);
-            
-            return View();
+
+            if(LayoutElementsHelper.InsertLayoutElements(listForDB))
+                return RedirectToAction("Layers", "LayoutElements", new { id = choosedLayer, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+            else
+                return View();
         }
 
         // GET: Export

@@ -18,5 +18,26 @@ namespace SWZIM_WEBWeb.Helpers
             }
             return result;
         }
+
+        public static bool InsertLayoutElements(List<LayoutElements> list)
+        {
+            try
+            {
+                using (var db = new SWZIM_dbEntities())
+                {
+                    foreach (var item in list)
+                    {
+                        db.LayoutElements.Add(item);
+                    }
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+        }
     }
 }

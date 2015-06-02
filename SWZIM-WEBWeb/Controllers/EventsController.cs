@@ -71,14 +71,27 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Create([Bind(Include = "Id,Name,Latitude,Longitude,Description,EventTypeId,Status,LayerId")] SWZIM_WEBWeb.Models.HelperViewModels.AddEventViewModel events)
+        public ActionResult Create(System.Web.Mvc.FormCollection formCollection)
         {
+            SWZIM_WEBWeb.Models.HelperViewModels.AddEventViewModel events = new Models.HelperViewModels.AddEventViewModel();
+
+            //[Bind(Include = "Id,Name,Latitude,Longitude,Description,EventTypeId,Status,LayerId")] SWZIM_WEBWeb.Models.HelperViewModels.AddEventViewModel events
             if (ModelState.IsValid)
             {
-                events.Event.AddedBy = ViewBag.UserId;
-                events.Event.CreatedAt = DateTime.Now;
+                events.Event = new Events()
+                {
+                    //Id = int.Parse(formCollection["Id"]),
+                    AddedBy = ViewBag.UserId,
+                    CreatedAt = DateTime.Now,
+                    Description = formCollection["Event.Description"],
+                    EventTypeId = int.Parse(formCollection["EventTypeId"]),
+                    Latitude = decimal.Parse(formCollection["Event.Latitude"]),
+                    Longitude = decimal.Parse(formCollection["Event.Longitude"]),
+                    Name = formCollection["Event.Name"],
+                    Status = int.Parse(formCollection["Event.Status"]),
+                };
 
-                var layer = db.Layers.Find(events.LayerId);
+                var layer = db.Layers.Find(int.Parse(formCollection["LayerId"]));
                 events.Event.Layers.Add(layer);
 
                 db.Events.Add(events.Event);
@@ -87,8 +100,8 @@ namespace SWZIM_WEBWeb.Controllers
             }
 
             ViewBag.EventTypeId = new SelectList(db.EventTypes, "Id", "Name", events.Event.EventTypeId);
-           // ViewBag.AddedBy = new SelectList(db.Users, "ID", "Email", events.AddedBy);
-            return View(events);
+            // ViewBag.AddedBy = new SelectList(db.Users, "ID", "Email", events.AddedBy);
+            return View(formCollection);
         }
 
         // GET: Events/Edit/5

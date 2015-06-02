@@ -39,14 +39,14 @@ namespace SWZIM_WEBWeb.Helpers
                 }
                 if (reader.Prefix.Equals("ProfilCAD"))
                 {
-                    result += reader.LocalName + "br />";
+                    result += reader.LocalName + "\n";
                     if (reader.HasAttributes)
                     {
                         while (reader.MoveToNextAttribute())
                         {
-                            result += String.Format(" {0}={1}", reader.Name, reader.Value) + "<br />";
+                            result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
                             if (reader.Name.Equals("base_Class"))
-                                result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "<br />";
+                                result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
                         }
                         reader.MoveToElement();
                     }

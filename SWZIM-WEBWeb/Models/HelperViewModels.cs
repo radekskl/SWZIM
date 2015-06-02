@@ -30,5 +30,11 @@ namespace SWZIM_WEBWeb.Models
             public int LayoutElement1 { get; set; }
             public int LayoutElement2 { get; set; }
         }
+
+        public class ImportExportFileViewModel
+        {
+            public int LayerId { get; set; }
+            public HttpPostedFileBase File { get; set; }
+        }
     }
 }

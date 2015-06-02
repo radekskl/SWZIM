@@ -471,10 +471,11 @@
     <Content Include="Views\LayoutElements\Layers.cshtml" />
     <Content Include="Views\LayoutElements\AddAttribute.cshtml" />
     <Content Include="Views\LayoutElements\DeleteAttribute.cshtml" />
+    <Content Include="Views\Data\Import.cshtml" />
+    <Content Include="Views\Data\Export.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

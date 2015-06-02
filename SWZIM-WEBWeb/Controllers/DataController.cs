@@ -19,5 +19,11 @@ namespace SWZIM_WEBWeb.Controllers
         {
             return View();
         }
+
+        // GET: Export
+        public ActionResult Export()
+        {
+            return View();
+        }
     }
 }

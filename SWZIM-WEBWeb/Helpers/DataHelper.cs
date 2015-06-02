@@ -24,13 +24,12 @@ namespace SWZIM_WEBWeb.Helpers
 
         public static List<XMIHelperModel.ProfilCADModel> Test(HttpPostedFileBase file)
         {
-            //string result = "";
-
             Dictionary<string, string> idToName = new Dictionary<string, string>();
             Dictionary<string, XMIHelperModel.LatLong> coordinates = new Dictionary<string, XMIHelperModel.LatLong>();
             List<XMIHelperModel.ProfilCADModel> list = new List<XMIHelperModel.ProfilCADModel>(); 
 
             Stream stream = GetXMLStream(file);
+            
             XmlTextReader reader = new XmlTextReader(stream);
             while (reader.Read())
             {
@@ -76,6 +75,14 @@ namespace SWZIM_WEBWeb.Helpers
                 }
 
 
+            }
+            foreach (var item in list)
+            {
+                var attr = item.Attributes.First(x => x.Key == "lokalizacja");
+                if (!attr.Equals(default(KeyValuePair<string,string>)))
+                {
+                    item.Coordinates = coordinates[attr.Value];
+                }
             }
 
             return list;

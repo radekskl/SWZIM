@@ -33,7 +33,10 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Import(SWZIM_WEBWeb.Models.HelperViewModels.ImportExportFileViewModel model)
         {
-            
+            List<Layers> list = LayersHelper.GetLayersList(ViewBag.UserId);
+            list.Add(new Layers() { Id = 0, Name = "Nowa" });
+
+            ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
 
             return View();
         }

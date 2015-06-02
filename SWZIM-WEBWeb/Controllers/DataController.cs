@@ -37,7 +37,7 @@ namespace SWZIM_WEBWeb.Controllers
             list.Add(new Layers() { Id = 0, Name = "Nowa" });
 
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
-
+            ViewBag.Results = "tutaj co wylapiemy z z pliku";
             return View();
         }
 

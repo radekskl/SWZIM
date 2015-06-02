@@ -37,7 +37,12 @@ namespace SWZIM_WEBWeb.Controllers
             list.Add(new Layers() { Id = 0, Name = "Nowa" });
 
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
-            ViewBag.Results = DataHelper.Test(model.File);
+            var listZPliku = DataHelper.Test(model.File);
+            //ViewBag.Results = DataHelper.Test(model.File);
+            foreach (var item in listZPliku)
+            {
+                ViewBag.Results += String.Format("{0} => {1}\n", item.Name, item.ClassName);
+            }
             return View();
         }
 

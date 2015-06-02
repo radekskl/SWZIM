@@ -22,12 +22,13 @@ namespace SWZIM_WEBWeb.Helpers
             }
         }
 
-        public static string Test(HttpPostedFileBase file)
+        public static List<XMIHelperModel.ProfilCADModel> Test(HttpPostedFileBase file)
         {
-            string result = "";
+            //string result = "";
 
             Dictionary<string, string> idToName = new Dictionary<string, string>();
             Dictionary<string, XMIHelperModel.LatLong> coordinates = new Dictionary<string, XMIHelperModel.LatLong>();
+            List<XMIHelperModel.ProfilCADModel> list = new List<XMIHelperModel.ProfilCADModel>(); 
 
             Stream stream = GetXMLStream(file);
             XmlTextReader reader = new XmlTextReader(stream);
@@ -50,17 +51,26 @@ namespace SWZIM_WEBWeb.Helpers
                     }
                     else
                     {
-                        result += reader.LocalName + "\n";
+                        XMIHelperModel.ProfilCADModel mdl = new XMIHelperModel.ProfilCADModel();
+                        mdl.ClassName = reader.LocalName;
+                        //result += reader.LocalName + "\n";
                         if (reader.HasAttributes)
                         {
                             while (reader.MoveToNextAttribute())
                             {
-                                result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
-                                if (reader.Name.Equals("base_Class"))
-                                    result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
+                                if (reader.Name.Equals("base_Class")){
+                                    //result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
+                                    mdl.Name = idToName[reader.Value];
+                                } 
+                                else
+                                {
+                                    mdl.Attributes.Add(reader.Name, reader.Value);
+                                    //result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
+                                }
                             }
                             reader.MoveToElement();
                         }
+                        list.Add(mdl);
                     }
                     
                 }
@@ -68,7 +78,7 @@ namespace SWZIM_WEBWeb.Helpers
 
             }
 
-            return result;
+            return list;
         }
     }
 }

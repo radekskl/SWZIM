@@ -21,7 +21,8 @@ namespace SWZIM_WEBWeb.Controllers
         {
             List<Layers> list = LayersHelper.GetLayersList(ViewBag.UserId);
             list.Add(new Layers(){ Id = 0, Name = "Nowa"});
-            ViewBag.LayerId = list.OrderBy(l => l.Id).ToList(); 
+
+            ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
 
             return View();
         }

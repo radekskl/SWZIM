@@ -24,65 +24,79 @@ namespace SWZIM_WEBWeb.Helpers
 
         public static List<XMIHelperModel.ProfilCADModel> ParseXMI(HttpPostedFileBase file)
         {
-            Dictionary<string, string> idToName = new Dictionary<string, string>();
-            Dictionary<string, XMIHelperModel.LatLong> coordinates = new Dictionary<string, XMIHelperModel.LatLong>();
-            List<XMIHelperModel.ProfilCADModel> list = new List<XMIHelperModel.ProfilCADModel>(); 
-
-            Stream stream = GetXMLStream(file);
-            
-            XmlTextReader reader = new XmlTextReader(stream);
-            while (reader.Read())
+            try
             {
-                if (reader.Name.Equals("packagedElement"))
+                Dictionary<string, string> idToName = new Dictionary<string, string>();
+                Dictionary<string, XMIHelperModel.LatLong> coordinates = new Dictionary<string, XMIHelperModel.LatLong>();
+                List<XMIHelperModel.ProfilCADModel> list = new List<XMIHelperModel.ProfilCADModel>();
+
+                Stream stream = GetXMLStream(file);
+
+                XmlTextReader reader = new XmlTextReader(stream);
+                while (reader.Read())
                 {
-                    var xmiId = reader.GetAttribute("xmi:id");
-                    var xmiName = reader.GetAttribute("name");
-                    idToName.Add(xmiId, xmiName);
-                }
-                if (reader.Prefix.Equals("ProfilCAD"))
-                {
-                    if (reader.LocalName.Equals("Lokalizacja")) // kordyty do obiektow
+                    if (reader.Name.Equals("packagedElement"))
                     {
                         var xmiId = reader.GetAttribute("xmi:id");
-                        var lat = decimal.Parse(reader.GetAttribute("szerokoscGeograficzna"));
-                        var log = decimal.Parse(reader.GetAttribute("dlugoscGeograficzna"));
-                        //tutaj jeszcze jakas walidacje by sie przydalo
-                        coordinates.Add(xmiId, new XMIHelperModel.LatLong() { Latitude = lat, Longitude = log });
+                        var xmiName = reader.GetAttribute("name");
+                        idToName.Add(xmiId, xmiName);
+                    }
+                    if (reader.Prefix.Equals("ProfilCAD"))
+                    {
+                        if (reader.LocalName.Equals("Lokalizacja")) // kordyty do obiektow
+                        {
+                            var xmiId = reader.GetAttribute("xmi:id");
+                            var lat = decimal.Parse(reader.GetAttribute("szerokoscGeograficzna"));
+                            var log = decimal.Parse(reader.GetAttribute("dlugoscGeograficzna"));
+                            //tutaj jeszcze jakas walidacje by sie przydalo
+                            coordinates.Add(xmiId, new XMIHelperModel.LatLong() { Latitude = lat, Longitude = log });
+                        }
+                        else
+                        {
+                            XMIHelperModel.ProfilCADModel mdl = new XMIHelperModel.ProfilCADModel();
+                            mdl.ClassName = reader.LocalName;
+                            //result += reader.LocalName + "\n";
+                            if (reader.HasAttributes)
+                            {
+                                while (reader.MoveToNextAttribute())
+                                {
+                                    if (reader.Name.Equals("base_Class"))
+                                    {
+                                        //result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
+                                        mdl.Name = idToName[reader.Value];
+                                    }
+                                    else
+                                    {
+                                        mdl.Attributes.Add(reader.Name, reader.Value);
+                                        //result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
+                                    }
+                                }
+                                reader.MoveToElement();
+                            }
+                            list.Add(mdl);
+                        }
+
+                    }
+
+
+                }
+           
+            foreach (var item in list)
+            {
+                var attr = item.Attributes.FirstOrDefault(x => x.Key == "lokalizacja");
+                if (!attr.Equals(default(KeyValuePair<string,string>)))
+                {
+                    if (attr.Value.Contains(" "))
+                    {
+                        foreach (string coordiate in attr.Value.Split(' '))
+                        {
+                            item.Coordinates.Add(coordinates[coordiate]);
+                        }
                     }
                     else
                     {
-                        XMIHelperModel.ProfilCADModel mdl = new XMIHelperModel.ProfilCADModel();
-                        mdl.ClassName = reader.LocalName;
-                        //result += reader.LocalName + "\n";
-                        if (reader.HasAttributes)
-                        {
-                            while (reader.MoveToNextAttribute())
-                            {
-                                if (reader.Name.Equals("base_Class")){
-                                    //result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
-                                    mdl.Name = idToName[reader.Value];
-                                } 
-                                else
-                                {
-                                    mdl.Attributes.Add(reader.Name, reader.Value);
-                                    //result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
-                                }
-                            }
-                            reader.MoveToElement();
-                        }
-                        list.Add(mdl);
+                        item.Coordinates.Add(coordinates[attr.Value]);
                     }
-                    
-                }
-
-
-            }
-            foreach (var item in list)
-            {
-                var attr = item.Attributes.First(x => x.Key == "lokalizacja");
-                if (!attr.Equals(default(KeyValuePair<string,string>)))
-                {
-                    item.Coordinates = coordinates[attr.Value];
                 }
                 // podzial na wydarzenia i elementy modelu
                 if (item.ClassName.Equals("Wypadek"))
@@ -92,6 +106,12 @@ namespace SWZIM_WEBWeb.Helpers
             }
 
             return list;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Debug here! " + ex);
+                return null;
+            }
         }
 
         public static List<LayoutElements> RefactorCADProfileToLayoutElements(List<XMIHelperModel.ProfilCADModel> input, int layerId, int userId)
@@ -99,14 +119,14 @@ namespace SWZIM_WEBWeb.Helpers
             List<LayoutElements> list = new List<LayoutElements>();
             foreach (var item in input)
             {
-                if (!item.Coordinates.Equals(default(XMIHelperModel.LatLong))) // jezeli nie maja kordynatow to nie wpisujemy ich
+                if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))) // jezeli nie maja kordynatow to nie wpisujemy ich
                 {
                     LayoutElements le = new LayoutElements();
                     le.LayersId = layerId;
                     le.LayoutElementTypeId = LayoutElementsHelper.GetLEType(item.ClassName);
                     le.Name = item.Name;
-                    le.Longitude = item.Coordinates.Longitude;
-                    le.Latitude = item.Coordinates.Latitude;
+                    le.Longitude = item.Coordinates.First().Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
+                    le.Latitude = item.Coordinates.First().Latitude;
                     le.Description = "Zaimportowany z pliku XMI";
                     le.UserId = userId;
                     foreach (var itx in item.Attributes)
@@ -124,15 +144,15 @@ namespace SWZIM_WEBWeb.Helpers
             List<Events> list = new List<Events>();
             foreach (var item in input)
             {
-                if (!item.Coordinates.Equals(default(XMIHelperModel.LatLong))) // jezeli nie maja kordynatow to nie wpisujemy ich
+                if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))) // jezeli nie maja kordynatow to nie wpisujemy ich
                 {
                     Events e = new Events();
                     e.AddedBy = userId;
                     e.CreatedAt = DateTime.Now;
                     e.Description = "Zaimportowane z pliku XMI";
                     e.EventTypeId = EventsHelper.GetEventType(item.ClassName);
-                    e.Latitude = item.Coordinates.Latitude;
-                    e.Longitude = item.Coordinates.Longitude;
+                    e.Latitude = item.Coordinates.First().Latitude;
+                    e.Longitude = item.Coordinates.First().Longitude;
                     e.Name = item.Name;
                     e.Status = 0;
                     list.Add(e);

@@ -18,9 +18,14 @@ namespace SWZIM_WEBWeb.Models
             public string Name { get; set; }
             public string ClassName { get; set; }
             public Dictionary<string, string> Attributes { get; set; }
-            public LatLong Coordinates { get; set; }
+            public List<LatLong> Coordinates { get; set; }
             public int Type { get; set; } // 0 <- elem. warstwy / 1 <- zdarzenie  
 
+            public ProfilCADModel()
+            {
+                this.Attributes = new Dictionary<string, string>();
+                this.Coordinates = new List<LatLong>();
+            }
         }
     }
 }

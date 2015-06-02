@@ -219,6 +219,7 @@
     <Compile Include="Helpers\ExtensionsHelper.cs" />
     <Compile Include="Helpers\GroupsHelper.cs" />
     <Compile Include="Helpers\LayersHelper.cs" />
+    <Compile Include="Helpers\LayoutElementsHelper.cs" />
     <Compile Include="Layers.cs">
       <DependentUpon>DbDataModel.tt</DependentUpon>
     </Compile>

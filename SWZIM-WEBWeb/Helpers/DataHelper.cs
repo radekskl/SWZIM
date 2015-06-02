@@ -21,12 +21,14 @@ namespace SWZIM_WEBWeb.Helpers
             }
         }
 
-        public static string Test(Stream stream)
+        public static string Test(HttpPostedFileBase file)
         {
             string result = "";
 
             Dictionary<string, string> idToName = new Dictionary<string, string>(); // pozniej za value bedzie obiekt
-            XmlTextReader reader = new XmlTextReader("plik.xmi");
+
+            Stream stream = GetXMLStream(file);
+            XmlTextReader reader = new XmlTextReader(stream);
             while (reader.Read())
             {
                 if (reader.Name.Equals("packagedElement"))

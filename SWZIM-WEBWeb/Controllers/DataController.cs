@@ -1,4 +1,5 @@
 ﻿using SWZIM_WEBWeb.Helpers;
+using SWZIM_WEBWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace SWZIM_WEBWeb.Controllers
             list.Add(new Layers() { Id = 0, Name = "Nowa" });
 
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
-            var listFromFile = DataHelper.ParseXMI(model.File);
+            List<XMIHelperModel.ProfilCADModel> listFromFile = DataHelper.ParseXMI(model.File);
 
             int choosedLayer = 1; // główny layer
 
@@ -48,9 +49,10 @@ namespace SWZIM_WEBWeb.Controllers
             else
                 choosedLayer = model.LayerId;
 
-            var listForDB = DataHelper.RefactorCADProfileToLayoutElements(listFromFile,choosedLayer, ViewBag.UserId);
+            var listLEForDB = DataHelper.RefactorCADProfileToLayoutElements(listFromFile.Where(x=>x.Type == 0).ToList(),choosedLayer, ViewBag.UserId);
+            var listEventsForDB = DataHelper.RefactorCADProfileToEvents(listFromFile.Where(x => x.Type == 1).ToList(), ViewBag.UserId);
 
-            if(LayoutElementsHelper.InsertLayoutElements(listForDB))
+            if(LayoutElementsHelper.InsertLayoutElements(listLEForDB))
                 return RedirectToAction("Layers", "LayoutElements", new { id = choosedLayer, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             else
                 return View();

@@ -45,5 +45,17 @@ namespace SWZIM_WEBWeb.Helpers
                 return result.OrderByDescending(x => x.CreatedAt).Where(e => e.Name.Contains(value) || e.Description.Contains(value)).ToList();
             }
         }
+
+        public static int GetEventType(string input)
+        {
+            int result = 1; // UWaga
+            using (var db = new SWZIM_dbEntities())
+            {
+                var type = db.EventTypes.FirstOrDefault(x => x.Name.Equals(input));
+                if (type != null)
+                    result = type.Id;
+            }
+            return result;
+        }
     }
 }

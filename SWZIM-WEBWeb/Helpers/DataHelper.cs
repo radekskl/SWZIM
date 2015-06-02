@@ -85,6 +85,10 @@ namespace SWZIM_WEBWeb.Helpers
                     item.Coordinates = coordinates[attr.Value];
                 }
                 // podzial na wydarzenia i elementy modelu
+                if (item.ClassName.Equals("Wypadek"))
+                    item.Type = 1; // event
+                else
+                    item.Type = 0; // layoutElement
             }
 
             return list;
@@ -110,6 +114,28 @@ namespace SWZIM_WEBWeb.Helpers
                         le.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
                     }
                     list.Add(le);
+                }
+            }
+            return list;
+        }
+
+        public static List<Events> RefactorCADProfileToEvents(List<XMIHelperModel.ProfilCADModel> input, int userId)
+        {
+            List<Events> list = new List<Events>();
+            foreach (var item in input)
+            {
+                if (!item.Coordinates.Equals(default(XMIHelperModel.LatLong))) // jezeli nie maja kordynatow to nie wpisujemy ich
+                {
+                    Events e = new Events();
+                    e.AddedBy = userId;
+                    e.CreatedAt = DateTime.Now;
+                    e.Description = "Zaimportowane z pliku XMI";
+                    e.EventTypeId = EventsHelper.GetEventType(item.ClassName);
+                    e.Latitude = item.Coordinates.Latitude;
+                    e.Longitude = item.Coordinates.Longitude;
+                    e.Name = item.Name;
+                    e.Status = 0;
+                    list.Add(e);
                 }
             }
             return list;

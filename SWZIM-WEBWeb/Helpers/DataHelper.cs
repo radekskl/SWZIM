@@ -22,7 +22,7 @@ namespace SWZIM_WEBWeb.Helpers
             }
         }
 
-        public static List<XMIHelperModel.ProfilCADModel> Test(HttpPostedFileBase file)
+        public static List<XMIHelperModel.ProfilCADModel> ParseXMI(HttpPostedFileBase file)
         {
             Dictionary<string, string> idToName = new Dictionary<string, string>();
             Dictionary<string, XMIHelperModel.LatLong> coordinates = new Dictionary<string, XMIHelperModel.LatLong>();
@@ -87,5 +87,21 @@ namespace SWZIM_WEBWeb.Helpers
 
             return list;
         }
+
+        public static List<LayoutElements> RefactorCADProfileToLayoutElements(List<XMIHelperModel.ProfilCADModel> input, int layerId)
+        {
+            List<LayoutElements> list = new List<LayoutElements>();
+            foreach (var item in input)
+            {
+                if (!item.Coordinates.Equals(default(XMIHelperModel.LatLong))) // jezeli nie maja kordynatow to nie wpisujemy ich
+                {
+                    LayoutElements le = new LayoutElements();
+                    le.LayersId = layerId;
+                    le.LayoutElementTypeId = 1;//
+                }
+            }
+            return list;
+        }
+
     }
 }

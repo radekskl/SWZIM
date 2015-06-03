@@ -22,7 +22,7 @@
     <WorkflowPartId>{e918de6a-1699-48ff-abcc-695c42c9bd78}</WorkflowPartId>
     <CspkgPartId>{b5376dc6-87f7-46b0-8129-db03a7e4beec}</CspkgPartId>
     <SqlPackagePartId>{c1988074-9f03-4351-96a2-b079eb3699d3}</SqlPackagePartId>
-    <ActivePublishProfile>SWZIM - Web Deploy</ActivePublishProfile>
+    <ActivePublishProfile>SWZIM - Web Deploy %282%29</ActivePublishProfile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>

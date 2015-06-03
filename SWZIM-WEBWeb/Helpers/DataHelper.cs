@@ -46,8 +46,18 @@ namespace SWZIM_WEBWeb.Helpers
                         if (reader.LocalName.Equals("Lokalizacja")) // kordyty do obiektow
                         {
                             var xmiId = reader.GetAttribute("xmi:id");
-                            var lat = decimal.Parse(reader.GetAttribute("szerokoscGeograficzna"));
-                            var log = decimal.Parse(reader.GetAttribute("dlugoscGeograficzna"));
+                            decimal lat;
+                            bool res = decimal.TryParse(reader.GetAttribute("szerokoscGeograficzna"), out lat);
+                            if (res == false)
+                            {
+                                lat = 0;
+                            }
+                            decimal log;
+                            bool res2 = decimal.TryParse(reader.GetAttribute("dlugoscGeograficzna"), out log);
+                            if (res2 == false)
+                            {
+                                log = 0;
+                            } 
                             //tutaj jeszcze jakas walidacje by sie przydalo
                             coordinates.Add(xmiId, new XMIHelperModel.LatLong() { Latitude = lat, Longitude = log });
                         }

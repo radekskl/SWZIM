@@ -66,7 +66,7 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult AddUserForGroup([Bind(Include = "GroupId,LayerId")] SWZIM_WEBWeb.Models.HelperViewModels.UserForGroupViewModel ufgvm)
+        public ActionResult AddUserForGroup([Bind(Include = "GroupId,UserId")] SWZIM_WEBWeb.Models.HelperViewModels.UserForGroupViewModel ufgvm)
         {
             if (ModelState.IsValid)
             {

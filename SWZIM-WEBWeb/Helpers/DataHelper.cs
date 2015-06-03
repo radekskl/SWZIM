@@ -137,14 +137,17 @@ namespace SWZIM_WEBWeb.Helpers
             List<LayoutElements> list = new List<LayoutElements>();
             foreach (var item in input)
             {
-                if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))) // jezeli nie maja kordynatow to nie wpisujemy ich
-                {
+                //if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))) // jezeli nie maja kordynatow to nie wpisujemy ich
+                //{
                     LayoutElements le = new LayoutElements();
                     le.LayersId = layerId;
                     le.LayoutElementTypeId = LayoutElementsHelper.GetLEType(item.ClassName);
                     le.Name = item.Name;
-                    le.Longitude = item.Coordinates.First().Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
-                    le.Latitude = item.Coordinates.First().Latitude;
+                    if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))){
+                        le.Longitude = item.Coordinates.First().Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
+                        le.Latitude = item.Coordinates.First().Latitude;
+                    }
+                    
                     le.Description = "Zaimportowany z pliku XMI";
                     le.UserId = userId;
                     foreach (var itx in item.Attributes)
@@ -152,7 +155,7 @@ namespace SWZIM_WEBWeb.Helpers
                         le.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
                     }
                     list.Add(le);
-                }
+                //}
             }
             return list;
         }

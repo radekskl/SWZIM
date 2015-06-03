@@ -39,6 +39,21 @@ namespace SWZIM_WEBWeb.Controllers
             return View(groups.Users.ToList());
         }
 
+        // GET: DeleteUserFromGroup/5
+        [SharePointContextFilter]
+        public ActionResult DeleteUserFromGroup(int? id, int? groupId)
+        {
+            if (id == null || groupId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Users user = db.Users.Find(id);
+            db.Groups.Find(groupId).Users.Remove(user);
+            db.SaveChanges();
+
+            return RedirectToAction("Users", new { id = groupId, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+        }
+
 
         // GET: Groups/Details/5
         [SharePointContextFilter]

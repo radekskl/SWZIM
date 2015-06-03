@@ -41,7 +41,7 @@
                                         @Html.DisplayFor(modelItem => item.UserName)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Usuń", "DeleteUserFromGroup", new { id = item.ID }, new { @class = "btn btn-danger  btn-sm" })
+                                        @Html.ActionLink("Usuń", "DeleteUserFromGroup", new { id = item.ID, groupId = ViewBag.GrpId }, new { @class = "btn btn-danger  btn-sm" })
                                         
                                     </td>
                                 </tr>

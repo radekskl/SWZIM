@@ -30,15 +30,17 @@ namespace SWZIM_WEBWeb.Controllers
 
         public JsonResult GetAllElementsForLayout(int id)
         {
-            return Json(db.LayoutElements.Where(le => le.Layers.Id == id && le.Latitude != null && le.Longitude !=null).ToList()
-                .Select(x=> new{ 
-                    id = x.Id, 
-                    lon = x.Longitude, 
-                    lat = x.Latitude, 
-                    name = x.Name, 
-                    desc = x.Description, 
-                    addedBy = x.UserId, 
-                    icon = x.LayoutElementTypes.MarkerIcons.Url
+            return Json(db.LayoutElements.Where(le => le.Layers.Id == id && le.Latitude != null && le.Longitude != null).ToList()
+                .Select(x => new
+                {
+                    id = x.Id,
+                    lon = x.Longitude,
+                    lat = x.Latitude,
+                    name = x.Name,
+                    desc = x.Description,
+                    addedBy = x.UserId,
+                    icon = x.LayoutElementTypes.MarkerIcons.Url,
+                    points = x.LayoutElements1.Select(y => new { lat = y.Latitude, lon = y.Longitude }).ToList()
                 }).ToList(), JsonRequestBehavior.AllowGet);
         }
 

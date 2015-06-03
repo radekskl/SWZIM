@@ -79,13 +79,13 @@
                 } else {
                     var polygonCoords = [];
                     var firstCoord = new google.maps.LatLng(data[i].lat, data[i].lon);
-                    polygonCoords.push(firstCoord);
+                    //polygonCoords.push(firstCoord);
                     for (var j = 0; j < data[i].points.length; j++) {
                         var lat = data[i].points[j].lat;
                         var lon = data[i].points[j].lon;
                         polygonCoords.push(new google.maps.LatLng(lat, lon));
                     }
-                    polygonCoords.push(firstCoord); //Api samo moze dorysowac linie do pierwszego punktu
+                    //polygonCoords.push(firstCoord); //Api samo moze dorysowac linie do pierwszego punktu
                     var options = {coords: polygonCoords, title: data[i].name, text: data[i].desc, layerid: id};
                     addPolygon(options);
                 }

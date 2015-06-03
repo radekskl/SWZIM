@@ -38,23 +38,24 @@
         markers.push(marker);
     }
 
-    function addPolygon(coords, id) {
+    function addPolygon(options) {
         var polygon = new google.maps.Polygon({
-            paths: coords,
+            paths: options.coords,
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
             strokeWeight: 2,
             fillColor: '#FF0000',
             fillOpacity: 0.35
         });
-        polygon.layerid = id;
+        polygon.layerid = options.layerid;
 
-        //google.maps.event.addListener(marker, "click", function () {
-        //   // if (marker.text != undefined && marker.title != undefined) {
-        //        dymek.setContent('<strong>' + 'test' + '</strong><br />' + 'polygon');
-        //        dymek.open(map, polygon);
-        //   // }
-        //});
+        google.maps.event.addListener(polygon, "click", function (event) {
+            if (options.text != undefined && options.title != undefined) {
+                dymek.setContent('<strong>' + options.title + '</strong><br />' + options.text);
+                dymek.setPosition(event.latLng);
+                dymek.open(map, polygon);
+            }
+        });
         markers.push(polygon);
     }
 
@@ -84,8 +85,9 @@
                         var lon = data[i].points[j].lon;
                         polygonCoords.push(new google.maps.LatLng(lat, lon));
                     }
-                    polygonCoords.push(firstCoord);
-                    addPolygon(polygonCoords, id);
+                    //polygonCoords.push(firstCoord); Api samo moze dorysowac linie do pierwszego punktu
+                    var options = {coords: polygonCoords, title: data[i].name, text: data[i].desc, layerid: id};
+                    addPolygon(options);
                 }
             }
         });

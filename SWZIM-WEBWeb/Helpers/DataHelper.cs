@@ -137,25 +137,43 @@ namespace SWZIM_WEBWeb.Helpers
             List<LayoutElements> list = new List<LayoutElements>();
             foreach (var item in input)
             {
-                //if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))) // jezeli nie maja kordynatow to nie wpisujemy ich
-                //{
-                    LayoutElements le = new LayoutElements();
-                    le.LayersId = layerId;
-                    le.LayoutElementTypeId = LayoutElementsHelper.GetLEType(item.ClassName);
-                    le.Name = item.Name;
-                    if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))){
-                        le.Longitude = item.Coordinates.First().Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
-                        le.Latitude = item.Coordinates.First().Latitude;
-                    }
+                LayoutElements le = new LayoutElements();
+                le.LayersId = layerId;
+                le.LayoutElementTypeId = LayoutElementsHelper.GetLEType(item.ClassName);
+                le.Name = item.Name;
+                if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))){
+                    le.Longitude = item.Coordinates.First().Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
+                    le.Latitude = item.Coordinates.First().Latitude;
+                }
                     
-                    le.Description = "Zaimportowany z pliku XMI";
-                    le.UserId = userId;
-                    foreach (var itx in item.Attributes)
+                le.Description = "Zaimportowany z pliku XMI";
+                le.UserId = userId;
+                foreach (var itx in item.Attributes)
+                {
+                    le.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
+                }
+                if (item.Coordinates.Count > 1) // jesli ma wiecej niz 1 wsp. to tworzymy jego pod elementy
+                {
+                    for (int i = 0; i < item.Coordinates.Count; i++)
                     {
-                        le.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
+                        LayoutElements lex = new LayoutElements();
+                        lex.LayersId = layerId;
+                        lex.LayoutElementTypeId = 4; // Punkt
+                        lex.Name = item.Name + "[#" + i + "]";
+                        lex.Longitude = item.Coordinates[i].Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
+                        lex.Latitude = item.Coordinates[i].Latitude;
+                        le.Description = "Należy do: " + le.Name;
+                        le.UserId = userId;
+                        foreach (var itx in item.Attributes)
+                        {
+                            lex.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
+                        }
+                        le.LayoutElements1.Add(lex);
                     }
-                    list.Add(le);
-                //}
+                }
+
+                list.Add(le);
+
             }
             return list;
         }

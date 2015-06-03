@@ -375,7 +375,9 @@
       <LastGenOutput>DbDataModel.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <None Include="Properties\PublishProfiles\SWZIM - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\SWZIM - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\SWZIM - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\SWZIM - Web Deploy.pubxml" />
     <Content Include="PublishingProfile\SWZIM.azurewebsites.net.PublishSettings" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />

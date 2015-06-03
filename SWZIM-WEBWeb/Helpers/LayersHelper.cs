@@ -18,7 +18,7 @@ namespace SWZIM_WEBWeb.Helpers
                 {
                     layerGroups.AddRange(item.Layers);
                 }
-                return layerGroups.ToList();
+                return layerGroups.Distinct().ToList();
                                
             }
         }

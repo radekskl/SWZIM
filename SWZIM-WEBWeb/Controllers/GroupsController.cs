@@ -39,9 +39,9 @@ namespace SWZIM_WEBWeb.Controllers
             return View(groups.Users.ToList());
         }
 
-        // GET: AddUserFromGroup
+        // GET: AddUserFomGroup
         [SharePointContextFilter]
-        public ActionResult AddUserFromGroup(int? id)
+        public ActionResult AddUserFomGroup(int? id)
         {
             if (id == null)
             {

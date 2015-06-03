@@ -479,6 +479,7 @@
     <Content Include="Views\Data\Import.cshtml" />
     <Content Include="Views\Data\Export.cshtml" />
     <Content Include="Views\Groups\Users.cshtml" />
+    <Content Include="Views\Groups\AddUserFomGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

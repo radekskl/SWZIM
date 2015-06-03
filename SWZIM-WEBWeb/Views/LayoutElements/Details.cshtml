@@ -4,6 +4,41 @@
     ViewBag.Title = "Szczegóły elementu warstwy";
 }
 
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp">
+</script>
+<script type="text/javascript">
+    var rozmiar = new google.maps.Size(32, 32);
+    var punkt_startowy = new google.maps.Point(0, 0);
+    var punkt_zaczepienia = new google.maps.Point(16, 16);
+    var dymek = new google.maps.InfoWindow();
+    var map;
+    function initialize() {
+        var mapOptions = {
+            center: { lat: @Model.Latitude, lng: @Model.Longitude },
+            zoom: 16
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+        addMarker();
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function addMarker() {
+        var iconUrl = '@Model.LayoutElementTypes.MarkerIcons.Url';
+        var ico = new google.maps.MarkerImage(iconUrl, rozmiar, punkt_startowy, punkt_zaczepienia);
+        var marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(@Model.Latitude, @Model.Longitude), icon: ico, title: '@Model.Name', text: '@Model.Description' });
+        google.maps.event.addListener(marker, "click", function () {
+            if (marker.text != undefined) {
+                dymek.setContent(marker.text);
+                dymek.open(map, marker);
+            }
+        });
+    }
+
+
+</script>
+
 <section id="main-content">
     <section class="wrapper">
 
@@ -26,7 +61,7 @@
                     </header>
                     <div class="panel-body">
                         <div>
-                            <dl class="dl-horizontal">
+                            <dl class="dl-horizontal" style="float: left; padding-left: 20px; padding-right: 30px; min-width: 45%;">
                                 <dt>
                                     @Html.DisplayNameFor(model => model.Name)
                                 </dt>
@@ -76,6 +111,9 @@
                                 </dd>
 
                             </dl>
+                        </div>
+                        <div style="float:left; height: 400px; width: 50%; min-width: 400px; padding-left: 20px; padding-top: 15px">
+                            <div id="map-canvas" style="height: 100%; width: 100%"></div>
                         </div>
                         <h3>Elementy warstwy</h3>
                         <table class="table">

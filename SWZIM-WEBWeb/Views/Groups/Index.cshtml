@@ -33,7 +33,10 @@
                                     @Html.DisplayNameFor(model => model.Name)
                                 </th>
                                 <th>
-                                    Liczba przypisanych warstw
+                                    Liczba przyp. warstw
+                                </th>
+                                <th>
+                                    Liczba przyp. użytkowników
                                 </th>
                                 <th></th>
                             </tr>
@@ -45,6 +48,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Layers.Count)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Users.Count)
                                     </td>
                                     <td>
                                         @Html.ActionLink("Edycja", "Edit", new { id = item.Id }, new { @class = "btn btn-info  btn-sm" })

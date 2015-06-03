@@ -41,7 +41,7 @@ namespace SWZIM_WEBWeb.Controllers
 
         // GET: AddUserFomGroup
         [SharePointContextFilter]
-        public ActionResult AddUserFomGroup(int? id)
+        public ActionResult AddUserForGroup(int? id)
         {
             if (id == null)
             {

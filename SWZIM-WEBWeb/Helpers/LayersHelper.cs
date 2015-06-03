@@ -51,6 +51,11 @@ namespace SWZIM_WEBWeb.Helpers
                 l.Name = "Warstwa " + DateTime.Now.ToShortTimeString();
                 l.Description = "Warstwa zaimportowana przez " + db.Users.Find(userId).UserName;
                 db.Layers.Add(l);
+                var grp = db.Groups.Where(g => g.Users.Count(u => u.ID == userId) > 0).ToList();
+                foreach (var item in grp)
+                {
+                    item.Layers.Add(l);
+                }
                 db.SaveChanges();
                 result = l.Id;
             }

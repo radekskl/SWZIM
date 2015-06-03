@@ -39,6 +39,29 @@ namespace SWZIM_WEBWeb.Controllers
             return View(groups.Users.ToList());
         }
 
+        // GET: AddUserFromGroup
+        [SharePointContextFilter]
+        public ActionResult AddUserFromGroup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var grp = db.Groups.Find(id);
+            ViewBag.GrpName = grp.Name;
+            ViewBag.GrpId = id;
+            var users = new List<Users>();
+            foreach (var item in db.Users)
+            {
+                if (!item.Groups.Any(x => x.Id == id))
+                {
+                    users.Add(item);
+                }
+            }
+            ViewBag.NotInGrpUsers = new SelectList(users, "Id", "UserName");
+            return View();
+        }
+
         // GET: DeleteUserFromGroup/5
         [SharePointContextFilter]
         public ActionResult DeleteUserFromGroup(int? id, int? groupId)

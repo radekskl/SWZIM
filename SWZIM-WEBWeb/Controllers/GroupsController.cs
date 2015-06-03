@@ -62,6 +62,24 @@ namespace SWZIM_WEBWeb.Controllers
             return View();
         }
 
+        // POST: AddUserForGroup
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
+        public ActionResult AddUserForGroup([Bind(Include = "GroupId,LayerId")] SWZIM_WEBWeb.Models.HelperViewModels.UserForGroupViewModel ufgvm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.Users.Find(ufgvm.UserId);
+                db.Groups.Find(ufgvm.GroupId).Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("Group", new { id = ufgvm.GroupId, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+            }
+
+            //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", notifications.UserId);
+            return View(ufgvm);
+        }
+
         // GET: DeleteUserFromGroup/5
         [SharePointContextFilter]
         public ActionResult DeleteUserFromGroup(int? id, int? groupId)

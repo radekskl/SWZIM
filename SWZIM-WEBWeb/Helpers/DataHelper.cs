@@ -58,7 +58,15 @@ namespace SWZIM_WEBWeb.Helpers
                             {
                                 log = 0;
                             } 
-                            //tutaj jeszcze jakas walidacje by sie przydalo
+                            // walidacja (do sprawdzenia)
+                            if (lat > 90)
+                                lat = 90;
+                            if (lat < -90)
+                                lat = -90;
+                            if (log > 180)
+                                log = 180;
+                            if (log < -180)
+                                log = -180;
                             coordinates.Add(xmiId, new XMIHelperModel.LatLong() { Latitude = lat, Longitude = log });
                         }
                         else

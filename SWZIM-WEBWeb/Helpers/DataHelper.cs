@@ -152,25 +152,26 @@ namespace SWZIM_WEBWeb.Helpers
                 {
                     le.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
                 }
-                if (item.Coordinates.Count > 1) // jesli ma wiecej niz 1 wsp. to tworzymy jego pod elementy
-                {
-                    for (int i = 0; i < item.Coordinates.Count; i++)
-                    {
-                        LayoutElements lex = new LayoutElements();
-                        lex.LayersId = layerId;
-                        lex.LayoutElementTypeId = 4; // Punkt
-                        lex.Name = item.Name + "[#" + i + "]";
-                        lex.Longitude = item.Coordinates[i].Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
-                        lex.Latitude = item.Coordinates[i].Latitude;
-                        le.Description = "Należy do: " + le.Name;
-                        le.UserId = userId;
-                        foreach (var itx in item.Attributes)
-                        {
-                            lex.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
-                        }
-                        le.LayoutElements1.Add(lex);
-                    }
-                }
+                
+                //if (item.Coordinates.Count > 1 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))) // jesli ma wiecej niz 1 wsp. to tworzymy jego pod elementy
+                //{
+                //    for (int i = 0; i < item.Coordinates.Count; i++)
+                //    {
+                //        LayoutElements lex = new LayoutElements();
+                //        lex.LayersId = layerId;
+                //        lex.LayoutElementTypeId = 4; // Punkt
+                //        lex.Name = item.Name + "[#" + i + "]";
+                //        lex.Longitude = item.Coordinates[i].Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
+                //        lex.Latitude = item.Coordinates[i].Latitude;
+                //        le.Description = "Należy do: " + le.Name;
+                //        le.UserId = userId;
+                //        foreach (var itx in item.Attributes)
+                //        {
+                //            lex.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
+                //        }
+                //        le.LayoutElements1.Add(lex);
+                //    }
+                //}
 
                 list.Add(le);
 

@@ -30,7 +30,7 @@ namespace SWZIM_WEBWeb.Controllers
 
         public JsonResult GetAllElementsForLayout(int id)
         {
-            return Json(db.LayoutElements.Where(le => le.Layers.Id == id && le.Latitude != null && le.Longitude != null).ToList()
+            var list = db.LayoutElements.Where(le => le.Layers.Id == id && le.Latitude != null && le.Longitude != null).ToList()
                 .Select(x => new
                 {
                     id = x.Id,
@@ -41,7 +41,15 @@ namespace SWZIM_WEBWeb.Controllers
                     addedBy = x.UserId,
                     icon = x.LayoutElementTypes.MarkerIcons.Url,
                     points = x.LayoutElements1.Select(y => new { lat = y.Latitude, lon = y.Longitude }).ToList()
-                }).ToList(), JsonRequestBehavior.AllowGet);
+                }).ToList();
+            foreach (var item in  db.LayoutElements.Where(le => le.Layers.Id == id && le.Latitude != null && le.Longitude != null && le.LayoutElements1.Count > 0))
+	        {
+		        foreach (var itx in item.LayoutElements1)
+	            {
+		            list.RemoveAll(x=> x.id == itx.Id);
+	            }
+	        }
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllEventsForLayout(int id)

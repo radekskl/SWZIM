@@ -21,6 +21,22 @@ namespace SWZIM_WEBWeb.Controllers
             return View(db.Groups.ToList());
         }
 
+        // GET: Groups/Users/5
+        [SharePointContextFilter]
+        public ActionResult Users(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Groups groups = db.Groups.Find(id);
+            if (groups == null)
+            {
+                return HttpNotFound();
+            }
+            return View(groups.Users.ToList());
+        }
+
 
         // GET: Groups/Details/5
         [SharePointContextFilter]

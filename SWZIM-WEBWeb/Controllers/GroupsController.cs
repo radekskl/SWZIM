@@ -30,6 +30,8 @@ namespace SWZIM_WEBWeb.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Groups groups = db.Groups.Find(id);
+            ViewBag.GrpName = groups.Name;
+            ViewBag.GrpId = groups.Id;
             if (groups == null)
             {
                 return HttpNotFound();

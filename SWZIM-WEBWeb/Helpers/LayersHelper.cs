@@ -39,7 +39,7 @@ namespace SWZIM_WEBWeb.Helpers
                 //    result.AddRange(item.LayoutElements.Where(e => e.Name.Contains(value) || e.Description.Contains(value)));
                 //}
                 //return result.ToList();
-                return db.LayoutElements.Where(e => e.Name.Contains(value) || e.Description.Contains(value)).ToList();
+                return db.LayoutElements.Include(le=>le.Layers).Where(e => e.Name.Contains(value) || e.Description.Contains(value)).ToList();
             }
         }
 

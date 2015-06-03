@@ -48,6 +48,16 @@
         });
     }
 
+    function getAllElementsForLayout(id) {
+        $.ajaxSetup({ async: false });
+        $.get("/Map/GetAllElementsForLayout/" + id, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var ico = new google.maps.MarkerImage(data[i].icon, rozmiar, punkt_startowy, punkt_zaczepienia);
+                addMarker({ position: new google.maps.LatLng(data[i].lat, data[i].lon), icon: ico, title: data[i].name, text: data[i].desc, layerid: id });
+            }
+        });
+    }
+
     function setMarkers(mapa) {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(mapa);
@@ -72,6 +82,7 @@
         } else {
             $('li[layer="' + id + '"]').addClass('active');
             getLayer(id);
+            getAllElementsForLayout(id);
             activeLayers.push(id);
             setMarkers(map);
         }

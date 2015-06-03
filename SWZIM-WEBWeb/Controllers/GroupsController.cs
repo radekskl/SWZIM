@@ -73,7 +73,7 @@ namespace SWZIM_WEBWeb.Controllers
                 var user = db.Users.Find(ufgvm.UserId);
                 db.Groups.Find(ufgvm.GroupId).Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Group", new { id = ufgvm.GroupId, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
+                return RedirectToAction("Users", new { id = ufgvm.GroupId, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });
             }
 
             //ViewBag.UserId = new SelectList(db.Users, "ID", "Email", notifications.UserId);

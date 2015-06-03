@@ -36,9 +36,9 @@ public partial class LayoutElements
 
     public string Description { get; set; }
 
-    public decimal Longitude { get; set; }
+    public Nullable<decimal> Longitude { get; set; }
 
-    public decimal Latitude { get; set; }
+    public Nullable<decimal> Latitude { get; set; }
 
     public int LayoutElementTypeId { get; set; }
 

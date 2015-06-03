@@ -38,6 +38,26 @@
         markers.push(marker);
     }
 
+    function addPolygon(coords, id) {
+        var polygon = new google.maps.Polygon({
+            paths: coords,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35
+        });
+        polygon.layerid = id;
+
+        //google.maps.event.addListener(marker, "click", function () {
+        //   // if (marker.text != undefined && marker.title != undefined) {
+        //        dymek.setContent('<strong>' + 'test' + '</strong><br />' + 'polygon');
+        //        dymek.open(map, polygon);
+        //   // }
+        //});
+        markers.push(polygon);
+    }
+
     function getLayer(id) {
         $.ajaxSetup({ async: false });
         $.get("/Map/GetAllEventsForLayout/" + id, function (data) {
@@ -52,8 +72,21 @@
         $.ajaxSetup({ async: false });
         $.get("/Map/GetAllElementsForLayout/" + id, function (data) {
             for (var i = 0; i < data.length; i++) {
-                var ico = new google.maps.MarkerImage(data[i].icon, rozmiar, punkt_startowy, punkt_zaczepienia);
-                addMarker({ position: new google.maps.LatLng(data[i].lat, data[i].lon), icon: ico, title: data[i].name, text: data[i].desc, layerid: id });
+                if (data[i].points.length == 0) {
+                    var ico = new google.maps.MarkerImage(data[i].icon, rozmiar, punkt_startowy, punkt_zaczepienia);
+                    addMarker({ position: new google.maps.LatLng(data[i].lat, data[i].lon), icon: ico, title: data[i].name, text: data[i].desc, layerid: id });
+                } else {
+                    var polygonCoords = [];
+                    var firstCoord = new google.maps.LatLng(data[i].lat, data[i].lon);
+                    polygonCoords.push(firstCoord);
+                    for (var j = 0; j < data[i].points.length; j++) {
+                        var lat = data[i].points[j].lat;
+                        var lon = data[i].points[j].lon;
+                        polygonCoords.push(new google.maps.LatLng(lat, lon));
+                    }
+                    polygonCoords.push(firstCoord);
+                    addPolygon(polygonCoords, id);
+                }
             }
         });
     }

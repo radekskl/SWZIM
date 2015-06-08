@@ -239,9 +239,10 @@ namespace SWZIM_WEBWeb.Helpers
                     var lokal = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("lokalizacja")).FirstOrDefault();
                     if (lokal != null)
                         dict.Add(lokal.Value, item.Name + "Poczatek");
-                    var end = item.LayoutElementAttributes.Where(lea => lea.Value.Equals("koniecDrogi")).FirstOrDefault();
-                    if (end != null)
-                        dict.Add(end.Value, item.Name + "Koniec");
+
+                    var koniec = item.LayoutElementAttributes.Where(lea => lea.Value.Equals("koniecDrogi")).FirstOrDefault();
+                    if (koniec != null)
+                        dict.Add(koniec.Value, item.Name + "Koniec");
                 }
                 foreach (var item in db.Layers.Find(layerId).Events)
                 {

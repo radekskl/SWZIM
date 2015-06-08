@@ -294,6 +294,8 @@ namespace SWZIM_WEBWeb.Helpers
             foreach (var item in input)
             {
                 result += GetProfilContent(item.Value) + Environment.NewLine;
+                if (item.Value.Latitude != null && item.Value.Longitude != null)
+                    result += GetCoordinatesForProfilContent(item.Value) + Environment.NewLine;
             }
 
             return result;
@@ -307,6 +309,16 @@ namespace SWZIM_WEBWeb.Helpers
                 attr += item.Name + @"=""" + item.Value + @""" ";
             }
             return @"<ProfilCAD:" +input.LayoutElementTypes.Name+ " " + attr +  @"/>";
+        }
+
+        private static string GetCoordinatesForProfilContent(LayoutElements input)
+        {
+            string attr = "";
+            foreach (var item in input.LayoutElementAttributes)
+            {
+                attr += item.Name + @"=""" + item.Value + @""" ";
+            }
+            return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }
     }
 }

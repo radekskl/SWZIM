@@ -217,7 +217,7 @@ namespace SWZIM_WEBWeb.Helpers
             {
                 foreach (var item in db.LayoutElements.Where(le => le.LayersId == layerId))
                 {
-                    result += GetPackageElement(item);
+                    result += GetPackageElement(item) + Environment.NewLine;
                 }
             }
 

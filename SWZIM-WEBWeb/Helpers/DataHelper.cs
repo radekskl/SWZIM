@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml;
+using System.Data.Entity;
 
 namespace SWZIM_WEBWeb.Helpers
 {
@@ -275,7 +276,7 @@ namespace SWZIM_WEBWeb.Helpers
             {
                 foreach (var item in key.Keys)
                 {
-                    var fromDB = db.LayoutElements.Where(le => le.LayersId == layerId &&
+                    var fromDB = db.LayoutElements.Include(le => le.LayoutElementAttributes).Where(le => le.LayersId == layerId &&
                         le.LayoutElementAttributes.Any(lea => lea.Value.Equals(item))).FirstOrDefault();
                     if (fromDB != null)
                         dict.Add(item, fromDB);

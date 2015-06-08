@@ -242,8 +242,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/spcontext")
     <script type="text/javascript">
-        var controllerName = '@ViewContext.RouteData.Values["Controller"].ToString()';
-        var actionName = '@ViewContext.RouteData.Values["Action"].ToString()';
+    var controllerName = '@ViewContext.RouteData.Values["Controller"].ToString()';
+    var actionName = '@ViewContext.RouteData.Values["Action"].ToString()';
         $(function () {
             $('li[data-ctrl="' + controllerName + '"][data-action="' + actionName + '"]').addClass('active');
             if ($('li[data-ctrl="' + controllerName + '"][data-action="' + actionName + '"]').parent().attr("class") == "sub") {
@@ -261,6 +261,13 @@
                 }
             }
         });
+        if (typeof update !== 'undefined') {
+            $("#Latitude").change(update);
+            $("#Longitude").change(update);
+            $("#Event_Latitude").change(update);
+            $("#Event_Longitude").change(update);
+        };
+
     </script>
     @RenderSection("scripts", required: false)
 </body>

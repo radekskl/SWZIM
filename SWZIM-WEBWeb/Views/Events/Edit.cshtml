@@ -4,8 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp">
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp">
 </script>
 <script type="text/javascript">
     var rozmiar = new google.maps.Size(32, 32);
@@ -13,6 +12,7 @@
     var punkt_zaczepienia = new google.maps.Point(16, 16);
     var dymek = new google.maps.InfoWindow();
     var map;
+    var marker;
     function initialize() {
         var mapOptions = {
             center: { lat: @Model.Latitude, lng: @Model.Longitude },
@@ -27,7 +27,7 @@
     function addMarker() {
         var iconUrl = '@Model.EventTypes.MarkerIcons.Url';
         var ico = new google.maps.MarkerImage(iconUrl, rozmiar, punkt_startowy, punkt_zaczepienia);
-        var marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(@Model.Latitude, @Model.Longitude), icon: ico, title: '@Model.Name', text: '@Model.Description', draggable: true });
+        marker = new google.maps.Marker({ map: map, position: new google.maps.LatLng(@Model.Latitude, @Model.Longitude), icon: ico, title: '@Model.Name', text: '@Model.Description', draggable: true });
         //obsluga zdarzenia przesuniecia markera
         google.maps.event.addListener(marker, "dragend", function (event) {
             //zapis wspolrzednych do pol tekstowych
@@ -35,8 +35,14 @@
             document.getElementById("Longitude").value = this.getPosition().lng();
         });
     }
-
-
+    function update(){
+        var lat = parseFloat(document.getElementById("Latitude").value);
+        var lng = parseFloat(document.getElementById("Longitude").value);
+        var position = new google.maps.LatLng(lat, lng);
+        marker.setPosition(position);
+        marker.setMap(map);
+        map.setCenter(position);
+    }
 </script>
 <section id="main-content">
     <section class="wrapper">

@@ -71,7 +71,7 @@ namespace SWZIM_WEBWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SharePointContextFilter]
-        public ActionResult Export()
+        public ActionResult Export(HelperViewModels.ImportExportFileViewModel model)
         {
             List<Layers> list = LayersHelper.GetLayersList(ViewBag.UserId);
 

@@ -67,5 +67,17 @@ namespace SWZIM_WEBWeb.Controllers
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [SharePointContextFilter]
+        public ActionResult Export()
+        {
+            List<Layers> list = LayersHelper.GetLayersList(ViewBag.UserId);
+
+            ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
+            ViewBag.Result = "OK";
+            return View();
+        }
     }
 }

@@ -10,11 +10,7 @@ namespace SWZIM_WEBWeb.Controllers
 {
     public class DataController : Controller
     {
-        // GET: Data
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private SWZIM_dbEntities db = new SWZIM_dbEntities();
 
         // GET: Import
         [SharePointContextFilter]
@@ -76,7 +72,9 @@ namespace SWZIM_WEBWeb.Controllers
             List<Layers> list = LayersHelper.GetLayersList(ViewBag.UserId);
 
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
-            ViewBag.Result = "OK";
+            var layer = db.Layers.Find(model.LayerId);
+
+            var xmiTemp = DataHelper.GetXMIDocument(Server.MapPath(Server.MapPath("~/Helpers/Templates/xmiTemp.xmi")));
             return View();
         }
     }

@@ -209,6 +209,33 @@ namespace SWZIM_WEBWeb.Helpers
             return result;
         }
 
+        public static string GetPackageElementList(int layerId)
+        {
+            string result = "";
+
+            using (var db = new SWZIM_dbEntities())
+            {
+                foreach (var item in db.LayoutElements.Where(le => le.LayersId == layerId))
+                {
+                    result += GetPackageElement(item);
+                }
+            }
+
+            return result;
+        }
+
+        public static string GetPackageElement(LayoutElements le)
+        {
+            string result = "";
+
+            if (le != null)
+                result = @"<packagedElement xmi:type=""uml:Class"" xmi:id="""
+                    + le.LayoutElementAttributes.Where(lea=>lea.Name.Equals("base_Class")).First().Value +
+                    @""" name="""+ le.Name + @"""/>";
+
+            return result;
+        }
+
 
     }
 }

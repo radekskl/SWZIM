@@ -1,1 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ProfilCAD="http:///schemas/ProfilCAD/_Kkck0AfsEeWNtIVCMhpiFQ/76" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://schema.omg.org/spec/UML/2.2" xsi:schemaLocation="http:///schemas/ProfilCAD/_Kkck0AfsEeWNtIVCMhpiFQ/76 ProfilCAD.profile.xmi#_z-fuegg0EeWVy52O_qO0lA http://schema.omg.org/spec/UML/2.2 http://www.eclipse.org/uml2/3.0.0/UML">
+  <uml:Model xmi:id="_z-psvQg0EeWVy52O_qO0lA" name="{ModelName}">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_z-psvgg0EeWVy52O_qO0lA">
+      <importedPackage xmi:type="uml:Model" href="http://schema.omg.org/spec/UML/2.2/uml.xml#_0"/>
+    </packageImport>
+    {PackageElementList}
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_z-ps1Ag0EeWVy52O_qO0lA">
+      <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z-ps1Qg0EeWVy52O_qO0lA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <references xmi:type="ecore:EPackage" href="http://schema.omg.org/spec/UML/2.2/StandardProfileL2.xmi#_yzU58YinEdqtvbnfB2L_5w"/>
+        </eAnnotations>
+      </xmi:Extension>
+      <appliedProfile xmi:type="uml:Profile" href="http://schema.omg.org/spec/UML/2.2/StandardProfileL2.xmi#_0"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_z-ps1gg0EeWVy52O_qO0lA">
+      <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z-ps1wg0EeWVy52O_qO0lA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <references xmi:type="ecore:EPackage" href="Default.profile.xmi#_z-MoyAg0EeWVy52O_qO0lA"/>
+        </eAnnotations>
+      </xmi:Extension>
+      <appliedProfile xmi:type="uml:Profile" href="Default.profile.xmi#_z-Moxgg0EeWVy52O_qO0lA"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_z-ps2Ag0EeWVy52O_qO0lA">
+      <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z-ps2Qg0EeWVy52O_qO0lA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <references xmi:type="ecore:EPackage" href="Deployment.profile.xmi#_z-ppzQg0EeWVy52O_qO0lA"/>
+        </eAnnotations>
+      </xmi:Extension>
+      <appliedProfile xmi:type="uml:Profile" href="Deployment.profile.xmi#_z-ppywg0EeWVy52O_qO0lA"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_z-ps2gg0EeWVy52O_qO0lA">
+      <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z-ps2wg0EeWVy52O_qO0lA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <references xmi:type="ecore:EPackage" href="ProfilCAD.profile.xmi#_z-fuegg0EeWVy52O_qO0lA"/>
+        </eAnnotations>
+      </xmi:Extension>
+      <appliedProfile xmi:type="uml:Profile" href="ProfilCAD.profile.xmi#_z-fueAg0EeWVy52O_qO0lA"/>
+    </profileApplication>
+  </uml:Model>
+  {ProfilContentList}
+</xmi:XMI>

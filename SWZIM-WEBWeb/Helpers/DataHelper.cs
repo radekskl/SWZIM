@@ -318,13 +318,16 @@ namespace SWZIM_WEBWeb.Helpers
             using (var db = new SWZIM_dbEntities())
             {
                 var xmiId = input.LayoutElementAttributes.Where(lea => lea.Name.Equals("xmi:id")).FirstOrDefault();
-                if(xmiId != null){
-                    var elem = db.LayoutElements.Where(le=> le.LayoutElementAttributes
+                if (xmiId != null)
+                {
+                    var elem = db.LayoutElements.Where(le => le.LayoutElementAttributes
                     .Any(lea => lea.Value.Equals(xmiId))).FirstOrDefault();
-                    if(elem != null){
-                        attr += @"szerokoscGeograficzna=""" + elem.Latitude + @""" dlugoscGeograficzna=""" + elem.Longitude + @""; 
+                    if (elem != null)
+                    {
+                        attr += @"szerokoscGeograficzna=""" + elem.Latitude + @""" dlugoscGeograficzna=""" + elem.Longitude + @"";
                     }
                 }
+            }
                 
             
             return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";

@@ -291,10 +291,20 @@ namespace SWZIM_WEBWeb.Helpers
 
             foreach (var item in input)
             {
-                result += "" + Environment.NewLine;
+                result += GetProfilContent(item.Value) + Environment.NewLine;
             }
 
             return result;
+        }
+
+        private static string GetProfilContent(LayoutElements input)
+        {
+            string attr = "";
+            foreach (var item in input.LayoutElementAttributes)
+            {
+                attr += item.Name + "=" + item.Value + " ";
+            }
+            return @"<ProfilCAD:" +input.LayoutElementTypes.Name+ " " + attr +  @"/>";
         }
     }
 }

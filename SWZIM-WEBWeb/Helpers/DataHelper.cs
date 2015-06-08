@@ -263,7 +263,7 @@ namespace SWZIM_WEBWeb.Helpers
 
         public static string GenerateBaseClassId()
         {
-            return "brak"; //przerobic na random
+            return "_pZ" + RandomHelper.RandomString(20);
         }
 
         public static Dictionary<string, LayoutElements> GetProfilContentDict(Dictionary<string, string> key, int layerId)

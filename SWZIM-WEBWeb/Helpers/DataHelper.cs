@@ -291,9 +291,10 @@ namespace SWZIM_WEBWeb.Helpers
 
             foreach (var item in input)
             {
-                result += GetProfilContent(item.Value) + Environment.NewLine;
                 if (item.Value.LayoutElementTypeId == 21) // lokalizacja
                     result += GetCoordinatesForProfilContent(item.Value) + Environment.NewLine;
+                else
+                    result += GetProfilContent(item.Value) + Environment.NewLine;
             }
 
             return result;

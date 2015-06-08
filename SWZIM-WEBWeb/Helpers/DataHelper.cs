@@ -70,26 +70,23 @@ namespace SWZIM_WEBWeb.Helpers
                                 log = -180;
                             coordinates.Add(xmiId, new XMIHelperModel.LatLong() { Latitude = lat, Longitude = log });
                         }
-                        else
+                        XMIHelperModel.ProfilCADModel mdl = new XMIHelperModel.ProfilCADModel();
+                        mdl.ClassName = reader.LocalName;
+                        //result += reader.LocalName + "\n";
+                        if (reader.HasAttributes)
                         {
-                            XMIHelperModel.ProfilCADModel mdl = new XMIHelperModel.ProfilCADModel();
-                            mdl.ClassName = reader.LocalName;
-                            //result += reader.LocalName + "\n";
-                            if (reader.HasAttributes)
+                            while (reader.MoveToNextAttribute())
                             {
-                                while (reader.MoveToNextAttribute())
+                                if (reader.Name.Equals("base_Class"))
                                 {
-                                    if (reader.Name.Equals("base_Class"))
-                                    {
-                                        //result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
-                                        mdl.Name = idToName[reader.Value];
-                                    }
-                                    mdl.Attributes.Add(reader.Name, reader.Value);
+                                    //result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
+                                    mdl.Name = idToName[reader.Value];
                                 }
-                                reader.MoveToElement();
+                                mdl.Attributes.Add(reader.Name, reader.Value);
                             }
-                            list.Add(mdl);
+                            reader.MoveToElement();
                         }
+                        list.Add(mdl);
 
                     }
 

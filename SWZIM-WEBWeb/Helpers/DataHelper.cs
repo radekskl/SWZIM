@@ -322,7 +322,7 @@ namespace SWZIM_WEBWeb.Helpers
                 if (xmiId != null)
                 {
                     var elem = db.LayoutElements.Where(le => le.LayoutElementAttributes
-                    .Any(lea => lea.Value.Equals(xmiId))).FirstOrDefault();
+                    .Any(lea => lea.Value.Equals(xmiId.Value))).FirstOrDefault();
                     if (elem != null)
                     {
                         attr += @"szerokoscGeograficzna=""" + elem.Latitude + @""" dlugoscGeograficzna=""" + elem.Longitude + @"";

@@ -374,7 +374,7 @@
       <DependentUpon>DbDataModel.edmx</DependentUpon>
       <LastGenOutput>DbDataModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Helpers\Templates\xmlTemp.xmi" />
+    <Content Include="Helpers\Templates\xmiTemp.xmi" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\SWZIM - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\SWZIM - FTP.pubxml" />

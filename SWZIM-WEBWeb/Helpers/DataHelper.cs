@@ -233,7 +233,7 @@ namespace SWZIM_WEBWeb.Helpers
                     if (baseClass != null)
                         dict.Add(baseClass.Value, item.Name);
                     else
-                        dict.Add(generateBaseClassId(), item.Name);
+                        dict.Add(GenerateBaseClassId(), item.Name);
 
                     //dodanie packageElementow odnosnie lokalizacji
                     var lokal = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("lokalizacja")).FirstOrDefault();
@@ -246,7 +246,7 @@ namespace SWZIM_WEBWeb.Helpers
                 }
                 foreach (var item in db.Layers.Find(layerId).Events)
                 {
-                    dict.Add(generateBaseClassId(), item.Name);
+                    dict.Add(GenerateBaseClassId(), item.Name);
                 }
             }
 
@@ -262,9 +262,27 @@ namespace SWZIM_WEBWeb.Helpers
 
 
 
-        public static string generateBaseClassId()
+        public static string GenerateBaseClassId()
         {
             return "brak"; //przerobic na random
+        }
+
+        public static Dictionary<string, LayoutElements> GetProfilContentDict(Dictionary<string, string> key, int layerId)
+        {
+            Dictionary<string, LayoutElements> dict = new Dictionary<string, LayoutElements>();
+
+            using (var db = new SWZIM_dbEntities())
+            {
+                foreach (var item in key.Keys)
+                {
+                    var fromDB = db.LayoutElements.Where(le => le.LayersId == layerId &&
+                        le.LayoutElementAttributes.Any(lea => lea.Value.Equals(item))).FirstOrDefault();
+                    if (fromDB != null)
+                        dict.Add(item, fromDB);
+                }
+            }
+
+            return dict;
         }
     }
 }

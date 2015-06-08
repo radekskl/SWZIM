@@ -240,7 +240,7 @@ namespace SWZIM_WEBWeb.Helpers
                     if (lokal != null)
                         dict.Add(lokal.Value, item.Name + "Poczatek");
 
-                    var koniec = item.LayoutElementAttributes.Where(lea => lea.Value.Equals("koniecDrogi")).FirstOrDefault();
+                    var koniec = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("koniecDrogi")).FirstOrDefault();
                     if (koniec != null)
                         dict.Add(koniec.Value, item.Name + "Koniec");
                 }

@@ -209,35 +209,28 @@ namespace SWZIM_WEBWeb.Helpers
             return result;
         }
 
-        public static string GetPackageElementList(int layerId)
+        public static string GetPackageElementList(Dictionary<string,string> input)
         {
             string result = "";
 
-            using (var db = new SWZIM_dbEntities())
+            foreach (var item in input)
             {
-                foreach (var item in db.LayoutElements.Where(le => le.LayersId == layerId))
-                {
-                    result += GetPackageElement(item) + Environment.NewLine;
-                }
+                result += GetPackageElement(item) + Environment.NewLine;
             }
 
             return result;
         }
 
-        public static string GetPackageElement(LayoutElements le)
+        public static Dictionary<string,string> GetPackageElementDict(int layerId)
         {
-            string result = "";
-            string baseClass = "";
-            var attr = le.LayoutElementAttributes.Where(lea=>lea.Name.Equals("base_Class")).FirstOrDefault();
-            if (attr != null)
-                baseClass = attr.Value;
+            throw new NotImplementedException();
+        }
 
-            if (le != null)
-                result = @"<packagedElement xmi:type=""uml:Class"" xmi:id="""
-                    + baseClass +
-                    @""" name="""+ le.Name + @"""/>";
-
-            return result;
+        private static string GetPackageElement(KeyValuePair<string,string> input)
+        {
+            return  @"<packagedElement xmi:type=""uml:Class"" xmi:id="""
+                    + input.Key +
+                    @""" name="""+ input.Value + @"""/>";
         }
 
 

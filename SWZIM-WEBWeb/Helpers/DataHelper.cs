@@ -284,5 +284,17 @@ namespace SWZIM_WEBWeb.Helpers
 
             return dict;
         }
+
+        public static string GetProfilContentList(Dictionary<string, LayoutElements> input)
+        {
+            string result = "";
+
+            foreach (var item in input)
+            {
+                result += "" + Environment.NewLine;
+            }
+
+            return result;
+        }
     }
 }

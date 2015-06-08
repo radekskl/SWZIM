@@ -83,6 +83,7 @@ namespace SWZIM_WEBWeb.Controllers
             xmiTemp = xmiTemp.Replace("{PackageElementList}", DataHelper.GetPackageElementList(packElemDict));
 
             var profilContDict = DataHelper.GetProfilContentDict(packElemDict, layer.Id);
+            xmiTemp = xmiTemp.Replace("{ProfilContentList}", DataHelper.GetProfilContentList(profilContDict));
 
             var fileContent = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(xmiTemp)).ToArray();
             string contentType = "application/vnd.xmi+xml";

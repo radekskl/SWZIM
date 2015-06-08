@@ -301,10 +301,14 @@ namespace SWZIM_WEBWeb.Helpers
         private static string GetProfilContent(LayoutElements input)
         {
             string attr = "";
-            foreach (var item in input.LayoutElementAttributes)
+            using (var db = new SWZIM_dbEntities())
             {
-                attr += item.Name + "=" + item.Value + " ";
+                foreach (var item in db.LayoutElementAttributes.Where(lea => lea.LayoutElementId == input.Id))
+                {
+                    attr += item.Name + "=" + item.Value + " ";
+                }
             }
+            
             return @"<ProfilCAD:" +input.LayoutElementTypes.Name+ " " + attr +  @"/>";
         }
     }

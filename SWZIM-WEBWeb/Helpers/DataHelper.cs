@@ -229,18 +229,18 @@ namespace SWZIM_WEBWeb.Helpers
                 foreach (var item in db.LayoutElements.Where(le => le.LayersId == layerId))
                 {
                     var baseClass = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("base_Class")).FirstOrDefault();
-                    if (baseClass != null)
+                    if (baseClass != null && !dict.ContainsKey(baseClass.Value))
                         dict.Add(baseClass.Value, item.Name);
                     else
                         dict.Add(GenerateBaseClassId(), item.Name);
 
                     //dodanie packageElementow odnosnie lokalizacji
                     var lokal = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("lokalizacja")).FirstOrDefault();
-                    if (lokal != null)
+                    if (lokal != null && !dict.ContainsKey(lokal.Value))
                         dict.Add(lokal.Value, item.Name + "Poczatek");
 
                     var koniec = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("koniecDrogi")).FirstOrDefault();
-                    if (koniec != null)
+                    if (koniec != null && !dict.ContainsKey(koniec.Value))
                         dict.Add(koniec.Value, item.Name + "Koniec");
                 }
                 foreach (var item in db.Layers.Find(layerId).Events)
@@ -277,7 +277,7 @@ namespace SWZIM_WEBWeb.Helpers
                     var fromDB = db.LayoutElements.Include(le => le.LayoutElementAttributes).Include(le => le.LayoutElementTypes).
                         Where(le => le.LayersId == layerId && le.LayoutElementAttributes.
                             Any(lea => lea.Value.Equals(item) && lea.Name.Equals("base_Class"))).FirstOrDefault();
-                    if (fromDB != null)
+                    if (fromDB != null && !dict.ContainsKey(item))
                         dict.Add(item, fromDB);
                 }
             }

@@ -197,6 +197,18 @@ namespace SWZIM_WEBWeb.Helpers
             return list;
         }
 
+        public static string GetXMIDocument(string path)
+        {
+            string result = "";
+
+            using (StreamReader reader = new StreamReader(path))
+            {
+                result = reader.ReadToEnd();
+            }
+
+            return result;
+        }
+
 
     }
 }

@@ -304,7 +304,7 @@ namespace SWZIM_WEBWeb.Helpers
             string attr = "";
             foreach (var item in input.LayoutElementAttributes)
             {
-                attr += item.Name + @"=""" + item.Value + @" ";
+                attr += item.Name + @"=""" + item.Value + @""" ";
             }
             return @"<ProfilCAD:" +input.LayoutElementTypes.Name+ " " + attr +  @"/>";
         }

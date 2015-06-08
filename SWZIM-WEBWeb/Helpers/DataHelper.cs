@@ -58,7 +58,7 @@ namespace SWZIM_WEBWeb.Helpers
                             if (res2 == false)
                             {
                                 log = 0;
-                            } 
+                            }
                             // walidacja (do sprawdzenia)
                             if (lat > 90)
                                 lat = 90;
@@ -92,32 +92,32 @@ namespace SWZIM_WEBWeb.Helpers
 
 
                 }
-           
-            foreach (var item in list)
-            {
-                var attr = item.Attributes.FirstOrDefault(x => x.Key == "lokalizacja");
-                if (!attr.Equals(default(KeyValuePair<string,string>)))
+
+                foreach (var item in list)
                 {
-                    if (attr.Value.Contains(" "))
+                    var attr = item.Attributes.FirstOrDefault(x => x.Key == "lokalizacja");
+                    if (!attr.Equals(default(KeyValuePair<string, string>)))
                     {
-                        foreach (string coordiate in attr.Value.Split(' '))
+                        if (attr.Value.Contains(" "))
                         {
-                            item.Coordinates.Add(coordinates[coordiate]);
+                            foreach (string coordiate in attr.Value.Split(' '))
+                            {
+                                item.Coordinates.Add(coordinates[coordiate]);
+                            }
+                        }
+                        else
+                        {
+                            item.Coordinates.Add(coordinates[attr.Value]);
                         }
                     }
+                    // podzial na wydarzenia i elementy modelu
+                    if (item.ClassName.Equals("Wypadek"))
+                        item.Type = 1; // event
                     else
-                    {
-                        item.Coordinates.Add(coordinates[attr.Value]);
-                    }
+                        item.Type = 0; // layoutElement
                 }
-                // podzial na wydarzenia i elementy modelu
-                if (item.ClassName.Equals("Wypadek"))
-                    item.Type = 1; // event
-                else
-                    item.Type = 0; // layoutElement
-            }
 
-            return list;
+                return list;
             }
             catch (Exception ex)
             {
@@ -135,18 +135,19 @@ namespace SWZIM_WEBWeb.Helpers
                 le.LayersId = layerId;
                 le.LayoutElementTypeId = LayoutElementsHelper.GetLEType(item.ClassName);
                 le.Name = item.Name;
-                if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))){
+                if (item.Coordinates.Count() > 0 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong))))
+                {
                     le.Longitude = item.Coordinates.First().Longitude; //TODO: co z drogami, gdzie jest 2 koordynaty?
                     le.Latitude = item.Coordinates.First().Latitude;
                 }
-                    
+
                 le.Description = "Zaimportowany z pliku XMI";
                 le.UserId = userId;
                 foreach (var itx in item.Attributes)
                 {
                     le.LayoutElementAttributes.Add(new LayoutElementAttributes() { Name = itx.Key, Value = itx.Value });
                 }
-                
+
                 //if (item.Coordinates.Count > 1 && !item.Coordinates.Any(x => x.Equals(default(XMIHelperModel.LatLong)))) // jesli ma wiecej niz 1 wsp. to tworzymy jego pod elementy
                 //{
                 //    for (int i = 0; i < item.Coordinates.Count; i++)
@@ -207,7 +208,7 @@ namespace SWZIM_WEBWeb.Helpers
             return result;
         }
 
-        public static string GetPackageElementList(Dictionary<string,string> input)
+        public static string GetPackageElementList(Dictionary<string, string> input)
         {
             string result = "";
 
@@ -219,7 +220,7 @@ namespace SWZIM_WEBWeb.Helpers
             return result;
         }
 
-        public static Dictionary<string,string> GetPackageElementDict(int layerId)
+        public static Dictionary<string, string> GetPackageElementDict(int layerId)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
 
@@ -251,11 +252,11 @@ namespace SWZIM_WEBWeb.Helpers
             return dict;
         }
 
-        private static string GetPackageElement(KeyValuePair<string,string> input)
+        private static string GetPackageElement(KeyValuePair<string, string> input)
         {
-            return  @"<packagedElement xmi:type=""uml:Class"" xmi:id="""
+            return @"<packagedElement xmi:type=""uml:Class"" xmi:id="""
                     + input.Key +
-                    @""" name="""+ input.Value + @"""/>";
+                    @""" name=""" + input.Value + @"""/>";
         }
 
 
@@ -305,7 +306,7 @@ namespace SWZIM_WEBWeb.Helpers
             {
                 attr += item.Name + @"=""" + item.Value + @""" ";
             }
-            return @"<ProfilCAD:" +input.LayoutElementTypes.Name+ " " + attr +  @"/>";
+            return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }
 
         private static string GetCoordinatesForProfilContent(LayoutElements input)
@@ -328,8 +329,9 @@ namespace SWZIM_WEBWeb.Helpers
                     }
                 }
             }
-                
-            
+
+
+
             return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }
     }

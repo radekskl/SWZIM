@@ -291,7 +291,7 @@ namespace SWZIM_WEBWeb.Helpers
             foreach (var item in input)
             {
                 result += GetProfilContent(item.Value) + Environment.NewLine;
-                if (item.Value.Latitude != null && item.Value.Longitude != null)
+                if (item.Value.LayoutElementTypeId == 21) // lokalizacja
                     result += GetCoordinatesForProfilContent(item.Value) + Environment.NewLine;
             }
 
@@ -310,7 +310,22 @@ namespace SWZIM_WEBWeb.Helpers
 
         private static string GetCoordinatesForProfilContent(LayoutElements input)
         {
-            string attr = "wsp";
+            string attr = "";
+            foreach (var item in input.LayoutElementAttributes)
+            {
+                attr += item.Name + @"=""" + item.Value + @""" ";
+            }
+            using (var db = new SWZIM_dbEntities())
+            {
+                var xmiId = input.LayoutElementAttributes.Where(lea => lea.Name.Equals("xmi:id")).FirstOrDefault();
+                if(xmiId != null){
+                    var elem = db.LayoutElements.Where(le=> le.LayoutElementAttributes
+                    .Any(lea => lea.Value.Equals(xmiId))).FirstOrDefault();
+                    if(elem != null){
+                        attr += @"szerokoscGeograficzna=""" + elem.Latitude + @""" dlugoscGeograficzna=""" + elem.Longitude + @""; 
+                    }
+                }
+                
             
             return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }

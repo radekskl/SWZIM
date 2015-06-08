@@ -3,6 +3,7 @@ using SWZIM_WEBWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -75,7 +76,12 @@ namespace SWZIM_WEBWeb.Controllers
             var layer = db.Layers.Find(model.LayerId);
 
             var xmiTemp = DataHelper.GetXMIDocument(Server.MapPath(Server.MapPath("~/Helpers/Templates/xmiTemp.xmi")));
-            return View();
+
+            var fileContent = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(xmiTemp)).ToArray();
+            string contentType = "application/vnd.xmi+xml";
+            string fileName = layer.Name + ".xmi";
+
+            return File(fileContent, contentType, fileName);
         }
     }
 }

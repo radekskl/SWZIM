@@ -292,7 +292,7 @@ namespace SWZIM_WEBWeb.Helpers
             foreach (var item in input)
             {
                 if (item.Value.LayoutElementTypeId == 21) // lokalizacja
-                    result += GetCoordinatesForProfilContent(item.Value) + Environment.NewLine;
+                    result += GetCoordinatesForProfilContent(item.Value, input) + Environment.NewLine;
                 else
                     result += GetProfilContent(item.Value) + Environment.NewLine;
             }
@@ -310,24 +310,21 @@ namespace SWZIM_WEBWeb.Helpers
             return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }
 
-        private static string GetCoordinatesForProfilContent(LayoutElements input)
+        private static string GetCoordinatesForProfilContent(LayoutElements input, Dictionary<string, LayoutElements> dict)
         {
             string attr = "";
             foreach (var item in input.LayoutElementAttributes)
             {
                 attr += item.Name + @"=""" + item.Value + @""" ";
             }
-            using (var db = new SWZIM_dbEntities())
+            var xmiId = input.LayoutElementAttributes.Where(lea => lea.Name.Equals("xmi:id")).FirstOrDefault();
+            if (xmiId != null)
             {
-                var xmiId = input.LayoutElementAttributes.Where(lea => lea.Name.Equals("xmi:id")).FirstOrDefault();
-                if (xmiId != null)
+                var elem = dict.Values.Where(le => le.LayoutElementAttributes
+                .Any(lea => lea.Value.Equals(xmiId.Value))).FirstOrDefault();
+                if (elem != null)
                 {
-                    var elem = db.LayoutElements.Where(le => le.LayoutElementAttributes
-                    .Any(lea => lea.Value.Equals(xmiId.Value))).FirstOrDefault();
-                    if (elem != null)
-                    {
-                        attr += @"szerokoscGeograficzna=""" + elem.Latitude + @""" dlugoscGeograficzna=""" + elem.Longitude + @"";
-                    }
+                    attr += @"szerokoscGeograficzna=""" + elem.Latitude + @""" dlugoscGeograficzna=""" + elem.Longitude + @"""";
                 }
             }
 

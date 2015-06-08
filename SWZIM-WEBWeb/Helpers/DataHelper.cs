@@ -223,7 +223,25 @@ namespace SWZIM_WEBWeb.Helpers
 
         public static Dictionary<string,string> GetPackageElementDict(int layerId)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+
+            using (var db = new SWZIM_dbEntities())
+            {
+                foreach (var item in db.LayoutElements.Where(le => le.LayersId == layerId))
+                {
+                    var baseClass = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("base_Class")).FirstOrDefault();
+                    if (baseClass != null)
+                        dict.Add(baseClass.Value, item.Name);
+                    else
+                        dict.Add(generateBaseClassId(), item.Name);
+                }
+                foreach (var item in db.Layers.Find(layerId).Events)
+                {
+                    dict.Add(generateBaseClassId(), item.Name);
+                }
+            }
+
+            return dict;
         }
 
         private static string GetPackageElement(KeyValuePair<string,string> input)
@@ -234,5 +252,10 @@ namespace SWZIM_WEBWeb.Helpers
         }
 
 
+
+        public static string generateBaseClassId()
+        {
+            return "brak"; //przerobic na random
+        }
     }
 }

@@ -310,11 +310,8 @@ namespace SWZIM_WEBWeb.Helpers
 
         private static string GetCoordinatesForProfilContent(LayoutElements input)
         {
-            string attr = "";
-            foreach (var item in input.LayoutElementAttributes)
-            {
-                attr += item.Name + @"=""" + item.Value + @""" ";
-            }
+            string attr = "wsp";
+            
             return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }
     }

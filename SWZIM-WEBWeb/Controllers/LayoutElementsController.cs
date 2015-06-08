@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SWZIM_WEBWeb;
+using SWZIM_WEBWeb.Helpers;
 
 namespace SWZIM_WEBWeb.Controllers
 {
@@ -192,6 +193,11 @@ namespace SWZIM_WEBWeb.Controllers
             if (ModelState.IsValid)
             {
                 layoutElements.UserId = ViewBag.UserId;
+                db.LayoutElementAttributes.Add(
+                    new LayoutElementAttributes(){
+                        Name = "base_Class",
+                        Value = DataHelper.GenerateBaseClassId()
+                    });
                 db.LayoutElements.Add(layoutElements);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });

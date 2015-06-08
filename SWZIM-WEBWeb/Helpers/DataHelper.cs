@@ -83,11 +83,7 @@ namespace SWZIM_WEBWeb.Helpers
                                         //result += String.Format("Nazwa : {0}", idToName[reader.Value]) + "\n";
                                         mdl.Name = idToName[reader.Value];
                                     }
-                                    else
-                                    {
-                                        mdl.Attributes.Add(reader.Name, reader.Value);
-                                        //result += String.Format(" {0}={1}", reader.Name, reader.Value) + "\n";
-                                    }
+                                    mdl.Attributes.Add(reader.Name, reader.Value);
                                 }
                                 reader.MoveToElement();
                             }

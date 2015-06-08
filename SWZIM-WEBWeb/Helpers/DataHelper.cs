@@ -278,7 +278,7 @@ namespace SWZIM_WEBWeb.Helpers
                 {
                     var fromDB = db.LayoutElements.Include(le => le.LayoutElementAttributes).Include(le => le.LayoutElementTypes).
                         Where(le => le.LayersId == layerId && le.LayoutElementAttributes.
-                            Any(lea => lea.Value.Equals(item))).FirstOrDefault();
+                            Any(lea => lea.Value.Equals(item) && lea.Name.Equals("base_Class"))).FirstOrDefault();
                     if (fromDB != null)
                         dict.Add(item, fromDB);
                 }
@@ -304,7 +304,7 @@ namespace SWZIM_WEBWeb.Helpers
             string attr = "";
             foreach (var item in input.LayoutElementAttributes)
             {
-                attr += item.Name + "=" + item.Value + " ";
+                attr += item.Name + @"=""" + item.Value + @" ";
             }
             return @"<ProfilCAD:" +input.LayoutElementTypes.Name+ " " + attr +  @"/>";
         }

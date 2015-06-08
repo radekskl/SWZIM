@@ -227,10 +227,14 @@ namespace SWZIM_WEBWeb.Helpers
         public static string GetPackageElement(LayoutElements le)
         {
             string result = "";
+            string baseClass = "";
+            var attr = le.LayoutElementAttributes.Where(lea=>lea.Name.Equals("base_Class")).FirstOrDefault();
+            if (attr != null)
+                baseClass = attr.Value;
 
             if (le != null)
                 result = @"<packagedElement xmi:type=""uml:Class"" xmi:id="""
-                    + le.LayoutElementAttributes.Where(lea=>lea.Name.Equals("base_Class")).First().Value +
+                    + baseClass +
                     @""" name="""+ le.Name + @"""/>";
 
             return result;

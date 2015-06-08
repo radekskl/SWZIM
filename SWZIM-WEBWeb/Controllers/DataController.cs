@@ -62,6 +62,9 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Export()
         {
+            List<Layers> list = LayersHelper.GetLayersList(ViewBag.UserId);
+
+            ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
             return View();
         }
     }

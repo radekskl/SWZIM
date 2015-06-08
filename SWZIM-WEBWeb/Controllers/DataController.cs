@@ -75,7 +75,7 @@ namespace SWZIM_WEBWeb.Controllers
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
             var layer = db.Layers.Find(model.LayerId);
 
-            var xmiTemp = DataHelper.GetXMIDocument(Server.MapPath(Server.MapPath("~/Helpers/Templates/xmiTemp.xmi")));
+            var xmiTemp = DataHelper.GetXMIDocument(Server.MapPath("~/Helpers/Templates/xmiTemp.xmi"));
 
             var fileContent = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(xmiTemp)).ToArray();
             string contentType = "application/vnd.xmi+xml";

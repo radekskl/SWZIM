@@ -30,7 +30,7 @@ namespace SWZIM_WEBWeb.Controllers
 
         public JsonResult GetAllElementsForLayout(int id)
         {
-            var list = db.LayoutElements.Where(le => le.Layers.Id == id && le.Latitude != null && le.Longitude != null).ToList()
+            var list = db.LayoutElements.Where(le => le.Layers.Id == id && le.Latitude != null && le.Longitude != null && le.LayoutElementTypeId != 21).ToList()
                 .Select(x => new
                 {
                     id = x.Id,

@@ -18,8 +18,19 @@ namespace SWZIM_WEBWeb.Controllers
         [SharePointContextFilter]
         public ActionResult Index()
         {
-            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count == 0).ToList();
-            ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x=> x.LayoutElements1.Count > 0).ToList();
+            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes)
+                .Include(l => l.Users)
+                .Include(l => l.Layers)
+                .Where(x=> x.LayoutElements1.Count == 0)
+                .Where(x=> x.LayoutElementTypeId != 21) //lokalizacja
+                .ToList();
+            ViewData["pLE"] = db.LayoutElements
+                .Include(l => l.LayoutElementTypes)
+                .Include(l => l.Users)
+                .Include(l => l.Layers)
+                .Where(x=> x.LayoutElements1.Count > 0)
+                .Where(x=> x.LayoutElementTypeId != 21) //lokalizacja
+                .ToList();
             return View();
         }
 
@@ -31,8 +42,20 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count == 0 && x.LayersId == id).ToList();
-            ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count > 0 && x.LayersId == id).ToList();
+            ViewData["sLE"] = db.LayoutElements
+                .Include(l => l.LayoutElementTypes)
+                .Include(l => l.Users)
+                .Include(l => l.Layers)
+                .Where(x => x.LayoutElements1.Count == 0 && x.LayersId == id)
+                .Where(x=> x.LayoutElementTypeId != 21) //lokalizacja
+                .ToList();
+            ViewData["pLE"] = db.LayoutElements
+                .Include(l => l.LayoutElementTypes)
+                .Include(l => l.Users)
+                .Include(l => l.Layers)
+                .Where(x => x.LayoutElements1.Count > 0 && x.LayersId == id)
+                .Where(x=> x.LayoutElementTypeId != 21) //lokalizacja
+                .ToList();
             return View();
         }
 
@@ -44,8 +67,20 @@ namespace SWZIM_WEBWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewData["sLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count == 0 && x.LayoutElements2.Any(le=>le.Id == id)).ToList();
-            ViewData["pLE"] = db.LayoutElements.Include(l => l.LayoutElementTypes).Include(l => l.Users).Include(l => l.Layers).Where(x => x.LayoutElements1.Count > 0 && x.LayoutElements2.Any(le => le.Id == id)).ToList();
+            ViewData["sLE"] = db.LayoutElements
+                .Include(l => l.LayoutElementTypes)
+                .Include(l => l.Users)
+                .Include(l => l.Layers)
+                .Where(x => x.LayoutElements1.Count == 0 && x.LayoutElements2.Any(le=>le.Id == id))
+                .Where(x=> x.LayoutElementTypeId != 21) //lokalizacja
+                .ToList();
+            ViewData["pLE"] = db.LayoutElements
+                .Include(l => l.LayoutElementTypes)
+                .Include(l => l.Users)
+                .Include(l => l.Layers)
+                .Where(x => x.LayoutElements1.Count > 0 && x.LayoutElements2.Any(le => le.Id == id))
+                .Where(x=> x.LayoutElementTypeId != 21) //lokalizacja
+                .ToList();
             return View();
         }
 

@@ -37,6 +37,8 @@ namespace SWZIM_WEBWeb
                       "~/Content/style-responsive.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/map").Include("~/Scripts/mapapi.js"));
+
             System.Web.Optimization.BundleTable.EnableOptimizations = false;
         }
     }

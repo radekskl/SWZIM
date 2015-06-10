@@ -313,7 +313,7 @@ namespace SWZIM_WEBWeb.Helpers
         private static string GetCoordinatesForProfilContent(LayoutElements input, Dictionary<string, LayoutElements> dict)
         {
             string attr = "";
-            foreach (var item in input.LayoutElementAttributes)
+            foreach (var item in input.LayoutElementAttributes.Where(lea => !lea.Name.Equals("szerokoscGeograficzna") && !lea.Name.Equals("dlugoscGeograficzna")))
             {
                 attr += item.Name + @"=""" + item.Value + @""" ";
             }

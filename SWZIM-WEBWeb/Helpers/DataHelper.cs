@@ -23,7 +23,7 @@ namespace SWZIM_WEBWeb.Helpers
             }
         }
 
-        public static List<XMIHelperModel.ProfilCADModel> ParseXMI(HttpPostedFileBase file)
+        public static Tuple<List<XMIHelperModel.ProfilCADModel>,string> ParseXMI(HttpPostedFileBase file)
         {
             try
             {
@@ -34,8 +34,18 @@ namespace SWZIM_WEBWeb.Helpers
                 Stream stream = GetXMLStream(file);
 
                 XmlTextReader reader = new XmlTextReader(stream);
+                string result = "";
                 while (reader.Read())
                 {
+                    if (reader.Prefix.Equals("uml") && reader.LocalName.Equals("Model"))
+                    {
+                        result += reader.GetAttribute("xmi:id") + "|";
+                    }
+                    if (reader.Name.Equals("packageImport"))
+                    {
+                        result += reader.GetAttribute("xmi:id");
+                    }
+
                     if (reader.Name.Equals("packagedElement"))
                     {
                         var xmiId = reader.GetAttribute("xmi:id");
@@ -116,8 +126,8 @@ namespace SWZIM_WEBWeb.Helpers
                     else
                         item.Type = 0; // layoutElement
                 }
-
-                return list;
+                Tuple<List<XMIHelperModel.ProfilCADModel>, string> tuple = new Tuple<List<XMIHelperModel.ProfilCADModel>, string>(list, result);
+                return tuple;
             }
             catch (Exception ex)
             {
@@ -333,25 +343,5 @@ namespace SWZIM_WEBWeb.Helpers
             return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }
 
-        public static string GetModelId(HttpPostedFileBase file)
-        {
-            string result = "";
-            Stream stream = GetXMLStream(file);
-
-            XmlTextReader reader = new XmlTextReader(stream);
-            while (reader.Read())
-            {
-                if (reader.Prefix.Equals("uml") && reader.LocalName.Equals("Model"))
-                {
-                    result += reader.GetAttribute("xmi:id") + "|";
-                }
-                if (reader.Name.Equals("packageImport"))
-                {
-                    result += reader.GetAttribute("xmi:id");
-                }
-            }
-
-            return result;
-        }
     }
 }

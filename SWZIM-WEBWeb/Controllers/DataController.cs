@@ -35,20 +35,19 @@ namespace SWZIM_WEBWeb.Controllers
             list.Add(new Layers() { Id = 0, Name = "Nowa" });
 
             ViewBag.LayerId = new SelectList(list.OrderBy(x => x.Id).AsEnumerable(), "Id", "Name");
-            List<XMIHelperModel.ProfilCADModel> listFromFile = DataHelper.ParseXMI(model.File);
+            Tuple<List<XMIHelperModel.ProfilCADModel>,string> listFromFile = DataHelper.ParseXMI(model.File);
 
             int choosedLayer = 1; // główny layer
 
             if (model.LayerId == 0)
             {
-                string modelId = DataHelper.GetModelId(model.File);
-                choosedLayer = LayersHelper.InsertLayer(ViewBag.UserId, modelId);
+                choosedLayer = LayersHelper.InsertLayer(ViewBag.UserId, listFromFile.Item2);
             }
             else
                 choosedLayer = model.LayerId;
 
-            var listLEForDB = DataHelper.RefactorCADProfileToLayoutElements(listFromFile.Where(x=>x.Type == 0).ToList(),choosedLayer, ViewBag.UserId);
-            var listEventsForDB = DataHelper.RefactorCADProfileToEvents(listFromFile.Where(x => x.Type == 1).ToList(), ViewBag.UserId);
+            var listLEForDB = DataHelper.RefactorCADProfileToLayoutElements(listFromFile.Item1.Where(x=>x.Type == 0).ToList(),choosedLayer, ViewBag.UserId);
+            var listEventsForDB = DataHelper.RefactorCADProfileToEvents(listFromFile.Item1.Where(x => x.Type == 1).ToList(), ViewBag.UserId);
 
             if(LayoutElementsHelper.InsertLayoutElements(listLEForDB) && EventsHelper.InsertEvents(listEventsForDB, choosedLayer))
                 return RedirectToAction("Layers", "LayoutElements", new { id = choosedLayer, SPHostUrl = SharePointContext.GetSPHostUrl(HttpContext.Request).AbsoluteUri });

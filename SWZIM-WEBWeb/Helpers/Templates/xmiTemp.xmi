@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ProfilCAD="http:///schemas/ProfilCAD/_Kkck0AfsEeWNtIVCMhpiFQ/76" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://schema.omg.org/spec/UML/2.2" xsi:schemaLocation="http:///schemas/ProfilCAD/_Kkck0AfsEeWNtIVCMhpiFQ/76 ProfilCAD.profile.xmi#_z-fuegg0EeWVy52O_qO0lA http://schema.omg.org/spec/UML/2.2 http://www.eclipse.org/uml2/3.0.0/UML">
-  <uml:Model xmi:id="_z-psvQg0EeWVy52O_qO0lA" name="{ModelName}">
-    <packageImport xmi:type="uml:PackageImport" xmi:id="_z-psvgg0EeWVy52O_qO0lA">
+  <uml:Model xmi:id="{ModelId}" name="{ModelName}">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="{PackageImport}">
       <importedPackage xmi:type="uml:Model" href="http://schema.omg.org/spec/UML/2.2/uml.xml#_0"/>
     </packageImport>
     {PackageElementList}

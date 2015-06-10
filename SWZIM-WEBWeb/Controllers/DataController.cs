@@ -41,7 +41,8 @@ namespace SWZIM_WEBWeb.Controllers
 
             if (model.LayerId == 0)
             {
-                choosedLayer = LayersHelper.InsertLayer(ViewBag.UserId);
+                string modelId = DataHelper.GetModelId(model.File);
+                choosedLayer = LayersHelper.InsertLayer(ViewBag.UserId, modelId);
             }
             else
                 choosedLayer = model.LayerId;
@@ -76,6 +77,18 @@ namespace SWZIM_WEBWeb.Controllers
             var layer = db.Layers.Find(model.LayerId);
 
             var xmiTemp = DataHelper.GetXMIDocument(Server.MapPath("~/Helpers/Templates/xmiTemp.xmi"));
+
+            string[] ids = new string[2];
+            try
+            {
+                ids = layer.Description.Split('|').ToArray();
+                xmiTemp = xmiTemp.Replace("{ModelId}", ids[0]);
+                xmiTemp = xmiTemp.Replace("{PackageImport}", ids[1]);
+            }
+            catch (Exception)
+            {
+                
+            }
 
             xmiTemp = xmiTemp.Replace("{ModelName}", layer.Name);
 

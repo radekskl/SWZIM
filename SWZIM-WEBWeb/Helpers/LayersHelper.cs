@@ -43,14 +43,14 @@ namespace SWZIM_WEBWeb.Helpers
             }
         }
 
-        public static int InsertLayer(int userId)
+        public static int InsertLayer(int userId, string modelId)
         {
             int result = -1;
             using (var db = new SWZIM_dbEntities())
             {
                 Layers l = new Layers();
                 l.Name = "Warstwa " + DateTime.Now.ToShortTimeString();
-                l.Description = "Warstwa zaimportowana przez " + db.Users.Find(userId).UserName;
+                l.Description = modelId;
                 db.Layers.Add(l);
                 var grp = db.Groups.Where(g => g.Users.Count(u => u.ID == userId) > 0).ToList();
                 foreach (var item in grp)

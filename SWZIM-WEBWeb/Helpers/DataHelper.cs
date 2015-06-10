@@ -332,5 +332,26 @@ namespace SWZIM_WEBWeb.Helpers
 
             return @"<ProfilCAD:" + input.LayoutElementTypes.Name + " " + attr + @"/>";
         }
+
+        public static string GetModelId(HttpPostedFileBase file)
+        {
+            string result = "";
+            Stream stream = GetXMLStream(file);
+
+            XmlTextReader reader = new XmlTextReader(stream);
+            while (reader.Read())
+            {
+                if (reader.Prefix.Equals("uml") && reader.LocalName.Equals("Model"))
+                {
+                    result += reader.GetAttribute("xmi:id") + "|";
+                }
+                if (reader.Name.Equals("packageImport"))
+                {
+                    result += reader.GetAttribute("xmi:id");
+                }
+            }
+
+            return result;
+        }
     }
 }

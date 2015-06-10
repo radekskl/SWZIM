@@ -246,12 +246,12 @@ namespace SWZIM_WEBWeb.Helpers
 
                     //dodanie packageElementow odnosnie lokalizacji
                     var lokal = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("lokalizacja")).FirstOrDefault();
-                    if (lokal != null && !dict.ContainsKey(lokal.Value))
-                        dict.Add(lokal.Value, item.Name + "Poczatek");
+                    //if (lokal != null && !dict.ContainsKey(lokal.Value))
+                     //   dict.Add(lokal.Value, item.Name + "Poczatek");
 
                     var koniec = item.LayoutElementAttributes.Where(lea => lea.Name.Equals("koniecDrogi")).FirstOrDefault();
-                    if (koniec != null && !dict.ContainsKey(koniec.Value))
-                        dict.Add(koniec.Value, item.Name + "Koniec");
+                    //if (koniec != null && !dict.ContainsKey(koniec.Value))
+                    //    dict.Add(koniec.Value, item.Name + "Koniec");
                 }
                 foreach (var item in db.Layers.Find(layerId).Events)
                 {
